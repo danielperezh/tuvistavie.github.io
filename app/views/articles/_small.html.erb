@@ -1,0 +1,18 @@
+<section class="row">
+    <div class="row">
+        <h2 class="small-centered large-centered">
+            <%= article.title %>
+        </h2>
+    </div>
+    <div class="row">
+        <div class="large-offset-10 small-offset-10 last-column">
+            <span class="unavailable">
+                <%= l article.created_at, :format => :tiny %>
+            </span>
+        </div>
+    </div>
+    <article class="row content">
+        <%= article.content %>
+    </article>
+    <hr class="small-offset-1 large-offset-1 small-9 large-9 columns last-column separator">
+</section>
