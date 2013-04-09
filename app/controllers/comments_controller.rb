@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  # GET /comments
-  # GET /comments.json
+  # GET /articles/comments
+  # GET /articles/comments.json
   def index
     @comments = Comment.all
 
@@ -10,8 +10,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1
-  # GET /comments/1.json
+  # GET /articles/comments/1
+  # GET /articles/comments/1.json
   def show
     @comment = Comment.find(params[:id])
 
@@ -21,8 +21,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/new
-  # GET /comments/new.json
+  # GET /articles/comments/new
+  # GET /articles/comments/new.json
   def new
     @comment = Comment.new
 
@@ -32,13 +32,13 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1/edit
+  # GET /articles/comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
   end
 
-  # POST /comments
-  # POST /comments.json
+  # POST /articles/comments
+  # POST /articles/comments.json
   def create
     @comment = Comment.new(params[:comment])
 
@@ -53,8 +53,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.json
+  # PUT /articles/comments/1
+  # PUT /articles/comments/1.json
   def update
     @comment = Comment.find(params[:id])
 
@@ -69,8 +69,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.json
+  # DELETE /articles/comments/1
+  # DELETE /articles/comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
