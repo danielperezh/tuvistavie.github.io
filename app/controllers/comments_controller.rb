@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :authenticate_admin!, :except => [:index, :show, :new, :create]
+
   # GET /articles/comments
   # GET /articles/comments.json
   def index

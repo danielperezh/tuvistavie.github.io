@@ -1,8 +1,8 @@
 Blog::Application.routes.draw do
 
+  devise_for :admins, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+
   root :to => 'static#index'
-
-
 
   resources :articles do
     resources :comments

@@ -3,5 +3,8 @@
         <li><%= link_to 'Top', root_path %></li>
         <li><a href="#">Recent entries</a></li>
         <li><a href="#">About</a></li>
+        <% if admin_signed_in? %>
+            <li><%= link_to 'Logout', destroy_admin_session_path, :method => :delete %></li>
+        <% end %>
     </ul>
 </nav>

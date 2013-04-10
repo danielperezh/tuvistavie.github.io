@@ -1,7 +1,7 @@
 <section class="row">
     <div class="row">
         <h2 class="small-centered large-centered">
-            <%= article.title %>
+            <%= link_to article.title, article %>
         </h2>
     </div>
     <div class="row">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <article class="row content">
-        <%= article.content %>
+        <%= markdown(article.content) %>
     </article>
     <hr class="small-offset-1 large-offset-1 small-9 large-9 columns last-column separator">
 </section>
