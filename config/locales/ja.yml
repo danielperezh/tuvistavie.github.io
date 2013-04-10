@@ -1,0 +1,4 @@
+ja:
+  time:
+    formats:
+      tiny: ! '%B %d'

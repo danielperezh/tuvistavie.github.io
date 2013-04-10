@@ -1,10 +1,13 @@
 class CreateArticles < ActiveRecord::Migration
-  def change
-    create_table :articles do |t|
-      t.string :title
-      t.text :content
-
-      t.timestamps
+    def up
+        create_table :articles do |t|
+            t.timestamps
+        end
+        Article.create_translation_table! :title => :string, :content => :text
     end
-  end
+
+    def down
+        drop_table :articles
+        Article.drop_translation_table!
+    end
 end

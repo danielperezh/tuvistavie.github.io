@@ -31,9 +31,19 @@ ActiveRecord::Schema.define(:version => 20130409223804) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
-  create_table "articles", :force => true do |t|
+  create_table "article_translations", :force => true do |t|
+    t.integer  "article_id"
+    t.string   "locale"
     t.string   "title"
     t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "article_translations", ["article_id"], :name => "index_article_translations_on_article_id"
+  add_index "article_translations", ["locale"], :name => "index_article_translations_on_locale"
+
+  create_table "articles", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
