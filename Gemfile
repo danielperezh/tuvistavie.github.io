@@ -10,8 +10,8 @@ gem 'pg'
 gem 'devise'
 
 gem 'redcarpet'
-gem 'albino'
 gem 'nokogiri'
+gem 'pygments.rb'
 
 # Gems used only for assets and not required
 # in production environments by default.
