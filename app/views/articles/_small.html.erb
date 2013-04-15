@@ -1,18 +1,22 @@
-<section class="row">
-    <div class="row">
-        <h2 class="small-centered large-centered">
-            <%= link_to article.title, article %>
-        </h2>
-    </div>
-    <div class="row">
-        <div class="last-column">
-            <span class="posted">
+<article class="post">
+    <header>
+        <div class="date">
+            <span>
                 <%= l article.created_at, :format => :tiny %>
             </span>
         </div>
-    </div>
-    <article class="row content">
+        <h2>
+            <%= link_to article.title, article %>
+        </h2>
+    </header>
+    <p class="excerpt">
         <%= markdown(article.content) %>
-    </article>
-    <hr class="small-offset-1 large-offset-1 small-9 large-9 columns last-column separator">
-</section>
+    </p>
+    <footer>
+        <%= link_to 'Continue reading', article, :class => "button-style1 icon32 icon32-article" %>
+        <a href="#" class="button-style1 icon32 icon32-comments">64 Comments</a>
+        <span class="tags">
+            Posted in <a href="#">News</a>, <a href="#">Work</a>, <a href="#">Something</a>
+        </span>
+    </footer>
+</article>

@@ -1,3 +1,21 @@
+<article class="post">
+    <header>
+        <h2>
+            <a href="#">
+                <%= @article.title %>
+            </a>
+        </h2>
+    </header>
+    <%= markdown(@article.content) %>
+
+    <footer>
+        <span class="tags">
+            Posted in <a href="#">News</a>, <a href="#">Work</a>, <a href="#">Something</a>
+        </span>
+    </footer>
+</article>
+
+
 <p id="notice"><%= notice %></p>
 
 <p>

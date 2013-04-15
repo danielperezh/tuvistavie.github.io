@@ -62,6 +62,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.22)
+    modernizr-rails (2.6.2.1)
     multi_json (1.7.2)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
@@ -122,8 +123,6 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     yajl-ruby (1.1.0)
-    zurb-foundation (4.0.9)
-      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -133,6 +132,7 @@ DEPENDENCIES
   devise
   globalize3
   jquery-rails
+  modernizr-rails
   nokogiri
   pg
   pygments.rb
@@ -140,4 +140,3 @@ DEPENDENCIES
   redcarpet
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
-  zurb-foundation (~> 4.0.0)

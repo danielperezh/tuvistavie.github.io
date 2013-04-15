@@ -1,34 +1,40 @@
-<!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<!DOCTYPE HTML>
+
 <head>
     <meta charset="utf-8" />
 
-    <!-- Uncomment to make IE8 render like IE7 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
-
-    <!-- Set the viewport width to device width for mobile -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog about programming">
+    <meta name="keywords" content="" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css" />
 
     <title><%= content_for?(:title) ? yield(:title) : "Blog title" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag :modernizr %>
     <%= csrf_meta_tags %>
 </head>
 
-<body>
-    <div class="row">
+<body class="right-sidebar">
+    <div id="wrapper">
         <%= render 'layouts/header' %>
 
-        <div class="small-8 large-8  columns">
-            <%= yield %>
+        <div id="main-wrapper">
+            <div class="5grid-layout">
+                <div class="row">
+                    <div class="8u mobileUI-main-content">
+                        <div id="content">
+                            <div class="inner">
+                                <%= yield %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="4u">
+                        <%= render 'layouts/sidebar' %>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <%= render 'layouts/navigation' %>
     </div>
 
     <%= javascript_include_tag "application" %>
