@@ -1,0 +1,19 @@
+<!-- Recent Posts -->
+<section class="widget widget-recent-posts">
+    <header>
+        <h2>Recent Posts</h2>
+    </header>
+    <ul class="style1">
+        <% @recent_posts.each do |article| %>
+        <li>
+            <%= link_to article.title, article %>
+            <div class="date">
+                <%= time_ago_in_words(article.created_at) + ' ago' %>
+            </div>
+        </li>
+        <% end %>
+    </ul>
+    <footer>
+        <a href="#" class="button-style2 icon24 icon24-folder">Archives</a>
+    </footer>
+</section>
