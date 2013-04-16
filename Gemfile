@@ -15,6 +15,10 @@ gem 'pygments.rb'
 
 gem 'globalize3'
 
+gem 'twitter'
+
+gem 'rails_config'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

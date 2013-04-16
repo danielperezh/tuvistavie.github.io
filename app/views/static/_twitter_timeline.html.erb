@@ -1,0 +1,20 @@
+<section class="widget widget-recent-tweets">
+    <header>
+        <h2>Recent Tweets</h2>
+    </header>
+    <ul class="style1">
+        <% @tweets.each do |tweet| %>
+        <li>
+            <p>
+                <%= tweet.content %>
+            </p>
+            <div class="date">
+                Posted <%= time_ago_in_words(tweet.posted) %> ago
+            </div>
+        </li>
+        <% end %>
+    </ul>
+    <footer>
+        <%= link_to '@tuvistavie', 'https://twitter.com/tuvistavie', :class => "button-style2 icon24 icon24-folder", :target => '_blank' %>
+    </footer>
+</section>
