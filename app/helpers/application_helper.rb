@@ -18,4 +18,8 @@ module ApplicationHelper
         md = Redcarpet::Markdown.new(HTMLwithPygments, options)
         md.render(text).html_safe
     end
+
+    def get_locale_url_info(url_info, locale)
+        url_info.merge({ :locale => locale })
+    end
 end

@@ -7,4 +7,12 @@ en:
     about: About Me
     full_profile: Full Biography
     archive: Archives
+  user:
+    sign_in: Sign in
+    email: Email
+    password: Password
+  articles:
+    create: Create
+  sessions:
+    login: Login
     logout: Logout

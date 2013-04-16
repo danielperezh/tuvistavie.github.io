@@ -7,7 +7,15 @@ ja:
     about: プロフィール
     full_profile: プロフィールを見る
     archive: アーカイブ
+  sessions:
+    sign_in: サインイン
+    login: ログイン
     logout: ログアウト
+  articles:
+    create: 作成
+  user:
+    email: メール
+    password: パスワード
   time:
     formats:
       tiny: ! '%B%d日'

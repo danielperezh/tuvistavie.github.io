@@ -11,16 +11,16 @@
                             <span>Language</span>
                             <ul>
                                 <li>
-                                    <%= link_to 'English', root_path(:locale => 'en') %>
+                                    <%= link_to 'English', get_locale_url_info(@url_info, 'en') %>
                                 </li>
                                 <li>
-                                    <%= link_to '日本語', root_path(:locale => 'ja') %>
+                                    <%= link_to '日本語', get_locale_url_info(@url_info, 'ja') %>
                                 </li>
                             </ul>
                         </li>
                         <% if admin_signed_in? %>
                         <li>
-                            <%= link_to t('common.logout'), destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                            <%= link_to t('sessions.logout'), destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
                         </li>
                         <% end %>
                     </ul>

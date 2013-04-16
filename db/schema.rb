@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130416002528) do
     t.string   "name"
     t.text     "content"
     t.string   "gravatar_name"
+    t.integer  "post_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end

@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
+    before_filter :set_url
     before_filter :set_fallbacks
     before_filter :set_locale
     before_filter :load_recent_posts
     before_filter :load_new_tweets
+
+    def set_url
+        @url_info = Rails.application.routes.recognize_path request.url
+    end
 
     def set_fallbacks
         Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
