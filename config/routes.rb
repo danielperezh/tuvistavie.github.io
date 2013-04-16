@@ -4,7 +4,7 @@ Blog::Application.routes.draw do
 
   root :to => 'static#index'
 
-  resources :articles do
+  resources :posts do
     resources :comments
   end
 

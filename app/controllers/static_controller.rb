@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
   def index
-    @articles = Article.limit(5).order("created_at ASC")
+    @posts = Post.limit(5).order("created_at ASC")
   end
 end

@@ -4,11 +4,11 @@
         <h2>Recent Posts</h2>
     </header>
     <ul class="style1">
-        <% @recent_posts.each do |article| %>
+        <% @recent_posts.each do |post| %>
         <li>
-            <%= link_to article.title, article %>
+            <%= link_to post.title, post %>
             <div class="date">
-                <%= time_ago_in_words(article.created_at) + ' ago' %>
+                <%= time_ago_in_words(post.created_at) + ' ago' %>
             </div>
         </li>
         <% end %>

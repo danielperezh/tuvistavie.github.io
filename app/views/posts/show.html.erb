@@ -2,11 +2,11 @@
     <header>
         <h2>
             <a href="#">
-                <%= @article.title %>
+                <%= @post.title %>
             </a>
         </h2>
     </header>
-    <%= markdown(@article.content) %>
+    <%= markdown(@post.content) %>
 
     <footer>
         <span class="tags">
@@ -20,14 +20,14 @@
 
 <p>
   <b>Title:</b>
-  <%= @article.title %>
+  <%= @post.title %>
 </p>
 
 <p>
   <b>Content:</b>
-  <%= markdown(@article.content) %>
+  <%= markdown(@post.content) %>
 </p>
 
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

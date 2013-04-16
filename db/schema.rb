@@ -31,8 +31,16 @@ ActiveRecord::Schema.define(:version => 20130416002528) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
-  create_table "article_translations", :force => true do |t|
-    t.integer  "article_id"
+  create_table "comments", :force => true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.string   "gravatar_name"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "post_translations", :force => true do |t|
+    t.integer  "post_id"
     t.string   "locale"
     t.string   "title"
     t.text     "content"
@@ -40,20 +48,12 @@ ActiveRecord::Schema.define(:version => 20130416002528) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "article_translations", ["article_id"], :name => "index_article_translations_on_article_id"
-  add_index "article_translations", ["locale"], :name => "index_article_translations_on_locale"
+  add_index "post_translations", ["locale"], :name => "index_post_translations_on_locale"
+  add_index "post_translations", ["post_id"], :name => "index_post_translations_on_post_id"
 
-  create_table "articles", :force => true do |t|
+  create_table "posts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "comments", :force => true do |t|
-    t.string   "name"
-    t.text     "content"
-    t.string   "gravatar_name"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
   end
 
   create_table "tweets", :force => true do |t|

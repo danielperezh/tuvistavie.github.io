@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_admin!, :except => [:index, :show, :new, :create]
 
-  # GET /articles/comments
-  # GET /articles/comments.json
+  # GET /posts/comments
+  # GET /posts/comments.json
   def index
     @comments = Comment.all
 
@@ -12,8 +12,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /articles/comments/1
-  # GET /articles/comments/1.json
+  # GET /posts/comments/1
+  # GET /posts/comments/1.json
   def show
     @comment = Comment.find(params[:id])
 
@@ -23,8 +23,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /articles/comments/new
-  # GET /articles/comments/new.json
+  # GET /posts/comments/new
+  # GET /posts/comments/new.json
   def new
     @comment = Comment.new
 
@@ -34,13 +34,13 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /articles/comments/1/edit
+  # GET /posts/comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
   end
 
-  # POST /articles/comments
-  # POST /articles/comments.json
+  # POST /posts/comments
+  # POST /posts/comments.json
   def create
     @comment = Comment.new(params[:comment])
 
@@ -55,8 +55,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /articles/comments/1
-  # PUT /articles/comments/1.json
+  # PUT /posts/comments/1
+  # PUT /posts/comments/1.json
   def update
     @comment = Comment.find(params[:id])
 
@@ -71,8 +71,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /articles/comments/1
-  # DELETE /articles/comments/1.json
+  # DELETE /posts/comments/1
+  # DELETE /posts/comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy

@@ -2,18 +2,18 @@
     <header>
         <div class="date">
             <span>
-                <%= l article.created_at, :format => :tiny %>
+                <%= l post.created_at, :format => :tiny %>
             </span>
         </div>
         <h2>
-            <%= link_to article.title, article %>
+            <%= link_to post.title, post %>
         </h2>
     </header>
     <p class="excerpt">
-        <%= markdown(article.content) %>
+        <%= markdown(post.content) %>
     </p>
     <footer>
-        <%= link_to 'Continue reading', article, :class => "button-style1 icon32 icon32-article" %>
+        <%= link_to 'Continue reading', post, :class => "button-style1 icon32 icon32-article" %>
         <a href="#" class="button-style1 icon32 icon32-comments">64 Comments</a>
         <span class="tags">
             Posted in <a href="#">News</a>, <a href="#">Work</a>, <a href="#">Something</a>

@@ -1,4 +1,4 @@
-class Article < ActiveRecord::Base
+class Post < ActiveRecord::Base
     translates :content, :title, :fallbacks_for_empty_translations => true
     attr_accessible :content, :title
 
