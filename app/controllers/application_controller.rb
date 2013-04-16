@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
     before_filter :set_fallbacks
+    before_filter :set_locale
     before_filter :load_recent_posts
     before_filter :load_new_tweets
 
@@ -25,5 +26,14 @@ class ApplicationController < ActionController::Base
         country = @geoip.country(request.remote_ip)
         code = country.country_code2
         code == '--' ? nil : code.downcase
+    end
+
+    def set_locale
+        if params.has_key? :locale and I18n.available_locales.include?(params[:locale].to_sym)
+            I18n.locale = params[:locale].to_sym
+        else
+            country = get_country_code
+            I18n.locale = :ja if country == 'jp'
+        end
     end
 end

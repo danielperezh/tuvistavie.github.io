@@ -13,6 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require init
-//= require jquery.dropotron-1.1
-//= require bootstrap
+//= require_tree .
 //
