@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     before_filter :load_new_tweets
 
     def set_url
-        @url_info = Rails.application.routes.recognize_path request.url
+        @url_info = Rails.application.routes.recognize_path request.url rescue root_path
     end
 
     def set_fallbacks

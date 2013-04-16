@@ -10,7 +10,6 @@
     <title><%= content_for?(:title) ? yield(:title) : "tuvistavie's blog" %></title>
 
     <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
 </head>
 
@@ -19,7 +18,7 @@
         <%= render 'layouts/header' %>
 
         <div id="main-wrapper">
-            <div class="5grid-layout">
+            <div class="5grid-layout 5grid">
                 <div class="row">
                     <div class="8u mobileUI-main-content">
                         <div id="content">
@@ -35,5 +34,6 @@
             </div>
         </div>
     </div>
+    <%= javascript_include_tag "application" %>
 </body>
 </html>

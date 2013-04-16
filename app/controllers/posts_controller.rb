@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.limit(5).order("created_at ASC")
+    @posts = Post.limit(Settings.posts.per_page).order("created_at ASC")
 
     respond_to do |format|
       format.html # index.html.erb

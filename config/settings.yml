@@ -1,2 +1,4 @@
+posts:
+  per_page: 3
 twitter:
-    display_tweets: 4
+  display_tweets: 4
