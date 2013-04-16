@@ -11,8 +11,10 @@ en:
     sign_in: Sign in
     email: Email
     password: Password
-  articles:
+  posts:
+    new: New
     create: Create
+    save: Save
   sessions:
     login: Login
     logout: Logout

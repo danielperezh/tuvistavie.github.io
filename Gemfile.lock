@@ -55,6 +55,7 @@ GEM
       paper_trail (~> 2)
     gravatar_image_tag (1.1.3)
     hike (1.2.2)
+    htmlentities (4.3.1)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.2.1)
@@ -145,6 +146,7 @@ DEPENDENCIES
   geoip
   globalize3
   gravatar_image_tag
+  htmlentities
   jquery-rails
   modernizr-rails
   nokogiri

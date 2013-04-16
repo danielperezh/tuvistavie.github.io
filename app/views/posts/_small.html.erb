@@ -10,7 +10,7 @@
         </h2>
     </header>
     <p class="excerpt">
-        <%= markdown(post.content) %>
+        <%= truncate_html markdown(post.content), :length => 400 %>
     </p>
     <footer>
         <%= link_to 'Continue reading', post, :class => "button-style1 icon32 icon32-article" %>

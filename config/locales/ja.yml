@@ -11,8 +11,10 @@ ja:
     sign_in: サインイン
     login: ログイン
     logout: ログアウト
-  articles:
+  posts:
+    new: 作成
     create: 作成
+    save: 保存
   user:
     email: メール
     password: パスワード
