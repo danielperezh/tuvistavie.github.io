@@ -1,21 +1,7 @@
 <!-- Sidebar -->
 <div id="sidebar">
     <div class="inner">
-        <!-- About -->
-        <section class="widget widget-about">
-            <header>
-                <h2>About Me</h2>
-            </header>
-            <img src="images/pic3.jpg" alt="" class="image" />
-            <p>
-                Phasellus dapibus sed convallis scelerisque. Donec et augue id tortor ultricies
-                eget pellentesque turpis ut nulla et sem, vel iaculis arcu. Nulla vel lorem nisl,
-                quis et ultricies tellus nunc imperdiet.
-            </p>
-            <footer>
-                <a href="#" class="button-style2 icon24 icon24-bio">Full Biography</a>
-            </footer>
-        </section>
+        <%= render 'static/side_about' %>
 
         <%= render 'articles/sidebar_list' %>
 
@@ -25,6 +11,5 @@
         <div id="copyright">
             &copy; 2013 tuvistavie. All rights reserved.
         </div>
-
     </div>
 </div>

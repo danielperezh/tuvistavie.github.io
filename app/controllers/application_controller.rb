@@ -19,4 +19,11 @@ class ApplicationController < ActionController::Base
         end
         @tweets = Tweet.limit(4).order("posted DESC")
     end
+
+    def get_country_code
+        @geoip ||= GeoIP.new(Rails.root.join('lib/GeoIP.dat'))
+        country = @geoip.country(request.remote_ip)
+        code = country.country_code2
+        code == '--' ? nil : code.downcase
+    end
 end

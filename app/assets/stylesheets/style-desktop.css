@@ -17,17 +17,17 @@
 		background: #fff;
 		box-shadow: inset 0px 0px 0px 1px #fff, inset 0px 0px 60px 0px #999, 0px 0px 3px 0px rgba(0,0,0,0.8);
 	}
-	
+
 		.post .image
 		{
 			width: 20em;
 		}
-	
+
 		.post header
 		{
 			margin: 0 0 3.5em 0;
 		}
-		
+
 			.post header h2
 			{
 				font-weight: 200;
@@ -36,13 +36,13 @@
 				line-height: 1.25em;
 				margin: 0.5em 0 0.5em 0;
 			}
-			
+
 				.post header h2 a
 				{
 					color: #424242;
 					text-decoration: none;
 				}
-			
+
 			.post header .byline
 			{
 				font-size: 1.5em;
@@ -59,7 +59,7 @@
 				line-height: 74px;
 				top: -1.25em;
 			}
-			
+
 				.post header .date:before
 				{
 					width: 50px;
@@ -69,7 +69,7 @@
 					position: absolute;
 					top: 0;
 				}
-			
+
 				.post header .date:after
 				{
 					width: 50px;
@@ -79,7 +79,7 @@
 					position: absolute;
 					top: 0;
 				}
-				
+
 				.post header .date span
 				{
 					position: absolute;
@@ -136,13 +136,13 @@
 			border-radius: 5px;
 			box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1), inset 0px 0px 0px 1px rgba(255,255,255,0.1), 0px 0px 0px 1px rgba(0,0,0,0.25);
 		}
-		
+
 			.widget header h2
 			{
 				color: #fff;
 				text-shadow: 0px -1px 0px rgba(0,0,0,0.75);
 			}
-			
+
 		.widget footer
 		{
 			margin: 0 0 0.75em 0;
@@ -154,9 +154,8 @@
 
 		.widget-about .image
 		{
-			width: 100%;
 			display: block;
-			margin: 0 0 1.5em 0;
+			margin: 0 2em 0 0;
 		}
 
 /*********************************************************************************/
@@ -185,7 +184,7 @@
 		height: 6em;
 		line-height: 6em;
 	}
-	
+
 		#page-header h1
 		{
 			position: absolute;
@@ -195,13 +194,13 @@
 			letter-spacing: -1px;
 			text-shadow: 0px -1px 0px rgba(0,0,0,0.75);
 		}
-		
+
 			#page-header h1 a
 			{
 				color: #fff;
 				text-decoration: none;
 			}
-			
+
 		#page-header nav
 		{
 			position: absolute;
@@ -221,7 +220,7 @@
 			{
 				display: none;
 			}
-		
+
 			#page-header nav a, #page-header nav span
 			{
 				color: rgba(255,255,255,0.8);
@@ -233,7 +232,7 @@
 				{
 					color: rgba(255,255,255,1.0);
 				}
-			
+
 			#page-header nav .current_page_item
 			{
 				background: rgba(38,43,48,0.85);
@@ -258,7 +257,7 @@
 				{
 					color: rgba(255,255,255,1.0);
 				}
-			
+
 			.dropotron
 			{
 				background: rgba(38,43,48,0.85);
@@ -267,7 +266,7 @@
 				color: rgba(255,255,255,0.6);
 				text-shadow: 0px -1px 0px rgba(0,0,0,0.5);
 			}
-			
+
 				.dropotron-level-0
 				{
 					border-top-left-radius: 0 !important;
@@ -283,7 +282,7 @@
 						color: rgba(255,255,255,0.6);
 						text-decoration: none;
 					}
-					
+
 					.dropotron li:hover > a, .dropotron li:hover > span
 					{
 						color: rgba(255,255,255,1.0);
@@ -307,18 +306,18 @@
 		{
 			padding: 3% 0 3% 0;
 		}
-	
+
 		#content .inner > :last-child
 		{
 			margin-bottom: 0;
 		}
-	
+
 		#content article, #content section
 		{
 			margin: 0 0 3% 0;
 			padding: 5%;
 		}
-	
+
 /*********************************************************************************/
 /* Sidebar                                                                       */
 /*********************************************************************************/
@@ -331,23 +330,23 @@
 		color: rgba(255,255,255,0.6);
 		text-shadow: 0px -1px 0px rgba(0,0,0,0.5);
 	}
-	
+
 		#sidebar .inner
 		{
 			padding: 6% 0 6% 0;
 		}
-	
+
 		#sidebar .inner > :last-child
 		{
 			margin-bottom: 0;
 		}
-		
+
 		#sidebar article, #sidebar section
 		{
 			margin: 0 0 6% 0;
 			padding: 6%;
 		}
-	
+
 /*********************************************************************************/
 /* Layout Mods                                                                   */
 /*********************************************************************************/
@@ -373,12 +372,12 @@
 				{
 					left: -50px;
 				}
-				
+
 				.right-sidebar .post header .date:after
 				{
 					right: -50px;
 				}
-				
+
 			.right-sidebar #content .inner
 			{
 				padding-left: 3%;
@@ -423,7 +422,7 @@
 					right: -50px;
 					background-position: -50px -222px;
 				}
-				
+
 				.left-sidebar .post header .date:after
 				{
 					left: -50px;
@@ -469,12 +468,12 @@
 				{
 					left: -50px;
 				}
-				
+
 				.no-sidebar .post header .date:after
 				{
 					right: -50px;
 				}
-				
+
 			.no-sidebar #content .inner
 			{
 				padding: 2%;
