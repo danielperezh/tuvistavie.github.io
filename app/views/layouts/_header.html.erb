@@ -1,4 +1,3 @@
-<!-- Header -->
 <div id="header-wrapper">
     <header id="page-header" class="5grid-layout">
         <div class="row">
@@ -21,7 +20,7 @@
                         </li>
                         <% if admin_signed_in? %>
                         <li>
-                            <%= link_to 'Logout', destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                            <%= link_to t('common.logout'), destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
                         </li>
                         <% end %>
                     </ul>

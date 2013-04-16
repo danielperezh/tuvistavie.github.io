@@ -1,6 +1,10 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   common:
     language: Language
+    recent_posts: Recent posts
+    recent_tweets: Recent Tweets
+    to_now: '%{time} ago'
+    about: About Me
+    full_profile: Full Biography
+    archive: Archives
+    logout: Logout

@@ -4,6 +4,7 @@ class CreateComments < ActiveRecord::Migration
       t.string :name
       t.text :content
       t.string :gravatar_name
+      t.integer :post_id
 
       t.timestamps
     end

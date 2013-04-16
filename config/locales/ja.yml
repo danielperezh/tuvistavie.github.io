@@ -1,6 +1,13 @@
 ja:
   common:
     language: 言語
+    recent_posts: 最近の記事
+    recent_tweets: 最近のつぶやき
+    to_now: '%{time}前'
+    about: プロフィール
+    full_profile: プロフィールを見る
+    archive: アーカイブ
+    logout: ログアウト
   time:
     formats:
-      tiny: ! '%B %d'
+      tiny: ! '%B%d日'

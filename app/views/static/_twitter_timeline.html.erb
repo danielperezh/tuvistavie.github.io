@@ -1,6 +1,6 @@
 <section class="widget widget-recent-tweets">
     <header>
-        <h2>Recent Tweets</h2>
+        <h2><%= t 'common.recent_tweets' %></h2>
     </header>
     <ul class="style1">
         <% @tweets.each do |tweet| %>
@@ -9,7 +9,7 @@
                 <%= raw tweet.content %>
             </p>
             <div class="date">
-                Posted <%= time_ago_in_words(tweet.posted) %> ago
+                <%= t 'common.to_now', :time => time_ago_in_words(tweet.posted) %>
             </div>
         </li>
         <% end %>

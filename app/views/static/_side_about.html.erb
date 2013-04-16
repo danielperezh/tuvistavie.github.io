@@ -1,9 +1,9 @@
 <section class="widget widget-about">
     <header>
-        <h2>About Me</h2>
+        <h2><%= t 'common.about' %></h2>
     </header>
     <span class="image align-left">
-    <%= gravatar_image_tag 'tuvistavie@hotmail.com' %>
+        <%= gravatar_image_tag 'tuvistavie@hotmail.com' %>
     </span>
     <p>
         Phasellus dapibus sed convallis scelerisque. Donec et augue id tortor ultricies
@@ -12,6 +12,6 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, modi, aut, inventore, aperiam iure quisquam perspiciatis molestias est labore velit obcaecati nostrum sunt et quasi mollitia quod reiciendis nemo itaque.
     </p>
     <footer>
-        <a href="#" class="button-style2 icon24 icon24-bio">Full Biography</a>
+        <%= link_to t('common.full_profile'), '#', :class => "button-style2 icon24 icon24-bio" %>
     </footer>
 </section>
