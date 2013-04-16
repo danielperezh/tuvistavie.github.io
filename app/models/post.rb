@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
     attr_accessible :content, :title
 
     has_many :comments
+    has_and_belongs_to_many :tags
+
 
     def to_param
         title = Globalize.with_locale(:en) { title }
