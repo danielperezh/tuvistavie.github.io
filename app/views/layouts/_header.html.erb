@@ -30,7 +30,11 @@
                         </li>
                         <li><a href="twocolumn1.html">Two Column 1</a></li>
                         <li><a href="twocolumn2.html">Two Column 2</a></li>
-                        <li><a href="onecolumn.html">One Column</a></li>
+                        <% if admin_signed_in? %>
+                            <li>
+                                <%= link_to 'Logout', destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                            </li>
+                        <% end %>
                     </ul>
                 </nav>
             </div>

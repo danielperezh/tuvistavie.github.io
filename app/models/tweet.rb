@@ -7,9 +7,10 @@ class Tweet < ActiveRecord::Base
 
     def self.fetch_new
         params = {
-            :count => Settings.twitter.display_tweets,
+            :count => Settings.twitter.display_tweets + 3,
             :exclude_replies => true,
-            :trim_user => true
+            :trim_user => true,
+            :include_rts => false
         }
         last_tweet = Tweet.most_recent
         params[:since_id] = last_tweet.twitter_id if not last_tweet.nil?

@@ -19,9 +19,9 @@
 	Copyright (c) 2012 n33, http://n33.co
 	This program is free software: you can redistribute it and/or modify it	under the terms of the GNU General Public License as
 	published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version. This program is
-	distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of
-	the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>. 
+	the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
@@ -82,7 +82,7 @@
 							}, settings.hideDelay);
 					});
 			}
-		
+
 			_top
 				.bind('doCollapseAll', function() {
 					_menus
@@ -98,20 +98,20 @@
 					.addClass(settings.menuClass)
 					.css('position', 'absolute')
 					.bind('doExpand', function() {
-						
+
 						if (menu.is(':visible'))
 							return false;
 
 						window.clearTimeout(hideTimeoutId);
-						
+
 						_menus.each(function() {
 							var t = jQuery(this);
 							if (!jQuery.contains(t.get(0), opener.get(0)))
 								t.trigger('doCollapse');
 						});
-						
+
 						var left, top, isTL = (menu.css('z-index') == settings.baseZIndex), oo = opener.offset(), op = opener.position(), opp = opener.parent().position(), ow = opener.outerWidth(), mw = menu.outerWidth();
-						
+
 						if (isTL)
 						{
 							top = oo.top + opener.outerHeight() + settings.globalOffsetY;
@@ -120,12 +120,12 @@
 							{
 								case 'right':
 									left = oo.left - mw + ow;
-									
+
 									if (left < 0)
 										left = oo.left;
-										
+
 									break;
-									
+
 								case 'center':
 									left = oo.left - Math.floor((mw - ow) / 2);
 
@@ -133,13 +133,13 @@
 										left = oo.left;
 									else if (left + mw > _window.width())
 										left = oo.left - mw + ow;
-										
+
 									break;
 
 								case 'left':
 								default:
 									left = oo.left;
-									
+
 									if (left + mw > _window.width())
 										left = oo.left - mw + ow;
 
@@ -165,9 +165,9 @@
 							{
 								case 'right':
 									left += (-1 * opener.parent().outerWidth()) + settings.offsetX;
-									
+
 									break;
-								
+
 								case 'center':
 								case 'left':
 								default:
@@ -188,17 +188,17 @@
 							.css('top', top + 'px');
 
 						menu.css('opacity', '0.01').show();
-						
+
 						// Kludge!
 							var tmp = false;
-							
+
 							// Non-static position fix
 								if (opener.css('position') == 'relative'
 								||	opener.css('position') == 'absolute')
 									left = (-1 * op.left);
 								else
 									left = 0;
-							
+
 							if (menu.offset().left < 0)
 							{
 								left += opener.parent().outerWidth() - settings.offsetX;
@@ -230,7 +230,7 @@
 								});
 
 								break;
-						
+
 							case 'slide':
 
 								isLocked = true;
@@ -241,11 +241,11 @@
 								});
 
 								break;
-						
+
 							case 'fade':
 
 								isLocked = true;
-								
+
 								if (isTL && !settings.noOpenerFade)
 								{
 									var tmp;
@@ -256,7 +256,7 @@
 										tmp = 40;
 									else
 										tmp = Math.floor(settings.speed / 2);
-									
+
 									opener.fadeTo(tmp, 0.01, function() {
 										opener.addClass(settings.openerActiveClass);
 										opener.fadeTo(settings.speed, 1);
@@ -275,7 +275,7 @@
 								}
 
 								break;
-								
+
 							case 'instant':
 							default:
 
@@ -288,7 +288,7 @@
 						return false;
 					})
 					.bind('doCollapse', function() {
-						
+
 						if (!menu.is(':visible'))
 							return false;
 
@@ -296,39 +296,39 @@
 						opener.removeClass(settings.openerActiveClass);
 						menu.find('.' + settings.openerActiveClass).removeClass(settings.openerActiveClass);
 						menu.find('ul').hide();
-						
+
 						return false;
 
 					})
 					.bind('doToggle', function(e) {
-					
+
 						if (menu.is(':visible'))
 							menu.trigger('doCollapse');
 						else
 							menu.trigger('doExpand');
-					
+
 						return false;
 
 					});
-					
+
 				opener
 					.disableSelection_dropotron()
 					.addClass('opener')
 					.css('cursor', 'pointer')
 					.bind(_eventType, function(e) {
-					
+
 						if (isLocked)
 							return;
-						
+
 						e.preventDefault();
 						e.stopPropagation();
 						menu.trigger('doToggle');
-					
+
 					});
 
 				if (settings.expandMode == 'hover')
 					opener.hover(function(e) {
-							if (isLocked)	
+							if (isLocked)
 								return;
 							hoverTimeoutId = window.setTimeout(function() {
 								menu.trigger('doExpand');
@@ -341,32 +341,33 @@
 			});
 
 			_menus.find('a')
+				.not('.no-dropotron')
 				.css('display', 'block')
 				.click(function(e) {
 
 					if (isLocked)
 						return;
-						
+
 					_top.trigger('doCollapseAll');
 
 					e.stopPropagation();
 
 				});
-				
+
 			_top.find('li')
 				.css('white-space', 'nowrap')
 				.each(function() {
-					var t = jQuery(this), a = t.children('a'), ul = t.children('ul');
+					var t = jQuery(this), a = t.children('a').not('.no-dropotron'), ul = t.children('ul');
 					if (a.length > 0 && ul.length == 0)
 						t.click(function(e) {
 
 							if (isLocked)
 								return;
-								
+
 							_top.trigger('doCollapseAll');
 
 							e.stopPropagation();
-							
+
 							window.location.href = a.attr('href');
 
 						});
@@ -385,16 +386,16 @@
 					for(var z = settings.baseZIndex, i = 1, y = menu; y.length > 0; i++)
 					{
 						y.css('z-index', z++);
-						
+
 						if (settings.submenuClassPrefix)
 							y.addClass(settings.submenuClassPrefix + (z - 1 - settings.baseZIndex));
-						
+
 						y = y.find('> li > ul');
 					}
 				}
 
 			});
-			
+
 			_window
 				.click(function() {
 					if (!isLocked)

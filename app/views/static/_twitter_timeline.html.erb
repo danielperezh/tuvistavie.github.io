@@ -6,7 +6,7 @@
         <% @tweets.each do |tweet| %>
         <li>
             <p>
-                <%= tweet.content %>
+                <%= raw tweet.content %>
             </p>
             <div class="date">
                 Posted <%= time_ago_in_words(tweet.posted) %> ago

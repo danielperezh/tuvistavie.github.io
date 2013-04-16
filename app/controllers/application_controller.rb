@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         if last_tweet.nil? or last_tweet.posted <= 3.minutes.ago
             Tweet.fetch_new
         end
-        @tweets = Tweet.limit(4).order("posted DESC")
+        @tweets = Tweet.limit(Settings.twitter.display_tweets).order("posted DESC")
     end
 
     def get_country_code
