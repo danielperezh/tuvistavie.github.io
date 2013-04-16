@@ -20,25 +20,20 @@
   <%= f.text_area :content %>
 </div>
 <div>
-  <fieldset>
-    <legend><%= f.label :locale %> </legend>
-    <div>
-      <span>
-        <%= f.label :locale_ja, 'japanese', :class => 'right' %>
-      </span>
-      <span>
-        <%= f.radio_button :locale, 'ja', :checked => true %>
-      </span>
-      <span>
-        <%= f.label :locale_en, 'english', :class => 'right' %>
-      </span>
-      <span>
-        <%= f.radio_button :locale, 'en', :checked => false %>
-      </span>
-    </div>
-  </fieldset>
+    <span>
+      <%= f.label :locale_ja, 'japanese', :class => 'right' %>
+    </span>
+    <span>
+      <%= f.radio_button :locale, 'ja', :checked => true %>
+    </span>
+    <span>
+      <%= f.label :locale_en, 'english', :class => 'right' %>
+    </span>
+    <span>
+      <%= f.radio_button :locale, 'en', :checked => false %>
+    </span>
 </div>
 <div class="actions">
-  <%= f.submit %>
+  <%= f.submit 'Create', :class => 'button-style2' %>
 </div>
 <% end %>

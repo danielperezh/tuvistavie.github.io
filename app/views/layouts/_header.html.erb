@@ -8,34 +8,21 @@
                 </h1>
                 <nav class="mobileUI-site-nav">
                     <ul>
-                        <li class="current_page_item">
-                            <a href="index.html">Homepage</a>
-                        </li>
                         <li>
-                            <a href="">A Dropdown</a>
+                            <span>Language</span>
                             <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
                                 <li>
-                                    <span>Phasellus consequat</span>
-                                    <ul>
-                                        <li><a href="#">Lorem ipsum dolor</a></li>
-                                        <li><a href="#">Phasellus consequat</a></li>
-                                        <li><a href="#">Magna phasellus</a></li>
-                                        <li><a href="#">Etiam dolore nisl</a></li>
-                                        <li><a href="#">Veroeros feugiat</a></li>
-                                    </ul>
+                                    <%= link_to 'English', root_path(:locale => 'en') %>
                                 </li>
-                                <li><a href="#">Veroeros feugiat</a></li>
+                                <li>
+                                    <%= link_to '日本語', root_path(:locale => 'ja') %>
+                                </li>
                             </ul>
                         </li>
-                        <li><a href="twocolumn1.html">Two Column 1</a></li>
-                        <li><a href="twocolumn2.html">Two Column 2</a></li>
                         <% if admin_signed_in? %>
-                            <li>
-                                <%= link_to 'Logout', destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
-                            </li>
+                        <li>
+                            <%= link_to 'Logout', destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                        </li>
                         <% end %>
                     </ul>
                 </nav>

@@ -1,4 +1,6 @@
 ja:
+  common:
+    language: 言語
   time:
     formats:
       tiny: ! '%B %d'
