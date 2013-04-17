@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416150258) do
+ActiveRecord::Schema.define(:version => 20130417032608) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(:version => 20130416150258) do
     t.integer  "post_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "dynamic_settings", :force => true do |t|
+    t.datetime "last_tweet_check"
+    t.text     "twitter_consumer_key"
+    t.text     "twitter_consumer_secret"
+    t.text     "oauth_token"
+    t.text     "oauth_token_secret"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "post_translations", :force => true do |t|

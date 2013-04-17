@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  last_tweet_check: 2013-04-17 12:26:08
+  twitter_consumer_key: MyText
+  twitter_consumer_secret: MyText
+  oauth_toke: MyText
+  oauth_token_secret: MyText
+
+two:
+  last_tweet_check: 2013-04-17 12:26:08
+  twitter_consumer_key: MyText
+  twitter_consumer_secret: MyText
+  oauth_toke: MyText
+  oauth_token_secret: MyText
