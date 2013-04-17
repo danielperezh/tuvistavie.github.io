@@ -22,8 +22,7 @@ class ApplicationController < ActionController::Base
         dynamic_settings = DynamicSettings.first
         if dynamic_settings.last_tweet_check < 3.minutes.ago
             Tweet.fetch_new
-            dynamic_settings.last_tweet_check = Time.now
-            dynamic_settings.save
+            DynamicSettings.update_tweet_check_time(dynamic_settings)
         end
         @tweets = Tweet.limit(Settings.twitter.display_tweets).order("posted DESC")
     end
