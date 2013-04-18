@@ -1,4 +1,5 @@
 posts:
   per_page: 3
+  recents_number: 4
 twitter:
   display_tweets: 4

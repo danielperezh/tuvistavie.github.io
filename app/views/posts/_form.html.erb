@@ -1,4 +1,4 @@
-<%= form_for(@post) do |f| %>
+<%= nested_form_for(@post) do |f| %>
 <% if @post.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -21,7 +21,11 @@
 </div>
 <div>
   <%= f.label :tags %> <br>
-  <%= f.text_field :tags %>
+  <% f.fields_for :tags do |tags_form| %>
+    <%= tags_form.text_field :name %>
+    <%= tags_form.link_to_remove "Remove this tag" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a tag", :tags %></p>
 </div>
 <div>
     <span>

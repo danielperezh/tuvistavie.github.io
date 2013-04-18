@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
 
     def load_recent_posts
-        @recent_posts = Post.limit(4).order("created_at DESC")
+        @recent_posts = Post.limit(Settings.posts.recents_number).order("created_at DESC")
     end
 
     def load_new_tweets
