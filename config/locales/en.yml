@@ -15,6 +15,10 @@ en:
     new: New
     create: Create
     save: Save
+    category: 'Posted in %{tags}'
+    comments_number:
+      one: 1 Comment
+      other: '%{count} Comments'
   sessions:
     login: Login
     logout: Logout

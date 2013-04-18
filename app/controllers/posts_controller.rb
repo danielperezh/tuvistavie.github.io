@@ -4,7 +4,17 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.limit(Settings.posts.per_page).order("created_at ASC")
+    if params[:tag].nil?
+      posts = Post
+    else
+      posts = Tag.where(:name => params[:tag]).first.posts
+    end
+
+    @page = params[:page].nil? ? 0 : params[:page]
+    @last_page = Post.count / Settings.posts.per_page + (Post.count)
+    posts = posts.limit(Settings.posts.per_page).offset(@page * Settings.posts.per_page)
+
+    @posts = posts.order("created_at ASC")
 
     respond_to do |format|
       format.html # index.html.erb

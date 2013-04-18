@@ -7,9 +7,11 @@
     <%= markdown @post.content %>
 
     <footer>
+        <% if not @post.tags.empty? %>
         <span class="tags">
-            Posted in <a href="#">News</a>, <a href="#">Work</a>, <a href="#">Something</a>
+            <%= format_tags(@post.tags) %>
         </span>
+        <% end %>
     </footer>
 </article>
 

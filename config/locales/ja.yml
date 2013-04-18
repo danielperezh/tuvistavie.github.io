@@ -15,6 +15,10 @@ ja:
     new: 作成
     create: 作成
     save: 保存
+    category: '%{tags}で投票'
+    comments_number:
+      one: '1コメント'
+      other: '%{count}コメント'
   user:
     email: メール
     password: パスワード
