@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
 
     accepts_nested_attributes_for :tags, :allow_destroy => true
 
+    self.per_page = Settings.posts.per_page
+
     def to_param
         title = Globalize.with_locale(:en) { title }
         title.nil? ? id : [id, title.parameterize ].join("-")

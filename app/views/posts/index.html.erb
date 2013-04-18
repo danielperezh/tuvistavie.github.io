@@ -3,8 +3,9 @@
 <% end %>
 
 <div class="pager">
-    <span class="button-style3">Previous Page</span>
-    <a href="#" class="button-style3">Next Page</a>
+    <!-- <span class="button-style3">Previous Page</span> -->
+    <!-- <a href="#" class="button-style3">Next Page</a> -->
+    <%= will_paginate @posts, :page_links => false %>
 </div>
 
 
