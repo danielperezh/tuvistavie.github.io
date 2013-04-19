@@ -45,6 +45,11 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    @post.translated_attribute_names.each do |attr|
+      if @post.translation[attr].nil?
+        @post[attr] = ''
+      end
+    end
   end
 
   # POST /posts

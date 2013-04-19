@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-    translates :content, :title, :fallbacks_for_empty_translations => true
+    translates :content, :title
     attr_accessible :content, :title, :tags_attributes
 
     has_many :comments

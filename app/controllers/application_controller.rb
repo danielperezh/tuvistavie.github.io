@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
         @url_info = Rails.application.routes.recognize_path request.url rescue root_path
     end
 
-
     def load_profile
         @profile = Admin.first.profile
     end
