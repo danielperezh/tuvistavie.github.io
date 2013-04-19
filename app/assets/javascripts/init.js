@@ -1,38 +1,3 @@
-var browser = (function (pub) {
-    var matched, browserObj;
-    uaMatch = function(ua) {
-        ua = ua.toLowerCase();
-        //This fixes an ie7 bug that causes crashes from incorrect version identification
-        if(/*@cc_on/*@if(@_jscript_version<=5.6)1@else@*/0/*@end@*/) {
-            ua = "msie 6.0";
-        }
-        var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-            /(msie) ([\w.]+)/.exec( ua ) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
-            [];
-        return {
-            browserObj: match[ 1 ] || "",
-            version: match[ 2 ] || "0"
-        };
-    };
-    matched = uaMatch(navigator.userAgent);
-    browserObj = {};
-    if ( matched.browserObj ) {
-        browserObj[ matched.browserObj ] = true;
-        browserObj.version = matched.version;
-    }
-    // Chrome is Webkit, but Webkit is also Safari.
-    if (browserObj.chrome) {
-        browserObj.webkit = true;
-    } else if (browserObj.webkit) {
-        browserObj.safari = true;
-    }
-    pub = browserObj;
-    return pub;
-}(browser || {}));
-$.browser = browser;
 
 /*****************************************************************/
 /* 5grid 0.4.1 by n33.co | MIT+GPLv2 license licensed            */
@@ -46,28 +11,28 @@ $.browser = browser;
 	var _5grid_settings = {
 		breakpoint_1000px:				1200,
 		breakpoint_mobile:				480,
-		prefix:							'style',
-		use:							'mobile,desktop',
+		prefix:           							'style',
+		use:              							'mobile,desktop',
 		viewport_is1000px:				1040,
 		viewport_is1200px:				1280,
 		////////////////////////////////////////////////////////
-		mobileUI:						0,
-		mobileUI_hideAddressBar:		0,
-		mobileUI_openerText:			'=',
-		mobileUI_openerWidth:			60,
-		mobileUI_slideSpeed:			200,
-		mobileUI_theme:					'modern',
-		mobileUI_themeNavColor:			'#1f1f1f',
+		mobileUI:                   						0,
+		mobileUI_hideAddressBar:    		0,
+		mobileUI_openerText:        			'=',
+		mobileUI_openerWidth:       			60,
+		mobileUI_slideSpeed:        			200,
+		mobileUI_theme:             					'modern',
+		mobileUI_themeNavColor:     			'#1f1f1f',
 		mobileUI_themeTitleBarColor:	'#444444',
-		mobileUI_titleBarFixed:			1,
-		mobileUI_titleBarHeight:		44,
-		mobileUI_titleBarOverlaid:		0,
+		mobileUI_titleBarFixed:     			1,
+		mobileUI_titleBarHeight:    		44,
+		mobileUI_titleBarOverlaid:  		0,
 		////////////////////////////////////////////////////////
-		mobileUI_navInnerPad:			0,
-		mobileUI_force:					0,
-		mobileUI_tapDelay:				200,
+		mobileUI_navInnerPad:     			0,
+		mobileUI_force:           					0,
+		mobileUI_tapDelay:        				200,
 		mobileUI_orientationDelay:		0,
-		debug_noExtLoad:				0
+		debug_noExtLoad:          				0
 	};
 
 /*********************/
