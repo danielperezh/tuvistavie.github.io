@@ -20,6 +20,7 @@ ja:
     comments_number:
       one: '1コメント'
       other: '%{count}コメント'
+    locale_not_available: 申し訳ありませんが、この記事は日本語にまだ訳されていないようです。
   user:
     email: メール
     password: パスワード

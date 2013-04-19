@@ -8,7 +8,8 @@ class PostsController < ApplicationController
     if params[:tag].nil?
       posts = Post.with_translations(I18n.locale)
     else
-      posts = Tag.where(:name => params[:tag]).first.posts
+      ids = Tag.where(:name => params[:tag]).first.posts.pluck(:id)
+      posts = Post.with_translations(I18n.locale).where(:id => ids)
     end
 
     page = params[:page].nil? ? 1 : params[:page]
@@ -25,9 +26,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
 
-    if not @post.translated_locales.include?(I18n.locale)
-      @using_fallback = true
-    end
+    @using_fallback = !@post.translated_locales.include?(I18n.locale)
 
     respond_to do |format|
       format.html # show.html.erb

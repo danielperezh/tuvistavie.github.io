@@ -20,6 +20,7 @@ en:
     comments_number:
       one: 1 Comment
       other: '%{count} Comments'
+    locale_not_available: Sorry but this post does not seem to be available in English.
   sessions:
     login: Login
     logout: Logout

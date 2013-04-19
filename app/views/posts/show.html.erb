@@ -9,6 +9,11 @@
         <div class="byline">
             <%= l @post.created_at, :format => :tiny %>
         </div>
+        <% if @using_fallback %>
+        <div class="missing-fallback">
+            <%= t 'posts.locale_not_available' %>
+        </div>
+        <% end %>
     </header>
     <%= markdown @post.content %>
 
