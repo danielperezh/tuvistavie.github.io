@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
+//= require jquery.dropotron-1.1
 //= require init
 //= require bootstrap.js
 //= require posts.js.coffee
