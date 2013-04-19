@@ -62,6 +62,8 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    @post.set_friendly_id
+
 
     respond_to do |format|
       if @post.save
@@ -78,6 +80,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
+    @post.set_friendly_id
 
     respond_to do |format|
       if @post.update_attributes(params[:post])

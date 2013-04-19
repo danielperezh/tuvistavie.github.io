@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
     translates :content, :title
-    attr_accessible :content, :title, :tags_attributes
+    attr_accessible :content, :title, :tags_attributes, :friendly_id
 
     has_many :comments
     has_and_belongs_to_many :tags
@@ -10,7 +10,12 @@ class Post < ActiveRecord::Base
     self.per_page = Settings.posts.per_page
 
     def to_param
-        t = Globalize.with_locale(:en) { title }
-        t.nil? ? id : [id, t.parameterize].join("-")
+        friendly_id.nil? ? id : [id, friendly_id.parameterize].join("-")
+    end
+
+    def set_friendly_id
+        if I18n.locale == :en
+            update_attribute :friendly_id, title
+        end
     end
 end
