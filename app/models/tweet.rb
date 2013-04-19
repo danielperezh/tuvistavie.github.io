@@ -14,7 +14,7 @@ class Tweet < ActiveRecord::Base
         }
         last_tweet = Tweet.most_recent
         params[:since_id] = last_tweet.twitter_id if not last_tweet.nil?
-        tweets = Twitter.user_timeline(**params)
+        tweets = Twitter.user_timeline(params)
         tweets.each do |tweet|
             Tweet.create(
                 :twitter_id => tweet[:id],
