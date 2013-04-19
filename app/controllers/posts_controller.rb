@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     end
 
     page = params[:page].nil? ? 1 : params[:page]
-    @posts = posts.paginate(:page => page).order('created_at ASC')
+    @posts = posts.paginate(:page => page).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

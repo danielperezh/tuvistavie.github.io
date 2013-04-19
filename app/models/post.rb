@@ -13,6 +13,4 @@ class Post < ActiveRecord::Base
         t = Globalize.with_locale(:en) { title }
         t.nil? ? id : [id, t.parameterize].join("-")
     end
-
 end
-
