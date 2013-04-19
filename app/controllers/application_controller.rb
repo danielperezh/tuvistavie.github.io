@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
     before_filter :load_new_tweets
 
     def set_url
-        @url_info = Rails.application.routes.recognize_path request.url rescue root_path
+        base_url = Rails.application.routes.recognize_path request.url rescue root_path
+        @url_info = base_url.merge(params)
     end
 
     def load_profile
@@ -15,7 +16,9 @@ class ApplicationController < ActionController::Base
     end
 
     def load_recent_posts
-        @recent_posts = Post.limit(Settings.posts.recents_number).order("created_at DESC")
+        num = Settings.posts.recents_number
+        posts = Post.with_translations(I18n.locale)
+        @recent_posts = posts.limit(num).order("posts.created_at DESC")
     end
 
     def load_new_tweets

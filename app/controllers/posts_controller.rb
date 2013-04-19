@@ -6,13 +6,13 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params[:tag].nil?
-      posts = Post
+      posts = Post.with_translations(I18n.locale)
     else
       posts = Tag.where(:name => params[:tag]).first.posts
     end
 
     page = params[:page].nil? ? 1 : params[:page]
-    @posts = posts.paginate(:page => page).order('created_at DESC')
+    @posts = posts.paginate(:page => page).order('posts.created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,6 +24,10 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+
+    if not @post.translated_locales.include?(I18n.locale)
+      @using_fallback = true
+    end
 
     respond_to do |format|
       format.html # show.html.erb
