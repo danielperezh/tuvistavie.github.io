@@ -10,13 +10,13 @@
         </h2>
     </header>
     <p class="excerpt">
-        <%= truncate_html markdown(post.content), :length => 400 %>
+        <%= truncate_html markdown(post.content), :length => @content_limit %>
     </p>
     <footer>
         <%= link_to 'Continue reading', post, :class => "button-style1 icon32 icon32-article" %>
-        <a href="#" class="button-style1 icon32 icon32-comments">
+        <!-- <a href="#" class="button-style1 icon32 icon32-comments">
             <%= t 'posts.comments_number', :count => post.comments.count %>
-        </a>
+        </a> -->
         <% if not post.tags.empty? %>
         <span class="tags">
             <%= format_tags(post.tags) %>

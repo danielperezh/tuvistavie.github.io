@@ -12,6 +12,9 @@ class PostsController < ApplicationController
       posts = Post.with_translations(I18n.locale).where(:id => ids)
     end
 
+    @content_limit = Settings.posts['content_limit_' + I18n.locale.to_s]
+    puts @content_limit
+
     page = params[:page].nil? ? 1 : params[:page]
     @posts = posts.paginate(:page => page).order('posts.created_at DESC')
 
