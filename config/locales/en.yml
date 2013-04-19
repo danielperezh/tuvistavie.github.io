@@ -21,6 +21,7 @@ en:
       one: 1 Comment
       other: '%{count} Comments'
     locale_not_available: Sorry but this post does not seem to be available in English.
+    continue_reading: Continue reading
   sessions:
     login: Login
     logout: Logout

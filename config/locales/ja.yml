@@ -21,6 +21,7 @@ ja:
       one: '1コメント'
       other: '%{count}コメント'
     locale_not_available: 申し訳ありませんが、この記事は日本語にまだ訳されていないようです。
+    continue_reading: 続きを読む
   user:
     email: メール
     password: パスワード
