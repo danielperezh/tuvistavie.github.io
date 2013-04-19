@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     before_filter :set_url
     before_filter :set_fallbacks
     before_filter :set_locale
+    before_filter :load_profile
     before_filter :load_recent_posts
     before_filter :load_new_tweets
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
 
     def set_fallbacks
         Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
+    end
+
+    def load_profile
+        @profile = Admin.first.profile
     end
 
     def load_recent_posts

@@ -3,4 +3,4 @@ posts:
   recents_number: 4
 twitter:
   display_tweets: 4
-  tweet_check_interval: 30
+  tweet_check_interval: 1

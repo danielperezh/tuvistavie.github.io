@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417032608) do
+ActiveRecord::Schema.define(:version => 20130419063750) do
+
+  create_table "admin_translations", :force => true do |t|
+    t.integer  "admin_id"
+    t.string   "locale"
+    t.text     "profile"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "admin_translations", ["admin_id"], :name => "index_admin_translations_on_admin_id"
+  add_index "admin_translations", ["locale"], :name => "index_admin_translations_on_locale"
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
