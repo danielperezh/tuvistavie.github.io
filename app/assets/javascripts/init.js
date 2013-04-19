@@ -234,12 +234,13 @@ $.browser = browser;
 		jQuery.fn.accelerate_5grid = function() { return jQuery(this).css('-webkit-transform', 'translateZ(0)').css('-webkit-backface-visibility', 'hidden').css('-webkit-perspective', '500'); }
 
 	// Determine base URL, settings
-		x = jQuery('script').filter(function() { return this.src.match(/init\.js/); }).first();
-		y = x.attr('src').split('?');
-		baseURL = y[0].replace(/init\.js/, '');
+		//x = jQuery('script').filter(function() { return this.src.match(/init\.js/); }).first();
+		//y = x.attr('src').split('?');
+		//baseURL = y[0].replace(/init\.js/, '');
+		baseURL = '/assets';
 
 		// Override settings
-			if (y.length > 1)
+			if (false)
 			{
 				x = y[1].split('&');
 				for (v in x)
