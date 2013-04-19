@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment, :notice => 'Comment was successfully created.' }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else
-        format.html { render action: "new" }
+        format.html { render :action => "new" }
         format.json { render :json => @comment.errors, :status => :unprocessable_entity }
       end
     end
@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment, :notice => 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render :action => "edit" }
         format.json { render :json => @comment.errors, :status => :unprocessable_entity }
       end
     end
