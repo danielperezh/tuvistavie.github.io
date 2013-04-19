@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
     before_filter :set_url
-    before_filter :set_fallbacks
     before_filter :set_locale
     before_filter :load_profile
     before_filter :load_recent_posts
@@ -11,9 +10,6 @@ class ApplicationController < ActionController::Base
         @url_info = Rails.application.routes.recognize_path request.url rescue root_path
     end
 
-    def set_fallbacks
-        Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
-    end
 
     def load_profile
         @profile = Admin.first.profile
@@ -39,12 +35,19 @@ class ApplicationController < ActionController::Base
         code == '--' ? nil : code.downcase
     end
 
+    def locale_is_available(locale_name)
+        I18n.available_locales.include?(locale_name.to_sym)
+    end
+
     def set_locale
-        if params.has_key? :locale and I18n.available_locales.include?(params[:locale].to_sym)
+        if params.has_key? :locale and locale_is_available(params[:locale])
             I18n.locale = params[:locale].to_sym
+        elsif session.has_key? :locale and locale_is_available(session[:locale])
+            I18n.locale = session[:locale].to_sym
         else
             country = get_country_code
             I18n.locale = :ja if country == 'jp'
         end
+        session[:locale] = I18n.locale
     end
 end

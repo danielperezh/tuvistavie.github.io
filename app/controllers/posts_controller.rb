@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_admin!, :except => [:index, :show]
+  before_filter :set_fallbacks, :except => [:edit]
 
   # GET /posts
   # GET /posts.json
@@ -89,4 +90,9 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def set_fallbacks
+    Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
+  end
+
 end

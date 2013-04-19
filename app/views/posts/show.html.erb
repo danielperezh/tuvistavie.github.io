@@ -2,6 +2,9 @@
     <header>
         <h2>
             <%= @post.title %>
+            <% if admin_signed_in? %>
+                <%= link_to t('posts.edit'), edit_post_path(@post), :class => 'edit-post' %>
+            <% end %>
         </h2>
         <div class="byline">
             <%= l @post.created_at, :format => :tiny %>

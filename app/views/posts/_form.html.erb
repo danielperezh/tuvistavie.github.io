@@ -32,13 +32,13 @@
       <%= f.label :locale_ja, 'japanese', :class => 'right' %>
     </span>
     <span>
-      <%= f.radio_button :locale, 'ja', :checked => true %>
+      <%= f.radio_button :locale, 'ja', :checked => I18n.locale == :ja %>
     </span>
     <span>
       <%= f.label :locale_en, 'english', :class => 'right' %>
     </span>
     <span>
-      <%= f.radio_button :locale, 'en', :checked => false %>
+      <%= f.radio_button :locale, 'en', :checked => I18n.locale == :en %>
     </span>
 </div>
 <div class="actions">

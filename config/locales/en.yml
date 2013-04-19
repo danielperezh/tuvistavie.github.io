@@ -16,6 +16,7 @@ en:
     create: Create
     save: Save
     category: 'Posted in %{tags}'
+    edit: Edit
     comments_number:
       one: 1 Comment
       other: '%{count} Comments'
