@@ -1,6 +1,10 @@
 Blog::Application.routes.draw do
 
-  devise_for :admins, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  devise_for :admins, :path_names => { :sign_out => 'logout' }
+
+  devise_scope :admin do
+    get "login", :to => "devise/sessions#new"
+  end
 
   root :to => 'posts#index'
 

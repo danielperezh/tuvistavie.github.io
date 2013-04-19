@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
     def set_url
         base_url = Rails.application.routes.recognize_path request.url rescue root_path
-        @url_info = base_url.merge(params)
+        @url_info = base_url.merge(params) if not base_url.nil?
     end
 
     def load_profile

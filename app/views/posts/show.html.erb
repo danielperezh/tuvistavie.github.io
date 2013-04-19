@@ -15,7 +15,9 @@
         </div>
         <% end %>
     </header>
-    <%= markdown @post.content %>
+    <div class="content">
+        <%= markdown @post.content %>
+    </div>
 
     <footer>
         <% if not @post.tags.empty? %>
