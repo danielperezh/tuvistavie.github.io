@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require init
-//= require_tree .
+//= require bootstrap.js
+//= require posts.js.coffee
 //
