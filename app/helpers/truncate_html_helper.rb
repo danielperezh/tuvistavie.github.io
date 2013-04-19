@@ -13,6 +13,10 @@ module TruncateHtmlHelper
 
   self.flavor = 'html4'
 
+  def truncate_html(input, *args)
+    truncate_html_(input, *args) rescue input
+  end
+
   # Truncates html respecting tags and html entities.
   #
   # The API is the same as ActionView::Helpers::TextHelper#truncate.  It uses Rexml for the parsing, and HtmlEntities for entity awareness.  If Rexml raises a ParseException, then Hpricot is used to fixup the tags, and we try again
@@ -20,7 +24,7 @@ module TruncateHtmlHelper
   # Examples:
   #  truncate_html '<p>Hello <strong>World</strong></p>', :length => 7 # => '<p>Hello <strong>W&hellip;</strong></p>'
   #  truncate_html '<p>Hello &amp; Goodbye</p>', :length => 7          # => '<p>Hello &amp;&hellip;</p>'
-  def truncate_html(input, *args)
+  def truncate_html_(input, *args)
     # support both 2.2 & earlier APIs
     options = args.extract_options!
     length = options[:length] || args[0] || 30
