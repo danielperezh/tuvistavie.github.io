@@ -3,7 +3,7 @@ Blog::Application.routes.draw do
   devise_for :admins, :path_names => { :sign_out => 'logout' }
 
   devise_scope :admin do
-    get "login", :to => "devise/sessions#new"
+    get "login", :to => 'devise/sessions#new'
   end
 
   root :to => 'posts#index'
@@ -12,6 +12,7 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
+  get 'about', :to => 'static#about'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
