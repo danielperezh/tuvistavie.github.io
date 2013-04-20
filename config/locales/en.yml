@@ -7,12 +7,20 @@ en:
     about: About Me
     full_profile: Full Biography
     archive: Archives
+    english: English
+    japanese: Japanese
   user:
     sign_in: Sign in
     email: Email
     password: Password
   posts:
     new: New
+    new_long: New Post
+    title: Title
+    content: Content
+    tags: Tags
+    add_tag: Add a tag
+    remove_tag: Remove this tag
     create: Create
     save: Save
     category: 'Posted in %{tags}'

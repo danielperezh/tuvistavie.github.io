@@ -12,30 +12,27 @@
 <% end %>
 
 <div>
-  <%= f.label :title %><br />
+  <%= f.label :title, t('posts.title') %><br />
   <%= f.text_field :title %>
 </div>
 <div>
-  <%= f.label :content %><br />
+  <%= f.label :content, t('posts.content') %><br />
   <%= f.text_area :content %>
 </div>
 <div>
-  <%= f.label :tags %> <br>
-  <% f.fields_for :tags do |tags_form| %>
-    <%= tags_form.text_field :name %>
-    <%= tags_form.link_to_remove "Remove this tag" %>
-  <% end %>
-  <p><%= f.link_to_add "Add a tag", :tags %></p>
+  <%= f.label :tags, t('posts.tags') %> <br>
+  <%= f.fields_for :tags %>
+  <p><%= f.link_to_add t('posts.add_tag'), :tags %></p>
 </div>
 <div>
     <span>
-      <%= f.label :locale_ja, 'japanese', :class => 'right' %>
+      <%= f.label :locale_ja, t('common.japanese'), :class => 'right' %>
     </span>
     <span>
       <%= f.radio_button :locale, 'ja', :checked => I18n.locale == :ja %>
     </span>
     <span>
-      <%= f.label :locale_en, 'english', :class => 'right' %>
+      <%= f.label :locale_en, t('common.english'), :class => 'right' %>
     </span>
     <span>
       <%= f.radio_button :locale, 'en', :checked => I18n.locale == :en %>

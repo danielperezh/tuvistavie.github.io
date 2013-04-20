@@ -7,12 +7,20 @@ ja:
     about: プロフィール
     full_profile: プロフィールを見る
     archive: アーカイブ
+    english: 英語
+    japanese: 日本語
   sessions:
     sign_in: サインイン
     login: ログイン
     logout: ログアウト
   posts:
     new: 作成
+    new_long: 記事新作成
+    title: タイトル
+    content: 内容
+    tags: タグ
+    add_tag: タグを追加
+    remove_tag: タグを削除
     create: 作成
     save: 保存
     edit: 編集
