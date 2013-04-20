@@ -12,10 +12,4 @@ class Post < ActiveRecord::Base
     def to_param
         friendly_id.nil? ? id : [id, friendly_id.parameterize].join("-")
     end
-
-    def set_friendly_id
-        if I18n.locale == :en
-            update_attribute :friendly_id, title
-        end
-    end
 end

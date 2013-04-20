@@ -13,7 +13,6 @@ class PostsController < ApplicationController
     end
 
     @content_limit = Settings.posts['content_limit_' + I18n.locale.to_s]
-    puts @content_limit
 
     page = params[:page].nil? ? 1 : params[:page]
     @posts = posts.paginate(:page => page).order('posts.created_at DESC')
@@ -62,8 +61,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-    @post.set_friendly_id
-
+    params[:post][:friendly_id] = params[:post][:title] if I18n.locale == :en
 
     respond_to do |format|
       if @post.save
@@ -80,7 +78,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-    @post.set_friendly_id
+    params[:post][:friendly_id] = params[:post][:title] if I18n.locale == :en
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
