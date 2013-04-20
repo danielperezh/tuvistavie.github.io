@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419181131) do
+ActiveRecord::Schema.define(:version => 20130420232616) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
@@ -84,8 +84,18 @@ ActiveRecord::Schema.define(:version => 20130419181131) do
     t.integer "tag_id"
   end
 
+  create_table "tag_translations", :force => true do |t|
+    t.integer  "tag_id"
+    t.string   "locale"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tag_translations", ["locale"], :name => "index_tag_translations_on_locale"
+  add_index "tag_translations", ["tag_id"], :name => "index_tag_translations_on_tag_id"
+
   create_table "tags", :force => true do |t|
-    t.text     "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

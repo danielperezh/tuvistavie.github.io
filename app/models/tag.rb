@@ -1,5 +1,11 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :name
+    translates :name
+    attr_accessible :name
 
-  has_and_belongs_to_many :posts
+    has_and_belongs_to_many :posts
+
+    def self.find_by_name(name, locale=I18n.locale)
+        tags = Tag.with_translations(locale)
+        tags.where('tag_translations.name' => name)
+    end
 end
