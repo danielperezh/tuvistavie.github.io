@@ -15,3 +15,8 @@
 /tmp
 
 /db/seed/twitter_info.rb
+
+.sass-cache/
+
+db/schema.rb
+config/database.yml
