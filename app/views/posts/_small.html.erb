@@ -10,9 +10,9 @@
             <%= render :partial => 'control', :locals => { :post => post } %>
         </h2>
     </header>
-    <p class="excerpt">
+    <div class="list-content excerpt">
         <%= truncate_html markdown(post.content), :length => @content_limit %>
-    </p>
+    </div>
     <footer>
         <%= link_to t('posts.continue_reading'), post, :class => "button-style1 icon32 icon32-article" %>
         <!-- <a href="#" class="button-style1 icon32 icon32-comments">

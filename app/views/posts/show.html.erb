@@ -13,16 +13,21 @@
         </div>
         <% end %>
     </header>
+    <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
+        <span class="image align-left">
+            <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
+        </span>
+    <% end %>
     <div class="content">
         <%= markdown @post.content %>
     </div>
 
     <% if not @post.tags.empty? %>
-    <footer>
-        <span class="tags">
-            <%= format_tags(@post.tags) %>
-        </span>
-    </footer>
+        <footer>
+            <span class="tags">
+                <%= format_tags(@post.tags) %>
+            </span>
+        </footer>
     <% end %>
 </article>
 

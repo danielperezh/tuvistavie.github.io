@@ -16,6 +16,10 @@
   <%= f.text_field :title %>
 </div>
 <div>
+  <%= f.label :main_picture, t('posts.main_picture') %><br />
+  <%= f.text_field :main_picture %>
+</div>
+<div>
   <%= f.label :content, t('posts.content') %><br />
   <%= f.text_area :content %>
 </div>
@@ -24,20 +28,7 @@
   <%= f.fields_for :tags %>
   <p><%= f.link_to_add t('posts.add_tag'), :tags %></p>
 </div>
-<div>
-    <span>
-      <%= f.label :locale_ja, t('common.japanese'), :class => 'right' %>
-    </span>
-    <span>
-      <%= f.radio_button :locale, 'ja', :checked => I18n.locale == :ja %>
-    </span>
-    <span>
-      <%= f.label :locale_en, t('common.english'), :class => 'right' %>
-    </span>
-    <span>
-      <%= f.radio_button :locale, 'en', :checked => I18n.locale == :en %>
-    </span>
-</div>
+<%= render :partial => 'common/locale_buttons', :locals => { :f => f } %>
 <div class="actions">
   <%= link_to t('common.back'), @post, :class => 'button-style2' %>
   <%= f.submit t('posts.save'), :class => 'button-style2' %>

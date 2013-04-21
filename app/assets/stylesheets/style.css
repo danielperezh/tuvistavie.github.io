@@ -96,7 +96,8 @@
 		font-weight: 400;
 	}
 
-		a.button-style2:hover
+		a.button-style2:hover,
+		input.button-style2:hover
 		{
 			background-image: url('/assets/images/button-style2-hover.png');
 			background-image: -moz-linear-gradient(top, #cae7fc, #52b0e3);

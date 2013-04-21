@@ -35,6 +35,7 @@ ja:
     continue_reading: 続きを読む
     delete: 削除
     confirm_delete: 本当に削除しますか。
+    main_picture: メイン画像
   user:
     email: メール
     password: パスワード

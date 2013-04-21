@@ -3,7 +3,7 @@
         <h2><%= t 'common.about' %></h2>
     </header>
     <span class="image align-left">
-        <%= gravatar_image_tag @admin.email %>
+        <%= cl_image_tag @admin.small_picture, :width => 80, :height => 80 %>
     </span>
     <p>
         <%= @admin.profile %>

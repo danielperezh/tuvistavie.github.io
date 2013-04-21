@@ -7,8 +7,7 @@ class PostsController < ApplicationController
     if params[:tag].nil?
       posts = Post.with_translations(I18n.locale)
     else
-      ids = Tag.where(:name => params[:tag]).first.posts.pluck(:id)
-      posts = Post.with_translations(I18n.locale).where(:id => ids)
+      posts = Post.find_by_tag(params[:tag])
     end
 
     @content_limit = Settings.posts['content_limit_' + I18n.locale.to_s]
@@ -96,10 +95,10 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     tags = @post.tags
-    @post.destroy
     tags.each do |tag|
-      tag.destroy if tag.posts.count == 0
+      tag.destroy if tag.posts.count == 1
     end
+    @post.destroy
     redirect_to posts_path
   end
 
