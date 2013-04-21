@@ -105,6 +105,7 @@ class PostsController < ApplicationController
 
   private
   def manage_tags(post, tags)
+    return if tags.nil?
     tags.each_value do |tag_hash|
       destroy = tag_hash.delete(:_destroy)
       if tag_hash.has_key?(:id)
