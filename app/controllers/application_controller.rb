@@ -58,4 +58,18 @@ class ApplicationController < ActionController::Base
     end
     session[:locale] = I18n.locale
   end
+
+  def upload_files(files)
+    return if files.nil?
+    files.each_value { |f| upload_file(f) }
+  end
+
+  def upload_file(file)
+    return if file[:file].empty? || file[:name].empty?
+    options = ActiveSupport::JSON.decode(file[:options])
+    options ||= {}
+    options[:public_id] = file[:name]
+    Cloudinary::Uploader.upload(file[:file], **options)
+  end
+
 end

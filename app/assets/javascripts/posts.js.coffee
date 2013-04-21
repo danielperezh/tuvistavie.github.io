@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $('input[name="post[locale]"]').click (e) ->
-    locale = $(e.target).val()
-    window.location.pathname += "?locale=" + locale
+  locale = $(e.target).val()
+  window.location.pathname += "?locale=" + locale
 
 _.templateSettings =
   interpolate : /\{\{(.+?)\}\}/g
@@ -13,13 +13,13 @@ _.templateSettings =
 fileCurrentIndex = 1
 
 $('#add-file-link').click (e) ->
-    e.preventDefault()
-    compiled = _.template $("#add-file-template").html()
-    $container = $("#file-uploader-container")
-    $container.append compiled({ id: fileCurrentIndex })
-    fileCurrentIndex++
+  e.preventDefault()
+  compiled = _.template $("#add-file-template").html()
+  $container = $("#file-uploader-container")
+  $container.append compiled({ id: fileCurrentIndex })
+  fileCurrentIndex++
 
 $('#file-uploader-container').on 'click', '.remove-file', (e) ->
-    e.preventDefault()
-    $(e.target).parents('.file-uploader').remove()
+  e.preventDefault()
+  $(e.target).parents('.file-uploader').remove()
 

@@ -10,7 +10,8 @@ class Post < ActiveRecord::Base
   self.per_page = Settings.posts.per_page
 
   def to_param
-    friendly_id.nil? ? id : [id, friendly_id.parameterize].join("-")
+    return id if friendly_id.nil?
+    [id, friendly_id.parameterize].join("-")
   end
 
   def self.find_by_tag(tag_name, locale=I18n.locale)

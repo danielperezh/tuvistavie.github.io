@@ -98,16 +98,13 @@ class PostsController < ApplicationController
   end
 
   def manage_new_tag(post, tag_hash)
+    return if tag_hash[:name].empty?
     tag = Tag.find_by_name(tag_hash[:name], tag_hash[:locale])
     if tag.nil?
       post.tags.build(:name => tag_hash[:name], :locale => tag_hash[:locale])
     else
       post.tags << tag
     end
-  end
-
-  def upload_files(files)
-    return if files.nil?
   end
 
 end

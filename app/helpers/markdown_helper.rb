@@ -1,5 +1,5 @@
 module MarkdownHelper
-  class HTMLwithPygments < Redcarpet::Render::HTML
+  class CustomHTML < Redcarpet::Render::HTML
     def block_code(code, language)
       if language.nil?
         Pygments.highlight(code)
@@ -7,6 +7,7 @@ module MarkdownHelper
         Pygments.highlight(code, :lexer => language)
       end
     end
+
   end
 
   def markdown(text, options={})
@@ -16,7 +17,7 @@ module MarkdownHelper
       :autolink => true,
       :fenced_code_blocks => true,
       })
-    md = Redcarpet::Markdown.new(HTMLwithPygments, options)
+    md = Redcarpet::Markdown.new(CustomHTML, options)
     md.render(text).html_safe
   end
 end
