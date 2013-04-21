@@ -12,6 +12,8 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
+  resources :admins, :only => [:edit, :update]
+
   get 'about', :to => 'static#about'
 
   # The priority is based upon order of creation:

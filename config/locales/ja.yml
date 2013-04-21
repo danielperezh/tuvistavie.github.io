@@ -35,6 +35,7 @@ ja:
   user:
     email: メール
     password: パスワード
+    edit: プロフィール編集
   time:
     formats:
       tiny: ! '%B%d日'

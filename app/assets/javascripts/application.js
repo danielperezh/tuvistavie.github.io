@@ -15,6 +15,7 @@
 //= require jquery_nested_form
 //= require jquery.dropotron-1.1
 //= require posts.js.coffee
+//= require admins.js.coffee
 //
 
 $('#page-header nav > ul').dropotron({

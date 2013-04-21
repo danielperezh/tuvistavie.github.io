@@ -20,7 +20,15 @@
                         </li>
                         <% if admin_signed_in? %>
                         <li>
-                            <%= link_to t('sessions.logout'), destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                            <span>Account</span>
+                            <ul>
+                                <li>
+                                    <%= link_to t('user.edit'), edit_admin_path(current_admin) %>
+                                </li>
+                                <li>
+                                    <%= link_to t('sessions.logout'), destroy_admin_session_path, :method => :delete, :class => 'no-dropotron' %>
+                                </li>
+                            </ul>
                         </li>
                         <% end %>
                     </ul>
