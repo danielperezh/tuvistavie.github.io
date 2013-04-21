@@ -17,12 +17,12 @@
         <%= markdown @post.content %>
     </div>
 
+    <% if not @post.tags.empty? %>
     <footer>
-        <% if not @post.tags.empty? %>
         <span class="tags">
             <%= format_tags(@post.tags) %>
         </span>
-        <% end %>
     </footer>
+    <% end %>
 </article>
 
