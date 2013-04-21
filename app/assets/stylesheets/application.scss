@@ -9,10 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree ./common
  *= require 5grid/core
  *= require 5grid/core-desktop
  *= require 5grid/core-1200px
  *= require style
  *= require style-desktop
+ *= require_tree ./common
  */

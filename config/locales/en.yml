@@ -44,6 +44,12 @@ en:
     delete: Delete
     confirm_delete: Are you sure ?
     main_picture: Main picture
+  picture:
+    add: Add picture
+    remove: Remove picture
+    name: File ID
+    file: File
+    options: Options
   sessions:
     login: Login
     logout: Logout

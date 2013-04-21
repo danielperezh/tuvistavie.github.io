@@ -29,6 +29,9 @@
   <p><%= f.link_to_add t('posts.add_tag'), :tags %></p>
 </div>
 <%= render :partial => 'common/locale_buttons', :locals => { :f => f } %>
+
+<%= render 'common/file_upload' %>
+
 <div class="actions">
   <%= link_to t('common.back'), @post, :class => 'button-style2' %>
   <%= f.submit t('posts.save'), :class => 'button-style2' %>

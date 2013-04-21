@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
+//= require underscore
 //= require jquery.dropotron-1.1
 //= require posts.js.coffee
 //= require admins.js.coffee

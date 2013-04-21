@@ -1,0 +1,24 @@
+<%= link_to t('picture.add'), '#', :id => "add-picture-link" %>
+<div id="file-uploader-container">
+</div>
+<script type="text/template" id="add-image-template">
+<div class="file-uploader">
+    <fieldset>
+        <label for="picture-{{id}}-name">
+            <%= t 'picture.name' %>
+        </label>
+        <input id="picture-{{id}}-name" type="text" name="picture[{{id}}][name]">
+        <br>
+        <label for="picture-{{id}}-file">
+            <%= t 'picture.file' %>
+        </label>
+        <input id="picture-{{id}}-file" type="file" name="picture[{{id}}][file]">
+        <br>
+        <label for="picture-{{id}}-options">
+            <%= t 'picture.options' %>
+        </label>
+        <input id="picture-{{id}}-options" type="text" name="picture[{{id}}][options]">
+        <%= link_to t('picture.remove'), '#', :class => 'remove-picture' %>
+    </fieldset>
+</div>
+</script>

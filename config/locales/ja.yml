@@ -50,6 +50,12 @@ ja:
   time:
     formats:
       tiny: ! '%B%d日'
+  picture:
+    add: 画像を追加
+    remove: 画像を削除
+    name: ファイルID
+    file: ファイル
+    options: オプション
   will_paginate:
     previous_label: "&#8592; 前"
     next_label: "次 &#8594;"
