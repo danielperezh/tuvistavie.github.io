@@ -1,7 +1,7 @@
 <article class="post about-me">
     <header>
         <h2>
-            <%= current_admin.nickname %>
+            <%= @admin.nickname %>
             <% if admin_signed_in? %>
             <span class="tiny">
                 <%= link_to t('user.edit'), edit_admin_path(current_admin) %>
@@ -9,14 +9,14 @@
             <% end %>
         </h2>
         <div class="byline">
-            <%= current_admin.full_name %>
+            <%= @admin.full_name %>
         </div>
     </header>
     <span class="image align-left">
-        <%= cl_image_tag(current_admin.large_picture, :width => 280, :height => 274) %>
+        <%= cl_image_tag(@admin.large_picture, :width => 280, :height => 274) %>
     </span>
     <div class="content">
-        <%= markdown current_admin.long_profile %>
+        <%= markdown @admin.long_profile %>
     </div>
 </article>
 

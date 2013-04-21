@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_profile
-    @profile = Admin.first.profile
+    @admin = Admin.first
   end
 
   def load_recent_posts
