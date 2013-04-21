@@ -10,6 +10,7 @@ module MarkdownHelper
   end
 
   def markdown(text, options={})
+    return nil if text.nil?
     options.reverse_merge!({
       :filter_html => true,
       :autolink => true,
