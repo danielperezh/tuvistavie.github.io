@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_url
   before_filter :set_locale
+  before_filter :set_fallbacks
   before_filter :load_profile
   before_filter :load_recent_posts
   before_filter :load_new_tweets
@@ -40,6 +41,11 @@ class ApplicationController < ActionController::Base
   def locale_is_available(locale_name)
     I18n.available_locales.include?(locale_name.to_sym)
   end
+
+  def set_fallbacks
+    Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
+  end
+
 
   def set_locale
     if params.has_key? :locale and locale_is_available(params[:locale])

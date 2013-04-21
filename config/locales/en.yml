@@ -10,6 +10,7 @@ en:
     english: English
     japanese: Japanese
     back: Back
+    account: Account
   user:
     sign_in: Sign in
     email: Email
@@ -40,6 +41,8 @@ en:
       other: '%{count} Comments'
     locale_not_available: Sorry but this post does not seem to be available in English.
     continue_reading: Continue reading
+    delete: Delete
+    confirm_delete: Are you sure ?
   sessions:
     login: Login
     logout: Logout

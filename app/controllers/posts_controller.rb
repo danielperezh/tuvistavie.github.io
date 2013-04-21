@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_filter :authenticate_admin!, :except => [:index, :show]
-  before_filter :set_fallbacks, :except => [:edit]
 
   # GET /posts
   # GET /posts.json
@@ -94,22 +93,17 @@ class PostsController < ApplicationController
   end
 
   # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
+    tags = @post.tags
     @post.destroy
-
-    respond_to do |format|
-      format.html { redirect_to posts }
-      format.json { head :no_content }
+    tags.each do |tag|
+      tag.destroy if tag.posts.count == 0
     end
+    redirect_to posts_path
   end
 
   private
-  def set_fallbacks
-    Globalize.fallbacks = {:en => [:en, :ja], :ja => [:ja, :en] }
-  end
-
   def manage_tags(post, tags)
     tags.each_value do |tag_hash|
       destroy = tag_hash.delete(:_destroy)

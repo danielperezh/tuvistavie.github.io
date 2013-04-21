@@ -2,6 +2,11 @@
     <header>
         <h2>
             <%= current_admin.nickname %>
+            <% if admin_signed_in? %>
+            <span class="tiny">
+                <%= link_to t('user.edit'), edit_admin_path(current_admin) %>
+            </span>
+            <% end %>
         </h2>
         <div class="byline">
             <%= current_admin.full_name %>

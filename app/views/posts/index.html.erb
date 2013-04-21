@@ -5,8 +5,3 @@
 <div class="pager">
     <%= will_paginate @posts, :page_links => false %>
 </div>
-
-
-<% if admin_signed_in? %>
-<%= link_to t('posts.new'), new_post_path, :class => "button-style2" %>
-<% end %>

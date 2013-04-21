@@ -10,6 +10,7 @@ ja:
     english: 英語
     japanese: 日本語
     back: 戻る
+    account: アカウント
   sessions:
     sign_in: サインイン
     login: ログイン
@@ -32,6 +33,8 @@ ja:
       other: '%{count}コメント'
     locale_not_available: 申し訳ありませんが、この記事は日本語にまだ訳されていないようです。
     continue_reading: 続きを読む
+    delete: 削除
+    confirm_delete: 本当に削除しますか。
   user:
     email: メール
     password: パスワード
