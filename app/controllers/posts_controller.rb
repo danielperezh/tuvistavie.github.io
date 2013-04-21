@@ -36,6 +36,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
+    upload_files(params[:files])
     params[:post][:friendly_id] = params[:post][:title] if I18n.locale == :en
     tags_hash = params[:post].delete(:tags_attributes)
     @post = Post.new(params[:post])
@@ -103,6 +104,10 @@ class PostsController < ApplicationController
     else
       post.tags << tag
     end
+  end
+
+  def upload_files(files)
+    return if files.nil?
   end
 
 end

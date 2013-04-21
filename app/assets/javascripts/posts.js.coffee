@@ -10,14 +10,16 @@ _.templateSettings =
   interpolate : /\{\{(.+?)\}\}/g
   evaluate: /\{\{\=(.+?)\}\}/g
 
-$('#add-picture-link').click (e) ->
-    e.preventDefault()
-    compiled = _.template $("#add-image-template").html()
-    $container = $("#file-uploader-container")
-    count = $container.find(".file-uploader").length
-    $container.append compiled({ id: count + 1 })
+fileCurrentIndex = 1
 
-$('#file-uploader-container').on 'click', '.remove-picture', (e) ->
+$('#add-file-link').click (e) ->
+    e.preventDefault()
+    compiled = _.template $("#add-file-template").html()
+    $container = $("#file-uploader-container")
+    $container.append compiled({ id: fileCurrentIndex })
+    fileCurrentIndex++
+
+$('#file-uploader-container').on 'click', '.remove-file', (e) ->
     e.preventDefault()
     $(e.target).parents('.file-uploader').remove()
 
