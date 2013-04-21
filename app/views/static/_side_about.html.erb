@@ -3,7 +3,7 @@
         <h2><%= t 'common.about' %></h2>
     </header>
     <span class="image align-left">
-        <%= gravatar_image_tag 'tuvistavie@hotmail.com' %>
+        <%= gravatar_image_tag current_admin.email %>
     </span>
     <p>
         <%= @profile %>
