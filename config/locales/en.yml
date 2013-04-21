@@ -26,6 +26,7 @@ en:
     save: Save
     category: 'Posted in %{tags}'
     edit: Edit
+    edit_long: Editing Post
     comments_number:
       one: 1 Comment
       other: '%{count} Comments'

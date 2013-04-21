@@ -25,6 +25,7 @@ ja:
     create: 作成
     save: 保存
     edit: 編集
+    edit_long: 記事の編集中
     category: '%{tags}で投票'
     comments_number:
       one: '1コメント'
