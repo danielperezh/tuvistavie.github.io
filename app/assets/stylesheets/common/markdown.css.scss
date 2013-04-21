@@ -1,20 +1,15 @@
 .list-content {
     h1{
-        color: #999;
-        font-weight: 400;
-        font-size: 24px;
-    }
-    h2{
         border-bottom: 1px dotted #aaa;
         margin-bottom: 1em;
         color: #333;
         font-size: 20px;
     }
-    h3{
+    h2{
         color: #666;
         font-size: 16px;
     }
-    h4 {
+    h3 {
         font-size: 12px;
     }
 }
@@ -58,24 +53,19 @@
         text-decoration:underline;
     }
     h1{
-        color: #999;
-        font-weight: 400;
-        font-size: 32px;
-    }
-    h2{
         border-bottom: 1px dotted #aaa;
         margin-bottom: 1em;
         color: #333;
         font-size: 28px;
     }
-    h3{
+    h2{
         color: #666;
         font-size: 24px;
     }
-    h4 {
+    h3 {
         font-size: 21px;
     }
-    h5 {
+    h4 {
         font-size: 18px;
     }
     .shadow{
