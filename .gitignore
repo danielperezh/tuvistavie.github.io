@@ -20,3 +20,4 @@
 
 db/schema.rb
 config/database.yml
+cloudinary.yml

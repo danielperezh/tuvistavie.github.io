@@ -1,25 +1,17 @@
-<article class="post">
+<article class="post about-me">
     <header>
         <h2>
-            tuvistavie
+            <%= current_admin.nickname %>
         </h2>
         <div class="byline">
-            Daniel Perez
+            <%= current_admin.full_name %>
         </div>
     </header>
+    <span class="image align-left">
+        <%= cl_image_tag(current_admin.large_picture, :width => 280, :height => 274) %>
+    </span>
     <div class="content">
-        <dl>
-            <dt>Email</dt>
-            <dd>tuvistavie@gmail.com</dd>
-            <dt>Github</dt>
-            <dd><%= link_to 'github.com/tuvistavie/', 'https://github.com/tuvistavie/', :target => '_blank' %></dd>
-            <dt>Facebook</dt>
-            <dd><%= link_to 'www.facebook.com/tuvistavie/', 'https://www.facebook.com/tuvistavie/', :target => '_blank' %></dd>
-            <dt>Twitter</dt>
-            <dd><%= link_to 'twitter.com/tuvistavie/', 'https://twitter.com/tuvistavie/', :target => '_blank' %></dd>
-            <dt>Skype</dt>
-            <dd>tuvistavie</dd>
-        </dl>
+        <%= markdown current_admin.long_profile %>
     </div>
 </article>
 

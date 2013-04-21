@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
   def update
     @admin = Admin.find(params[:id])
     if @admin.update_attributes(params[:admin])
-      redirect_to root_path
+      redirect_to about_path
     else
       render :action => "edit"
     end

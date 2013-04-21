@@ -5,7 +5,7 @@ ja:
     recent_tweets: 最近のつぶやき
     to_now: '%{time}前'
     about: プロフィール
-    full_profile: プロフィールを見る
+    show_profile: プロフィールを見る
     archive: アーカイブ
     english: 英語
     japanese: 日本語
@@ -36,6 +36,13 @@ ja:
     email: メール
     password: パスワード
     edit: プロフィール編集
+    profile: プロフィール
+    full_profile: プロフィール(長い版)
+    small_picture: 画像(小)
+    large_picture: 画像(大)
+    first_name: 名前
+    last_name: 苗字
+    nickname: ニックネーム
   time:
     formats:
       tiny: ! '%B%d日'

@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420232616) do
+ActiveRecord::Schema.define(:version => 20130421041151) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
     t.string   "locale"
     t.text     "profile"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.text     "long_profile"
   end
 
   add_index "admin_translations", ["admin_id"], :name => "index_admin_translations_on_admin_id"
@@ -37,6 +38,11 @@ ActiveRecord::Schema.define(:version => 20130420232616) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "small_picture"
+    t.string   "large_picture"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "nickname"
   end
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true

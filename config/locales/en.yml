@@ -5,7 +5,7 @@ en:
     recent_tweets: Recent Tweets
     to_now: '%{time} ago'
     about: About Me
-    full_profile: Full Biography
+    show_profile: Full Biography
     archive: Archives
     english: English
     japanese: Japanese
@@ -15,6 +15,13 @@ en:
     email: Email
     password: Password
     edit: Edit profile
+    profile: Profile
+    full_profile: Full Biography
+    small_picture: Small picture
+    large_picture: Large picture
+    first_name: First name
+    last_name: Last name
+    nickname: Nickname
   posts:
     new: New
     new_long: New Post
