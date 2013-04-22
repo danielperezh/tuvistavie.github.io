@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def upload_file(file)
     return if file[:file].empty? || file[:name].empty?
-    options = ActiveSupport::JSON.decode(file[:options])
+    options = ActiveSupport::JSON.decode(file[:options]) rescue {}
     options ||= {}
     options[:public_id] = file[:name]
     Cloudinary::Uploader.upload(file[:file], **options)

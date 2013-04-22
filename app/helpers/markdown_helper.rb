@@ -1,5 +1,10 @@
 module MarkdownHelper
   class CustomHTML < Redcarpet::Render::HTML
+    include CloudinaryHelper
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::AssetTagHelper
+    #include Sprockets::Helpers::RailsHelper
+    include Sprockets::Helpers::IsolatedHelper
     def block_code(code, language)
       if language.nil?
         Pygments.highlight(code)
@@ -8,6 +13,15 @@ module MarkdownHelper
       end
     end
 
+    def image(image_name, title, alt_text)
+      if title.nil? || title.empty?
+        options = {}
+      else
+        options = ActiveSupport::JSON.decode(title).symbolize_keys rescue {}
+      end
+      options[:alt] = alt_text
+      cl_image_tag(image_name, **options)
+    end
   end
 
   def markdown(text, options={})
