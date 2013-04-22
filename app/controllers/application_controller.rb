@@ -50,13 +50,13 @@ class ApplicationController < ActionController::Base
   def set_locale
     if params.has_key? :locale and locale_is_available(params[:locale])
       I18n.locale = params[:locale].to_sym
-    elsif session.has_key? :locale and locale_is_available(session[:locale])
-      I18n.locale = session[:locale].to_sym
+    elsif cookies.has_key? :locale and locale_is_available(cookies[:locale])
+      I18n.locale = cookies[:locale].to_sym
     else
       country = get_country_code
       I18n.locale = :ja if country == 'jp'
     end
-    session[:locale] = I18n.locale
+    cookies.permanent[:locale] = I18n.locale
   end
 
   def upload_files(files)
