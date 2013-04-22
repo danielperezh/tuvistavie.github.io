@@ -1,85 +1,28 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:index, :show, :new, :create]
+  before_filter :authenticate_admin!, :only => [:destroy]
 
-  # GET /posts/comments
-  # GET /posts/comments.json
+  # GET /posts/1/comments
   def index
     @comments = Comment.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @comments }
-    end
+    render :json => @comments
   end
 
-  # GET /posts/comments/1
-  # GET /posts/comments/1.json
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @comment }
-    end
-  end
-
-  # GET /posts/comments/new
-  # GET /posts/comments/new.json
-  def new
-    @comment = Comment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @comment }
-    end
-  end
-
-  # GET /posts/comments/1/edit
-  def edit
-    @comment = Comment.find(params[:id])
-  end
-
-  # POST /posts/comments
-  # POST /posts/comments.json
+  # POST /posts/1/comments
   def create
-    @comment = Comment.new(params[:comment])
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, :notice => 'Comment was successfully created.' }
-        format.json { render :json => @comment, :status => :created, :location => @comment }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @comment.errors, :status => :unprocessable_entity }
-      end
+    post = Post.find(params[:post_id])
+    @comment = post.comments.build(params[:comment])
+    if @comment.save
+      render :json => @comment #, :status => :created, :location => @comment
+    else
+      render :json => @comment.errors, :status => :unprocessable_entity
     end
   end
 
-  # PUT /posts/comments/1
-  # PUT /posts/comments/1.json
-  def update
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @comment, :notice => 'Comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @comment.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /posts/comments/1
-  # DELETE /posts/comments/1.json
+  # DELETE /posts/1/comments/1
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 end

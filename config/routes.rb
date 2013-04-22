@@ -9,7 +9,7 @@ Blog::Application.routes.draw do
   root :to => 'posts#index'
 
   resources :posts do
-    resources :comments
+    resources :comments, :only => [:index, :create, :destroy]
   end
 
   resources :admins, :only => [:edit, :update]
