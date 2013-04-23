@@ -18,7 +18,6 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     @post = Post.find(params[:id])
-    @comment = @post.comments.build
     @using_fallback = !@post.translated_locales.include?(I18n.locale)
   end
 
