@@ -3,8 +3,8 @@ module MarkdownHelper
     include CloudinaryHelper
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
-    #include Sprockets::Helpers::RailsHelper
     include Sprockets::Helpers::IsolatedHelper
+
     def block_code(code, language)
       if language.nil?
         Pygments.highlight(code)
