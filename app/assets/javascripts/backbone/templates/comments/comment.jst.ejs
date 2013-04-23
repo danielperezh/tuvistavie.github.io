@@ -1,7 +1,16 @@
-<td><%= name %></td>
-<td><%= gravatar_name %></td>
-<td><%= content %></td>
-
-<td><a href="#/<%= id %>">Show</td>
-<td><a href="#/<%= id %>/edit">Edit</td>
-<td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+<div class="comment">
+  <span class="image align-left">
+    <img src="http://gravatar.com/<%= gravatar_name %>" alt="gravatar">
+  </span>
+  <div class="comment-container">
+    <header>
+      <h2><%= name %></h2>
+      <div class="byline">
+        <%= created_at %>
+      </div>
+    </header>
+    <div class="content-content">
+      <%= content %>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@ class Blog.Views.Comments.CommentView extends Backbone.View
   events:
     "click .destroy" : "destroy"
 
-  tagName: "tr"
+  tagName: "div"
 
   destroy: () ->
     @model.destroy()

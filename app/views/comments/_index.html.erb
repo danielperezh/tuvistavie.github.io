@@ -1,0 +1,11 @@
+<div id="comments">
+  <h2>Comments</h2>
+  <div id="comments-container">
+
+  </div>
+</div>
+<script>
+  var collection = new Blog.Collections.CommentsCollection(<%= comments.to_json.html_safe %>);
+  new Blog.Views.Comments.IndexView({collection: collection});
+</script>
+

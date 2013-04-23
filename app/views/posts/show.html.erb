@@ -29,5 +29,10 @@
             </span>
         </footer>
     <% end %>
+
+    <hr>
+
+    <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
+
 </article>
 

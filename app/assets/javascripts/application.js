@@ -18,6 +18,7 @@
 //= require jquery.dropotron-1.1
 //= require posts.js.coffee
 //= require admins.js.coffee
+//= require_tree ./backbone
 //
 
 $('#page-header nav > ul').dropotron({
