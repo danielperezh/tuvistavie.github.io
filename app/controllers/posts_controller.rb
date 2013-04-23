@@ -38,8 +38,8 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     upload_files(params[:files])
-    params[:post][:friendly_id] = params[:post][:title] if I18n.locale == :en
     tags_hash = params[:post].delete(:tags_attributes)
+    set_friendly_id!
     @post = Post.new(params[:post])
     manage_tags(@post, tags_hash)
 
@@ -52,8 +52,9 @@ class PostsController < ApplicationController
 
   # PUT /posts/1
   def update
-    params[:post][:friendly_id] = params[:post][:title] if I18n.locale == :en
+    upload_files(params[:files])
     tags_hash = params[:post].delete(:tags_attributes)
+    set_friendly_id!
     @post = Post.find(params[:id])
     manage_tags(@post, tags_hash)
 
@@ -105,6 +106,13 @@ class PostsController < ApplicationController
       post.tags.build(:name => tag_hash[:name], :locale => tag_hash[:locale])
     else
       post.tags << tag
+    end
+  end
+
+  def set_friendly_id!
+    friendly_id = params[:post][:friendly_id]
+    if I18n.locale == :en && (friendly_id.nil? || friendly_id.empty?)
+      params[:post][:friendly_id] = params[:post][:title]
     end
   end
 

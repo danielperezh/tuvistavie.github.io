@@ -44,6 +44,7 @@ en:
     delete: Delete
     confirm_delete: Are you sure ?
     main_picture: Main picture
+    friendly_id: Friendly ID
   picture:
     add: Add picture
     remove: Remove picture

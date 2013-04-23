@@ -36,6 +36,7 @@ ja:
     delete: 削除
     confirm_delete: 本当に削除しますか。
     main_picture: メイン画像
+    friendly_id: Friendly ID
   user:
     email: メール
     password: パスワード
