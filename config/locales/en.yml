@@ -62,4 +62,4 @@ en:
     logout: Logout
   time:
     formats:
-      posted: Posted on the %Y-%m-%d at %H:%m.
+      posted: Posted on the %Y-%m-%d at %H:%M.

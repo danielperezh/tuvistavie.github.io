@@ -5,9 +5,6 @@ class Comment < ActiveRecord::Base
   belongs_to :comment
 
   def as_json(*args)
-    super.tap do |h|
-      h[:formatted_date] = I18n.l(created_at, :format => :posted)
-      h[:formatted_content] = markdown content
-    end
+    super.tap { |h| h[:formatted_content] = markdown content }
   end
 end

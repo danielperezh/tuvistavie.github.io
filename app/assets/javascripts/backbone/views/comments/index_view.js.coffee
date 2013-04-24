@@ -46,6 +46,7 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @newCommentView.on 'done', () =>
       @hideFormContainer()
       @formedShowed = false
+      @newCommentView.resetModel()
 
   refreshTitle: () =>
     @$('h2').text I18n.t('comments.number', { count: @collection.size() })
