@@ -1,36 +1,36 @@
 <article class="post">
-    <header>
-        <h2>
-            <%= @post.title %>
-            <%= render :partial => 'control', :locals => { :post => @post } %>
-        </h2>
-        <div class="byline">
-            <%= l @post.created_at, :format => :tiny %>
-        </div>
-        <% if @using_fallback %>
-        <div class="missing-fallback">
-            <%= t 'posts.locale_not_available' %>
-        </div>
-        <% end %>
-    </header>
-    <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
+    <div class="main-content">
+        <header>
+            <h2>
+                <%= @post.title %>
+                <%= render :partial => 'control', :locals => { :post => @post } %>
+            </h2>
+            <div class="byline">
+                <%= l @post.created_at, :format => :tiny %>
+            </div>
+            <% if @using_fallback %>
+            <div class="missing-fallback">
+                <%= t 'posts.locale_not_available' %>
+            </div>
+            <% end %>
+        </header>
+        <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
         <span class="image align-left">
             <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
         </span>
-    <% end %>
-    <div class="content">
-        <%= markdown @post.content %>
-    </div>
+        <% end %>
+        <div class="content">
+            <%= markdown @post.content %>
+        </div>
 
-    <% if not @post.tags.empty? %>
+        <% if not @post.tags.empty? %>
         <footer>
             <span class="tags">
                 <%= format_tags(@post.tags) %>
             </span>
         </footer>
-    <% end %>
-
-    <hr>
+        <% end %>
+    </div>
 
     <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
 

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
+//= require i18n
+//= require i18n/translations
 //= require lib/underscore
 //= require_tree ./lib
 //= require_tree ./common

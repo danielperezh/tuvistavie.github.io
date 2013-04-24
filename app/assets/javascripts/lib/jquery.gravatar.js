@@ -30,6 +30,8 @@
 
         var baseUrl = options.secure ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
 
+        emailAddress = emailAddress || '';
+
         return $('<img src="' + baseUrl +
             hex_md5(emailAddress) +
             '.jpg?' +

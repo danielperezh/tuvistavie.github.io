@@ -1,11 +1,14 @@
 <div id="comments">
-  <h2>Comments</h2>
-  <div id="comments-container">
+  <span class="write">
+    <%= link_to t('comments.write'), '#', :class => 'add-comment' %>
+  </span>
+  <h2><%= t 'comments.number', :count => @comments_count %></h2>
+  <div class="list">
 
   </div>
 </div>
 <script>
-  var collection = new Blog.Collections.CommentsCollection(<%= comments.to_json.html_safe %>);
+  var collection = new Blog.Collections.CommentsCollection(<%= comments.to_json.html_safe %>, { id: <%= @post.id %> });
   new Blog.Views.Comments.IndexView({collection: collection});
 </script>
 

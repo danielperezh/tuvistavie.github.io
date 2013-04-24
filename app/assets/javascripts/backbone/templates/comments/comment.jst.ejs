@@ -1,13 +1,13 @@
 <div class="comment">
-  <span class="image">
+  <div class="image">
     <%= $.gravatarHtml(gravatar_name) %>
-  </span>
+  </div>
   <div class="container">
     <header>
       <span class="author"><%= name %></span>
     </header>
-    <div class="content-content">
-      <%= content %>
+    <div class="content">
+      <%= formatted_content %>
     </div>
     <footer>
       <span class="date">
@@ -15,4 +15,5 @@
       </span>
     </footer>
   </div>
+  <div class="border-bottom"></div>
 </div>

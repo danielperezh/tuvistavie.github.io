@@ -36,15 +36,21 @@ en:
     category: 'Posted in %{tags}'
     edit: Edit
     edit_long: Editing Post
-    comments_number:
-      one: 1 Comment
-      other: '%{count} Comments'
     locale_not_available: Sorry but this post does not seem to be available in English.
     continue_reading: Continue reading
     delete: Delete
     confirm_delete: Are you sure ?
     main_picture: Main picture
     friendly_id: Friendly ID
+  comments:
+    write: Write a comment
+    author: Name
+    email: Gravatar email (not displayed)
+    post: Post
+    number:
+      zero: No comments
+      one: 1 Comment
+      other: '%{count} Comments'
   picture:
     add: Add picture
     remove: Remove picture
