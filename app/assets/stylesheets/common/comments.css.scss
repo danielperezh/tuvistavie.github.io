@@ -4,17 +4,32 @@
 
 
 .comment {
+  border-bottom: 1px solid #333333;
   .image {
     float: left;
     width: 80px;
     height: 80px;
+    margin-top: 10px;
   }
 
-  .comment-container {
-    margin-left: 80px;
+  .container {
+    margin-left: 90px;
   }
 
-  h2 {
-    font: 16px;
+  header {
+    margin: 0;
+    h2 {
+      font-size: 16pt;
+      margin: 0 0 0 0;
+    }
+  }
+
+  footer {
+    margin: 0;
+    padding: 0;
+
+    .date {
+      color: #aaaaaa;
+    }
   }
 }

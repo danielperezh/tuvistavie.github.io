@@ -54,3 +54,6 @@ en:
   sessions:
     login: Login
     logout: Logout
+  time:
+    formats:
+      posted: Posted on the %Y-%m-%d at %H:%m.

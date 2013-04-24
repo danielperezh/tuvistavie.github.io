@@ -27,7 +27,7 @@ ja:
     save: 保存
     edit: 編集
     edit_long: 記事の編集中
-    category: '%{tags}で投票'
+    category: '%{tags}で投稿'
     comments_number:
       one: '1コメント'
       other: '%{count}コメント'
@@ -48,9 +48,6 @@ ja:
     first_name: 名前
     last_name: 苗字
     nickname: ニックネーム
-  time:
-    formats:
-      tiny: ! '%B%d日'
   picture:
     add: 画像を追加
     remove: 画像を削除
@@ -61,3 +58,8 @@ ja:
     previous_label: "&#8592; 前"
     next_label: "次 &#8594;"
     page_gap: "&hellip;"
+  time:
+    formats:
+      tiny: ! '%B%e日'
+      posted: ! '%Y年%B%e日 %H時%M分に投稿'
+

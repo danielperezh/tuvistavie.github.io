@@ -1,16 +1,18 @@
 <div class="comment">
   <span class="image">
-    <img src="http://gravatar.com/<%= gravatar_name %>" alt="gravatar">
+    <%= $.gravatarHtml(gravatar_name) %>
   </span>
-  <div class="comment-container">
+  <div class="container">
     <header>
-      <h2><%= name %></h2>
-      <div class="byline">
-        <%= created_at %>
-      </div>
+      <span class="author"><%= name %></span>
     </header>
     <div class="content-content">
       <%= content %>
     </div>
+    <footer>
+      <span class="date">
+        <%= formatted_date %>
+      </span>
+    </footer>
   </div>
 </div>
