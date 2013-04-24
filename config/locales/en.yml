@@ -47,6 +47,7 @@ en:
     author: Name
     email: Gravatar email (not displayed)
     post: Post
+    reply: Reply
     number:
       zero: No comments
       one: 1 Comment

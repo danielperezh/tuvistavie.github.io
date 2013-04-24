@@ -1,8 +1,10 @@
 <div id="comments">
-  <span class="write">
-    <%= link_to t('comments.write'), '#', :class => 'add-comment' %>
-  </span>
-  <h2><%= t 'comments.number', :count => @comments_count %></h2>
+  <header>
+    <span class="write">
+      <%= link_to t('comments.write'), '#', :class => 'add-comment'%>
+    </span>
+    <h2><%= t 'comments.number', :count => @comments_count %></h2>
+  </header>
   <div class="list">
 
   </div>

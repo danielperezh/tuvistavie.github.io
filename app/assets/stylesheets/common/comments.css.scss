@@ -16,6 +16,10 @@
     margin-top: 20px;
   }
 
+  header {
+    margin: 0;
+  }
+
   .comment {
     .image {
       float: left;
@@ -29,7 +33,6 @@
     }
 
     header {
-      margin: 0;
       .author {
         font-size: 14pt;
       }
@@ -50,6 +53,18 @@
       .date {
         color: #aaaaaa;
       }
+
+      .reply {
+        float: right;
+        margin-right: 10%;
+        display: none;
+      }
+    }
+
+    &:hover {
+      .reply {
+        display: inline;
+      }
     }
 
     .border-bottom {
@@ -57,6 +72,12 @@
       border-bottom: 1px solid #444444;
       margin: 5px auto 5px auto;
       margin-top: 5px;
+    }
+
+    #new-comment {
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
     }
   }
 

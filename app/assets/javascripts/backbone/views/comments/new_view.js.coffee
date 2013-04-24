@@ -3,6 +3,8 @@ Blog.Views.Comments ||= {}
 class Blog.Views.Comments.NewView extends Backbone.View
   template: JST["backbone/templates/comments/new"]
 
+  answer_to_id: null
+
   events:
     'submit #new-comment': 'save'
     'change input': 'updateModel'

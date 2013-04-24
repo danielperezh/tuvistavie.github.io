@@ -39,6 +39,7 @@ ja:
     author: 名前
     email: Gravatarメール (非表示)
     post: 投稿
+    reply: 返信
     number:
       zero: 'コメントがありません。'
       one: 'コメント1件'

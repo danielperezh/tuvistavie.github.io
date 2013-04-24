@@ -17,14 +17,22 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @newCommentView = new Blog.Views.Comments.NewView({collection: @collection})
     @render()
 
-  addFormContainer: (element) ->
-    return if @formedShowed
+  addFormContainer: ($target) ->
+    return if @formedShowed and $target.attr('data-id') == @newCommentView.answer_to_id
+
+    @newCommentView.answer_to_id = $target.attr 'data-id'
+
+    if @formedShowed
+      $("##{@formContainerId}").remove()
+
+    $element = @getElement $target
+
     container = $('<div />').attr
       id: @formContainerId
     .css
       display: 'none'
 
-    @$(element).after container
+    $element.append container
     @newCommentView.setElement container
     @newCommentView.render()
 
@@ -34,15 +42,20 @@ class Blog.Views.Comments.IndexView extends Backbone.View
 
   hideFormContainer: () =>
     container = $("##{@formContainerId}")
-    console.log this
     container.hide('slide', { direction: 'up' }, 500)
     setTimeout () =>
       container.remove()
     , 600
 
+  getElement: ($target) ->
+    unless $target.attr 'data-id'
+      @$el.children 'header'
+    else
+      $target.parents('.comment')
+
   showAddComment: (e) ->
     e.preventDefault()
-    @addFormContainer('h2')
+    @addFormContainer $(e.target)
     @newCommentView.on 'done', () =>
       @hideFormContainer()
       @formedShowed = false
