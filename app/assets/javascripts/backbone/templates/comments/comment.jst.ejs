@@ -1,3 +1,6 @@
+<% if(answer_to_id) { %>
+    <div class="border-top"></div>
+  <% } %>
 <div id="comment-<%= id %>" class="comment">
   <div class="image">
     <%= $.gravatarHtml(gravatar_email) %>
@@ -20,6 +23,8 @@
       </span>
     </footer>
   </div>
-  <div class="border-bottom"></div>
-  <div class="answers"></div>
+  <% if(!answer_to_id) { %>
+    <div class="answers"></div>
+    <div class="border-bottom"></div>
+  <% } %>
 </div>

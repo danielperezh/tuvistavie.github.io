@@ -5,8 +5,18 @@ class Blog.Views.Comments.CommentView extends Backbone.View
 
   events:
     "click .destroy" : "destroy"
+    'mouseenter .container': 'showReply'
+    'mouseleave .container': 'hideReply'
 
   tagName: "div"
+
+  showReply: (e) ->
+    e.stopPropagation()
+    @$('.reply').first().css 'display', 'inline'
+
+  hideReply: (e) ->
+    e.stopPropagation()
+    @$('.reply').first().css 'display', 'none'
 
   destroy: () ->
     @model.destroy()

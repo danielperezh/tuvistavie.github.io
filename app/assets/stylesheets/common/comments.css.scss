@@ -45,6 +45,18 @@
       }
     }
 
+    .answers {
+      border-left: 1px solid #444444;
+      margin-left: 10%;
+      .border-top {
+        border-top: 1px solid #444444;
+        margin-right: 10%;
+      }
+      .comment {
+        margin-left: 10%;
+      }
+    }
+
     footer {
       margin: 0;
       padding: 0;
@@ -58,12 +70,6 @@
         float: right;
         margin-right: 10%;
         display: none;
-      }
-    }
-
-    &:hover {
-      .reply {
-        display: inline;
       }
     }
 
