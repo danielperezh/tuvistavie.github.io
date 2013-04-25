@@ -23,7 +23,7 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @newCommentView.answerToId = $target.attr 'data-id'
 
     if @formedShowed
-      $("##{@formContainerId}").remove()
+      @newCommentView.remove()
 
     $element = @getElement $target
 
