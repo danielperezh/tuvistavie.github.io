@@ -10,7 +10,11 @@
     <title><%= content_for?(:title) ? yield(:title) : "tuvistavie" %></title>
 
     <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+    <script>
+        I18n.locale = "<%= I18n.locale %>";
+    </script>
 </head>
 
 <body class="right-sidebar">
@@ -34,6 +38,5 @@
             </div>
         </div>
     </div>
-    <%= javascript_include_tag "application" %>
 </body>
 </html>

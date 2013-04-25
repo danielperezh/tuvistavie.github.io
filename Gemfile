@@ -6,31 +6,19 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
 gem 'devise'
-
 gem 'redcarpet'
 gem 'nokogiri'
 gem 'pygments.rb'
-
 gem 'globalize3'
-
 gem 'twitter'
-
 gem 'rails_config'
-
 gem 'gravatar_image_tag'
-
 gem 'geoip'
-
 gem 'nokogiri'
-
 gem 'htmlentities'
-
 gem 'nested_form'
-
 gem 'will_paginate'
-
 gem 'cloudinary'
 
 # Gems used only for assets and not required
@@ -43,13 +31,13 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-
   gem 'modernizr-rails'
-
   gem 'rails-backbone'
+  gem 'i18n-js'
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :development do
   gem 'better_errors'

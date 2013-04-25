@@ -28,15 +28,28 @@ ja:
     edit: 編集
     edit_long: 記事の編集中
     category: '%{tags}で投稿'
+<<<<<<< HEAD
     comments_number:
       one: '1コメント'
       other: '%{count}コメント'
+=======
+>>>>>>> 124339fb855d4236d4a1b6bb81a16a6f52451257
     locale_not_available: 申し訳ありませんが、この記事は日本語にまだ訳されていないようです。
     continue_reading: 続きを読む
     delete: 削除
     confirm_delete: 本当に削除しますか。
     main_picture: メイン画像
     friendly_id: Friendly ID
+  comments:
+    write: コメントを書く
+    author: 名前
+    email: Gravatarメール (非表示)
+    post: 投稿
+    reply: 返信
+    number:
+      zero: 'コメントがありません。'
+      one: 'コメント1件'
+      other: 'コメント%{count}件'
   user:
     email: メール
     password: パスワード
@@ -48,9 +61,6 @@ ja:
     first_name: 名前
     last_name: 苗字
     nickname: ニックネーム
-  time:
-    formats:
-      tiny: ! '%B%d日'
   picture:
     add: 画像を追加
     remove: 画像を削除
@@ -61,3 +71,8 @@ ja:
     previous_label: "&#8592; 前"
     next_label: "次 &#8594;"
     page_gap: "&hellip;"
+  time:
+    formats:
+      tiny: ! '%B%e日'
+      posted: ! '%Y年%B%e日 %H時%M分に投稿'
+

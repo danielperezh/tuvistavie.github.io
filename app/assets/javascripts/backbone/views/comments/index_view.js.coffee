@@ -1,20 +1,82 @@
 Blog.Views.Comments ||= {}
 
 class Blog.Views.Comments.IndexView extends Backbone.View
-  template: JST["backbone/templates/comments/index"]
+  el: '#comments'
 
-  initialize: () ->
-    @options.comments.bind('reset', @addAll)
+  formedShowed: false
+
+  formContainerId: 'comment-form'
+
+  events:
+    'click .add-comment': 'showAddComment'
+
+  initialize: (options) ->
+    @collection.on 'reset', @addAll
+    @collection.on 'add', @addOne
+    @collection.on 'all', @refreshTitle
+    @newCommentView = new Blog.Views.Comments.NewView({collection: @collection})
+    @render()
+
+  addFormContainer: ($target) ->
+    return if @formedShowed and $target.attr('data-id') == @newCommentView.answerToId
+
+    @newCommentView.answerToId = $target.attr 'data-id'
+
+    if @formedShowed
+      $("##{@formContainerId}").remove()
+
+    $element = @getElement $target
+
+    container = $('<div />').attr
+      id: @formContainerId
+    .css
+      display: 'none'
+
+    $element.append container
+    @newCommentView.setElement container
+    @newCommentView.render()
+
+    @newCommentView.slideShow()
+
+    @formedShowed = true
+
+  hideFormContainer: () =>
+    @newCommentView.slideHide()
+    setTimeout () =>
+      @newCommentView.remove()
+    , 600
+
+  getElement: ($target) ->
+    unless $target.attr 'data-id'
+      @$el.children 'header'
+    else
+      $target.parents('.comment')
+
+  showAddComment: (e) ->
+    e.preventDefault()
+    @addFormContainer $(e.target)
+    @newCommentView.on 'done', () =>
+      @hideFormContainer()
+      @formedShowed = false
+      @newCommentView.resetModel()
+
+  refreshTitle: () =>
+    @$('h2').text I18n.t('comments.number', { count: @collection.size() })
 
   addAll: () =>
-    @options.comments.each(@addOne)
+    @collection.each @addOne
 
   addOne: (comment) =>
     view = new Blog.Views.Comments.CommentView({model : comment})
-    @$("tbody").append(view.render().el)
+    renderedView = view.render().el
+    unless comment.get('answer_to_id')?
+      @$('.list').prepend renderedView
+    else
+      parent = @$("#comment-#{comment.get('answer_to_id')}")
+      parent.find('.answers').append renderedView
 
   render: =>
-    $(@el).html(@template(comments: @options.comments.toJSON() ))
+    @$('.list').empty()
     @addAll()
 
     return this

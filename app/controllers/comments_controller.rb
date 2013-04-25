@@ -3,7 +3,9 @@ class CommentsController < ApplicationController
 
   # GET /posts/1/comments
   def index
-    @comments = Comment.all
+    post = Post.find(params[:post_id])
+    @comments = post.comments
+    puts YAML::dump(@comments)
     render :json => @comments
   end
 
@@ -11,6 +13,10 @@ class CommentsController < ApplicationController
   def create
     post = Post.find(params[:post_id])
     @comment = post.comments.build(params[:comment])
+    unless @comment.answer_to_id.nil?
+      original_comment = Comment.find(@comment.answer_to_id)
+      @comment.answer_to_id = original_comment.answer_to_id unless original_comment.answer_to_id.nil?
+    end
     if @comment.save
       render :json => @comment #, :status => :created, :location => @comment
     else

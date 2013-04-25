@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def load_new_tweets
     dynamic_settings = DynamicSettings.first
-    if dynamic_settings.last_tweet_check < Settings.twitter.tweet_check_interval.minutes.ago
+    if !dynamic_settings.nil? and dynamic_settings.last_tweet_check < Settings.twitter.tweet_check_interval.minutes.ago
       Tweet.fetch_new rescue
       DynamicSettings.update_tweet_check_time(dynamic_settings)
     end
