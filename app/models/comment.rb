@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   include MarkdownHelper
-  attr_accessible :content, :gravatar_name, :name
+  attr_accessible :content, :gravatar_email, :author, :answer_to_id
 
   belongs_to :comment
 

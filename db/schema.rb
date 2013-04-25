@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130421053157) do
+ActiveRecord::Schema.define(:version => 20130425080544) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
@@ -49,12 +49,13 @@ ActiveRecord::Schema.define(:version => 20130421053157) do
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
   create_table "comments", :force => true do |t|
-    t.string   "name"
+    t.string   "author"
     t.text     "content"
-    t.string   "gravatar_name"
+    t.string   "gravatar_email"
     t.integer  "post_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "answer_to_id"
   end
 
   create_table "dynamic_settings", :force => true do |t|

@@ -3,8 +3,6 @@ Blog.Views.Comments ||= {}
 class Blog.Views.Comments.NewView extends Backbone.View
   template: JST["backbone/templates/comments/new"]
 
-  answer_to_id: null
-
   events:
     'submit #new-comment': 'save'
     'change input': 'updateModel'
@@ -12,6 +10,7 @@ class Blog.Views.Comments.NewView extends Backbone.View
 
   initialize: (options) ->
     @model = new @collection.model()
+    @answerToId = null
 
     @model.bind("change:errors", () =>
       this.render()
@@ -26,6 +25,8 @@ class Blog.Views.Comments.NewView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
+
+    @model.set 'answer_to_id', @answerToId
 
     @collection.create(@model.toJSON(),
       wait: true

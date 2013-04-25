@@ -18,9 +18,9 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @render()
 
   addFormContainer: ($target) ->
-    return if @formedShowed and $target.attr('data-id') == @newCommentView.answer_to_id
+    return if @formedShowed and $target.attr('data-id') == @newCommentView.answerToId
 
-    @newCommentView.answer_to_id = $target.attr 'data-id'
+    @newCommentView.answerToId = $target.attr 'data-id'
 
     if @formedShowed
       $("##{@formContainerId}").remove()
@@ -69,7 +69,7 @@ class Blog.Views.Comments.IndexView extends Backbone.View
 
   addOne: (comment) =>
     view = new Blog.Views.Comments.CommentView({model : comment})
-    @$('.list').prepend view.render().el
+    @$('.list').append view.render().el
 
   render: =>
     @$('.list').empty()
