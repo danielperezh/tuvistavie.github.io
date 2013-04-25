@@ -39,6 +39,12 @@ class Blog.Views.Comments.NewView extends Backbone.View
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
     )
 
+  slideShow: () ->
+    @$el.show('slide', { direction: 'up' }, 500)
+
+  slideHide: () ->
+    @$el.hide('slide', { direction: 'up' }, 500)
+
   resetModel: () ->
     @model = new @collection.model()
 

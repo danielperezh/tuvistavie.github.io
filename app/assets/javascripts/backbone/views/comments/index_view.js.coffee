@@ -36,15 +36,14 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @newCommentView.setElement container
     @newCommentView.render()
 
-    container.show('slide', { direction: 'up' }, 500)
+    @newCommentView.slideShow()
 
     @formedShowed = true
 
   hideFormContainer: () =>
-    container = $("##{@formContainerId}")
-    container.hide('slide', { direction: 'up' }, 500)
+    @newCommentView.slideHide()
     setTimeout () =>
-      container.remove()
+      @newCommentView.remove()
     , 600
 
   getElement: ($target) ->
