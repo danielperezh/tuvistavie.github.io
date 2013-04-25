@@ -25,5 +25,8 @@ class Blog.Collections.CommentsCollection extends Backbone.Collection
 
   comparator: (a, b) ->
     if a.get('answer_to_id')? == b.get('answer_to_id')?
-      return b.get('created_at') - a.get('created_at')
+      if a.get('answer_to_id')?
+        return a.get('created_at') - b.get('created_at')
+      else
+        return b.get('created_at') - a.get('created_at')
     return a.get('answer_to_id')? ? 1 : -1
