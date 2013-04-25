@@ -10,6 +10,10 @@ class Blog.Views.Comments.CommentView extends Backbone.View
 
   tagName: "div"
 
+  attributes: () ->
+    class: 'comment'
+    id: "comment-#{@model.get 'id'}"
+
   showReply: (e) ->
     e.stopPropagation()
     @$('.reply').first().css 'display', 'inline'

@@ -1,30 +1,25 @@
-<% if(answer_to_id) { %>
-    <div class="border-top"></div>
-  <% } %>
-<div id="comment-<%= id %>" class="comment">
-  <div class="image">
-    <%= $.gravatarHtml(gravatar_email) %>
-  </div>
-  <div class="container">
-    <header>
-      <span class="author"><%= author %></span>
-    </header>
-    <div class="content">
-      <%= formatted_content %>
-    </div>
-    <footer>
-      <span class="reply">
-        <a href="#" class="add-comment" data-id="<%= id %>">
-          <%= I18n.t('comments.reply') %>
-        </a>
-      </span>
-      <span class="date">
-        <%= I18n.l('time.formats.posted', created_at) %>
-      </span>
-    </footer>
-  </div>
-  <% if(!answer_to_id) { %>
-    <div class="answers"></div>
-    <div class="border-bottom"></div>
-  <% } %>
+<div class="image">
+  <%= $.gravatarHtml(gravatar_email) %>
 </div>
+<div class="container">
+  <header>
+    <span class="author"><%= author %></span>
+  </header>
+  <div class="content">
+    <%= formatted_content %>
+  </div>
+  <footer>
+    <span class="reply">
+      <a href="#" class="add-comment" data-id="<%= id %>">
+        <%= I18n.t('comments.reply') %>
+      </a>
+    </span>
+    <span class="date">
+      <%= I18n.l('time.formats.posted', created_at) %>
+    </span>
+  </footer>
+</div>
+<% if(!answer_to_id) { %>
+  <div class="answers"></div>
+<% } %>
+<div class="border-bottom"></div>

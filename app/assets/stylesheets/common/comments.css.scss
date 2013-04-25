@@ -48,12 +48,16 @@
     .answers {
       border-left: 1px solid #444444;
       margin-left: 10%;
-      .border-top {
-        border-top: 1px solid #444444;
-        margin-right: 10%;
-      }
       .comment {
-        margin-left: 10%;
+        margin-left: 5%;
+        .border-bottom {
+          margin-right: 20%;
+        }
+        &:last-child {
+          .border-bottom {
+            border: none;
+          }
+        }
       }
     }
 
