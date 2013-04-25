@@ -11,8 +11,8 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     'click .add-comment': 'showAddComment'
 
   initialize: (options) ->
-    @collection.bind('reset', @addAll)
-    @collection.bind('add', @addOne)
+    @collection.on 'reset', @addAll
+    @collection.on 'add', @addOne
     @collection.on 'all', @refreshTitle
     @newCommentView = new Blog.Views.Comments.NewView({collection: @collection})
     @render()
@@ -69,7 +69,12 @@ class Blog.Views.Comments.IndexView extends Backbone.View
 
   addOne: (comment) =>
     view = new Blog.Views.Comments.CommentView({model : comment})
-    @$('.list').append view.render().el
+    renderedView = view.render().el
+    unless comment.get('answer_to_id')?
+      @$('.list').prepend renderedView
+    else
+      parent = @$("#comment-#{comment.get('answer_to_id')}")
+      parent.find('.answers').append renderedView
 
   render: =>
     @$('.list').empty()

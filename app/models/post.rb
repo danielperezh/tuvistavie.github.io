@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   translates :content, :title
   attr_accessible :content, :title, :tags_attributes, :friendly_id, :main_picture
 
-  has_many :comments
+  has_many :comments, :dependent => :delete_all
   has_and_belongs_to_many :tags
 
   accepts_nested_attributes_for :tags, :allow_destroy => true
