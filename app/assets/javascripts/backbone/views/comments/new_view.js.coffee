@@ -3,6 +3,8 @@ Blog.Views.Comments ||= {}
 class Blog.Views.Comments.NewView extends Backbone.View
   template: JST["backbone/templates/comments/new"]
 
+  submiting: false
+
   events:
     'submit #new-comment': 'save'
     'change input': 'updateModel'
@@ -23,6 +25,10 @@ class Blog.Views.Comments.NewView extends Backbone.View
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
+
+    return if @submiting
+
+    @submiting = true
 
     @model.unset("errors")
 
@@ -49,7 +55,8 @@ class Blog.Views.Comments.NewView extends Backbone.View
     @model = new @collection.model()
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
+    @$el.html(@template(@model.toJSON() ))
+    @$el.find('input').placeholder()
     @delegateEvents()
 
     return this

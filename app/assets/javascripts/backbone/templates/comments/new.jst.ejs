@@ -1,20 +1,18 @@
 <form id="new-comment" name="comment">
-  <div class="field">
-    <label for="new-comment-author"><%= I18n.t('comments.author') %></label>
-    <input type="text" name="author" id="new-comment-name" value="<%= author %>" >
-  </div>
-
-  <div class="field">
-    <label for="new-comment-gravatar_email"><%= I18n.t('comments.email') %></label>
-    <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= gravatar_email %>" >
-  </div>
-
-  <div class="field">
-    <textarea name="content" id="new-comment-content" cols="60" rows="5"><%= content %></textarea>
-  </div>
-
   <div class="actions">
     <input type="submit" value="<%= I18n.t('comments.post') %>" class="button-style1" />
   </div>
+  <div class="field">
+    <input type="text" name="author" id="new-comment-name" value="<%= author %>" placeholder="<%= I18n.t('comments.author') %>">
+  </div>
+
+  <div class="field">
+    <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= gravatar_email %>" placeholder="<%= I18n.t('comments.email') %>">
+  </div>
+
+  <div class="field">
+    <textarea name="content" id="new-comment-content" rows="7"><%= content %></textarea>
+  </div>
+
 
 </form>
