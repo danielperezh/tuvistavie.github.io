@@ -11,6 +11,8 @@ ja:
     japanese: 日本語
     back: 戻る
     account: アカウント
+    not_found: 申し訳ありませんが、ページが見つかりませんでした。
+    error: 申し訳ありませんが、エラーが発生しました。
   sessions:
     sign_in: サインイン
     login: ログイン

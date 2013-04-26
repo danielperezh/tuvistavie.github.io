@@ -11,6 +11,8 @@ en:
     japanese: Japanese
     back: Back
     account: Account
+    not_found: The page you asked for has not been found.
+    error: An error has occured. Sorry for the inconvenience.
   user:
     sign_in: Sign in
     email: Email
