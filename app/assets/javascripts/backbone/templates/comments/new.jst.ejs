@@ -24,7 +24,7 @@
         <label for="new-comment-author"><%= I18n.t('comments.comment') %></label>
       </th>
       <td>
-        <textarea name="content" id="new-comment-content" cols="60" rows="5"><%= content %></textarea>
+        <textarea name="content" id="new-comment-content" cols="60" rows="5" placeholder="<%= I18n.t('comments.markdown_info') %>"><%= content %></textarea>
         <% if(errors.content) { %>
           <span class="error"><%= errors.content %></span>
         <% } %>

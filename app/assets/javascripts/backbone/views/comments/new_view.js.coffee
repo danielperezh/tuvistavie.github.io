@@ -67,7 +67,7 @@ class Blog.Views.Comments.NewView extends Backbone.View
   render: () ->
     model = _.extend { errors: @model.validationError ? {}}, @model.toJSON()
     @$el.html @template(model)
-    @$el.find('input').placeholder()
+    @$el.find('textarea').placeholder()
     @delegateEvents()
 
     return this
