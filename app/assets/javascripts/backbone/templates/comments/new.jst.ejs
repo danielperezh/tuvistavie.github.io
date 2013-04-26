@@ -1,22 +1,32 @@
 <form id="new-comment" name="comment">
-  <span class="info">
-    <%= I18n.t('comments.markdown_info') %>
-  </span>
-  <% if(errorMessage) { %>
-    <div class="error"><%= errorMessage %></div>
-  <% } %>
+  <table>
+    <tr>
+      <th>
+        <label for="new-comment-author"><%= I18n.t('comments.author') %></label>
+      </th>
+      <td>
+        <input type="text" name="author" id="new-comment-name" value="<%= author %>" >
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <label for="new-comment-gravatar_email"><%= I18n.t('comments.email') %></label>
+      </th>
+      <td>
+        <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= gravatar_email %>" >
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <label for="new-comment-author"><%= I18n.t('comments.comment') %></label>
+      </th>
+      <td>
+        <textarea name="content" id="new-comment-content" cols="60" rows="5"><%= content %></textarea>
+      </td>
+    </tr>
+  </table>
+
   <div class="actions">
-    <input type="submit" value="<%= I18n.t('comments.post') %>" class="button-style1" />
-  </div>
-  <div class="field">
-    <input type="text" name="author" id="new-comment-name" value="<%= author %>" placeholder="<%= I18n.t('comments.author') %>">
-  </div>
-
-  <div class="field">
-    <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= gravatar_email %>" placeholder="<%= I18n.t('comments.email') %>">
-  </div>
-
-  <div class="field">
-    <textarea name="content" id="new-comment-content" rows="7"><%= content %></textarea>
+    <input type="submit" value="<%= I18n.t('comments.post') %>" class="post_button" />
   </div>
 </form>

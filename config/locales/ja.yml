@@ -35,6 +35,7 @@ ja:
     main_picture: メイン画像
     friendly_id: Friendly ID
   comments:
+    comment: コメント
     write: コメントを書く
     author: 名前
     email: Gravatarメール (非表示)

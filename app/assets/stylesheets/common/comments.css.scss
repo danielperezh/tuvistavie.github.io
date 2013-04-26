@@ -1,112 +1,150 @@
-// Place all the styles related to the comments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 #comments {
+  *{margin:0;padding:0;}
+  a{color:#0371B4;}
 
-  h2 {
-    font-size: 16pt;
+  h2{
+    text-align:right;
+  }
+  
+  .container{
+    margin:20px 0;
   }
 
-  .write {
-    float: right;
-  }
-
-  .list {
-    margin-top: 20px;
-  }
-
-  header {
-    margin: 0;
-  }
-
-  .comment {
-    .image {
-      float: left;
-      width: 80px;
-      height: 80px;
-      margin-top: 10px;
+  .comment{
+    .image{
+      margin:10px 10px 0 10px;
     }
-
-    .container {
-      margin-left: 90px;
+    .author{
+      line-height:12px;
+      color:#145F99;
     }
+    .content{
+      font-size:14px;
+    }
+  }
 
-    header {
-      .author {
-        font-size: 14pt;
+  .list > .comment > .container{
+    header{
+      float:left;
+      width:150px;
+      .author,.posted_at{
+        margin-left:10px;
       }
     }
-
     .content {
-      font-size: 10pt;
-      p {
-        margin: 0;
+      margin-left:150px;
+      position: relative;
+      background: #ffffff;
+      border: 1px solid #999;
+      padding:10px 10px 40px 10px;
+      &:after, &:before {
+        right: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 45px;
+      }
+      &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-right-color: #ffffff;
+        border-width: 20px;
+        margin-top: -20px;
+      }
+      &:before {
+        border-color: rgba(133, 155, 168, 0);
+        border-right-color: #999;
+        border-width: 21px;
+        margin-top: -21px;
       }
     }
+    footer{
+      position:relative;
+      bottom:36px;
+      right:30px;
+      .reply {
+        float:right;
+      }
+    }
+  }
 
-    .answers {
-      border-left: 1px solid #444444;
-      margin-left: 10%;
-      .comment {
-        margin-left: 5%;
-        .border-bottom {
-          margin-right: 20%;
-        }
-        &:last-child {
-          .border-bottom {
-            border: none;
+  .answers{
+    padding-left:150px;
+    .container{
+      position:relative;
+      border:1px solid #999;
+      margin:5px 0;
+      background-color:#f7f8fc;
+      header{
+        float:right;
+        text-align:right;
+        width:100%;
+        position:absolute;
+        bottom:5px;
+        .image {
+          float:right;
+          width:auto;
+          img{
+            width:40px;
           }
         }
+        .author{
+          margin-top:15px;
+        }
       }
-    }
-
-    footer {
-      margin: 0;
-      padding: 0;
-      border-bottom: none;
-
-      .date {
-        color: #aaaaaa;
+      footer{
+        float:none;
+        position:absolute;
+        left:30px;
+        bottom:18px;
       }
-
-      .reply {
-        float: right;
-        margin-right: 10%;
-        display: none;
+      .content{
+        padding:15px 20px 65px;
       }
-    }
-
-    .border-bottom {
-      width: 90%;
-      border-bottom: 1px solid #444444;
-      margin: 5px auto 5px auto;
-      margin-top: 5px;
-    }
-
-    #new-comment {
-      width: 70%;
-      margin-left: 10%;
-      margin-right: 20%;
     }
   }
 
-  #new-comment {
-    background-color: #dddddd;
-    padding: 5px 5% 5px 5%;
+  .answers + #comment-form{
+    padding-left:150px;
+  }
 
-    input {
-      margin: auto;
-      &[type=text] {
-        width: 40%;
+  #comment-form{
+    padding-bottom:30px;
+    table{
+      th, td{
+        display:block;
+        text-align:left;
       }
-      &[type=submit] {
-        float: right;
+      th{
+        margin-top:12px;
+      }
+      input{
+        width:250px;
       }
     }
-    textarea {
-      width: 100%;
-      resize: vertical;
+    .post_button{
+      box-shadow:inset 0px 1px 0px 0px #cae3fc;
+      background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee));
+      background:-moz-linear-gradient(center top, #79bbff 5%, #4197ee 100%);
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
+      background-color:#79bbff;
+      border-radius:6px;
+      border:1px solid #469df5;
+      color:#ffffff;
+      padding:6px 24px;
+      text-shadow:1px 1px 0px #287ace;
+      &:hover {
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff));
+        background:-moz-linear-gradient(center top, #4197ee 5%, #79bbff 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
+        background-color:#4197ee;
+      }
+      &:active {
+        position:relative;
+        top:1px;
+      }
     }
 
     .error {
