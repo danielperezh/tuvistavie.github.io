@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
     options = ActiveSupport::JSON.decode(file[:options]).symbolize_keys rescue {}
     options ||= {}
     options[:public_id] = file[:name]
-    #Cloudinary::Uploader.upload(file[:file], **options)
+    Cloudinary::Uploader.upload(file[:file], **options)
   end
 
 end
