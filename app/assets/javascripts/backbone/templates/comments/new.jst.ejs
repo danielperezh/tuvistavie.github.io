@@ -1,4 +1,10 @@
 <form id="new-comment" name="comment">
+  <span class="info">
+    <%= I18n.t('comments.markdown_info') %>
+  </span>
+  <% if(errorMessage) { %>
+    <div class="error"><%= errorMessage %></div>
+  <% } %>
   <div class="actions">
     <input type="submit" value="<%= I18n.t('comments.post') %>" class="button-style1" />
   </div>
@@ -13,6 +19,4 @@
   <div class="field">
     <textarea name="content" id="new-comment-content" rows="7"><%= content %></textarea>
   </div>
-
-
 </form>

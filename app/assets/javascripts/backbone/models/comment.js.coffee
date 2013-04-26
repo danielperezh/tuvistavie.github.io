@@ -1,3 +1,6 @@
+if not String::trim?
+  String::trim = -> this.replace /^\s+|\s+$/g, ''
+
 class Blog.Models.Comment extends Backbone.Model
   paramRoot: 'comment'
 
@@ -15,6 +18,12 @@ class Blog.Models.Comment extends Backbone.Model
   parse: (response, options) ->
     response.created_at = new Date(Date.parse(response.created_at))
     response
+
+  validate: (attrs, options) ->
+    if not attrs.author? or attrs.author.trim().length == 0
+      return I18n.t 'comments.errors.author'
+    if not attrs.content? or attrs.content.trim().length == 0
+      return I18n.t 'comments.errors.content'
 
 class Blog.Collections.CommentsCollection extends Backbone.Collection
   model: Blog.Models.Comment

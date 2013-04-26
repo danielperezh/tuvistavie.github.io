@@ -44,7 +44,7 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @newCommentView.slideHide()
     setTimeout () =>
       @newCommentView.remove()
-      @newCommentView.submiting = false
+      @newCommentView.submitting = false
     , 600
 
   getElement: ($target) ->

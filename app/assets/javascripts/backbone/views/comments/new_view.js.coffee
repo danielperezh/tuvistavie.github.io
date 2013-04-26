@@ -3,7 +3,7 @@ Blog.Views.Comments ||= {}
 class Blog.Views.Comments.NewView extends Backbone.View
   template: JST["backbone/templates/comments/new"]
 
-  submiting: false
+  submitting: false
 
   events:
     'submit #new-comment': 'save'
@@ -14,9 +14,9 @@ class Blog.Views.Comments.NewView extends Backbone.View
     @model = new @collection.model()
     @answerToId = null
 
-    @model.bind("change:errors", () =>
-      this.render()
-    )
+    @model.on 'invalid', () =>
+      @submitting = false
+      @render()
 
   updateModel: (e) ->
     $target = $(e.target)
@@ -26,37 +26,49 @@ class Blog.Views.Comments.NewView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
-    return if @submiting
+    return if @submitting
 
-    @submiting = true
-
-    @model.unset("errors")
+    @submitting = true
 
     @model.set 'answer_to_id', @answerToId
 
+    unless @model.isValid()
+      @submitting = false
+      return
+
     @collection.create(@model.toJSON(),
       wait: true
-
       success: (comment) =>
-        @model = comment
         @trigger 'done'
-
-      error: (comment, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
+      error: (comment, xhr) =>
+        @submitting = false
     )
 
   slideShow: () ->
-    @$el.show('slide', { direction: 'up' }, 500)
+    $parentComment = @$el.parents('.comment')
+    $commentAnswers = $parentComment.find('.answers .comment')
+    if $commentAnswers.length > 1
+      $('html, body').animate({scrollTop: $commentAnswers.last().offset().top },
+        duration: 200
+        complete: () => @$el.show('slide', { direction: 'up' }, 500)
+      )
+    else
+      @$el.show('slide', { direction: 'up' }, 500)
 
   slideHide: () ->
     @$el.hide('slide', { direction: 'up' }, 500)
 
   resetModel: () ->
     @model = new @collection.model()
+    @model.on 'invalid', () =>
+      @submitting = false
+      @render()
 
-  render: ->
-    @$el.html(@template(@model.toJSON() ))
+  render: () ->
+    model = _.extend { errorMessage: @model.validationError}, @model.toJSON()
+    @$el.html @template(model)
     @$el.find('input').placeholder()
     @delegateEvents()
 
     return this
+

@@ -40,6 +40,10 @@ ja:
     email: Gravatarメール (非表示)
     post: 投稿
     reply: 返信
+    markdown_info: コメントでMarkdownをご利用いただけます。Github Flavored Markdown風のフェンスコードブロックも利用可能です。
+    errors:
+      author: 名前を入力してください。
+      content: 内容を記入してください。
     number:
       zero: 'コメントがありません。'
       one: 'コメント1件'
