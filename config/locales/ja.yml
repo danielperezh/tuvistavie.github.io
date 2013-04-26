@@ -73,5 +73,5 @@ ja:
   time:
     formats:
       tiny: ! '%B%e日'
-      posted: ! '%Y年%B%e日 %H時%M分に投稿'
+      posted: ! '%Y-%m-%d %H:%M'
 

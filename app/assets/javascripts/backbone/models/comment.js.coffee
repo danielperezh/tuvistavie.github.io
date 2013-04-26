@@ -20,10 +20,12 @@ class Blog.Models.Comment extends Backbone.Model
     response
 
   validate: (attrs, options) ->
+    errors = {}
     if not attrs.author? or attrs.author.trim().length == 0
-      return I18n.t 'comments.errors.author'
+      errors.author = I18n.t 'comments.errors.author'
     if not attrs.content? or attrs.content.trim().length == 0
-      return I18n.t 'comments.errors.content'
+      errors.content = I18n.t 'comments.errors.content'
+    return errors unless _.isEmpty(errors)
 
 class Blog.Collections.CommentsCollection extends Backbone.Collection
   model: Blog.Models.Comment
