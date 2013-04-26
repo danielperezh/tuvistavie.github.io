@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425080544) do
+ActiveRecord::Schema.define(:version => 20130426191531) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130425080544) do
     t.text     "oauth_token_secret"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+    t.string   "dropbox_session"
   end
 
   create_table "post_translations", :force => true do |t|

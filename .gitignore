@@ -14,7 +14,7 @@
 /log/*.log
 /tmp
 
-/db/seed/twitter_info.rb
+/db/seed/api_info.rb
 
 .sass-cache/
 
