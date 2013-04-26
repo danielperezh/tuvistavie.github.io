@@ -46,7 +46,6 @@ ja:
       author: 名前を入力してください。
       content: 内容を記入してください。
     number:
-      zero: 'コメントがありません。'
       one: 'コメント1件'
       other: 'コメント%{count}件'
   user:
