@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
   before_filter :load_recent_posts
   before_filter :load_new_tweets
 
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, :with => :render_500
+    rescue_from ActionController::RoutingError, :with => :render_404
+    rescue_from ActionController::UnknownController, :with => :render_404
+    rescue_from ::AbstractController::ActionNotFound, :with => :render_404
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  end
+
   def set_url
     base_url = Rails.application.routes.recognize_path request.url rescue root_path
     @url_info = base_url.merge(params) if not base_url.nil?
@@ -72,24 +80,15 @@ class ApplicationController < ActionController::Base
     Cloudinary::Uploader.upload(file[:file], **options)
   end
 
-
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, :with => :render_500
-    rescue_from ActionController::RoutingError, :with => :render_404
-    rescue_from ActionController::UnknownController, :with => :render_404
-    rescue_from ActionController::UnknownAction, :with => :render_404
-    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-  end
-
   private
-  def render_404(exception)
+  def render_404
     respond_to do |format|
       format.html { render :template => 'errors/not_found', :status => 404 }
       format.all { render :nothing => true, :status => 404 }
     end
   end
 
-  def render_500(exception)
+  def render_500
     respond_to do |format|
       format.html { render :template => 'errors/exception', :status => 500 }
       format.all { render :nothing => true, :status => 500 }

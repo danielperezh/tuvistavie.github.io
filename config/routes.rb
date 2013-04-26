@@ -16,4 +16,7 @@ Blog::Application.routes.draw do
 
   get 'about', :to => 'static#about'
 
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', :to => 'static#not_found'
+  end
 end

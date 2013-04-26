@@ -20,7 +20,7 @@ module MarkdownHelper
         options = ActiveSupport::JSON.decode(title).symbolize_keys rescue {}
       end
       options[:alt] = alt_text
-      #cl_image_tag(image_name, **options)
+      cl_image_tag(image_name, **options)
     end
   end
 
