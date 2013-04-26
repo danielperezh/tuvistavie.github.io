@@ -1,97 +1,40 @@
-// Place all the styles related to the comments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 #comments {
-
-  h2 {
-    font-size: 16pt;
-  }
-
-  .write {
-    float: right;
-  }
-
-  .list {
-    margin-top: 20px;
-  }
-
-  header {
-    margin: 0;
-  }
-
-  .comment {
-    .image {
-      float: left;
-      width: 80px;
-      height: 80px;
-      margin-top: 10px;
+  *{margin:0;padding:0;}
+  a{color:#0371B4;}
+  .comment{
+    .container{
+      overflow:hidden;
     }
-
-    .container {
-      margin-left: 90px;
-    }
-
-    header {
-      .author {
-        font-size: 14pt;
+    .image{
+      float:left;
+      width:auto;
+      margin:10px 20px 0 10px;
+      img{
+        width:60px;
       }
     }
-
-    .content {
-      font-size: 10pt;
-      p {
-        margin: 0;
-      }
+    .author{
+      font-size:22px;
+      color:#145F99;
+      padding-top:5px;
     }
-
-    .answers {
-      border-left: 1px solid #444444;
-      margin-left: 10%;
-      .comment {
-        margin-left: 5%;
-        .border-bottom {
-          margin-right: 20%;
-        }
-        &:last-child {
-          .border-bottom {
-            border: none;
-          }
-        }
-      }
+    .posted_at{
+      line-height:23px;
+      margin:0 0 5px 0;
     }
-
-    footer {
-      margin: 0;
-      padding: 0;
-      border-bottom: none;
-
-      .date {
-        color: #aaaaaa;
-      }
-
-      .reply {
-        float: right;
-        margin-right: 10%;
-        display: none;
-      }
-    }
-
-    .border-bottom {
-      width: 90%;
-      border-bottom: 1px solid #444444;
-      margin: 5px auto 5px auto;
-      margin-top: 5px;
-    }
-
-    #new-comment {
-      width: 80%;
-      margin-left: 10%;
-      margin-right: 10%;
+    .content{
+      font-size:15px;
     }
   }
 
-  #new-comment {
-    border: 1px solid black;
+  .answers{
+    padding-left:10%;
+  }
+
+  footer{
+    height:40px;
+    .reply {
+      float:right;
+    }
   }
 }
