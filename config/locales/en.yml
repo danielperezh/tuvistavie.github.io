@@ -43,6 +43,7 @@ en:
     main_picture: Main picture
     friendly_id: Friendly ID
   comments:
+    comment: Comment
     write: Write a comment
     author: Name
     email: Gravatar email (not displayed)

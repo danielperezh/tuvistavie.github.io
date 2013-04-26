@@ -1,9 +1,12 @@
+<div class="container">
+  <header>
 <div class="image">
   <%= $.gravatarHtml(gravatar_email) %>
 </div>
-<div class="container">
-  <header>
-    <span class="author"><%= author %></span>
+    <div class="author"><%= author %></div>
+    <div class="posted_at">
+      <%= I18n.l('time.formats.posted', created_at) %>
+    </div>
   </header>
   <div class="content">
     <%= formatted_content %>
@@ -13,9 +16,6 @@
       <a href="#" class="add-comment" data-id="<%= id %>">
         <%= I18n.t('comments.reply') %>
       </a>
-    </span>
-    <span class="date">
-      <%= I18n.l('time.formats.posted', created_at) %>
     </span>
   </footer>
 </div>

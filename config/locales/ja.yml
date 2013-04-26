@@ -28,12 +28,6 @@ ja:
     edit: 編集
     edit_long: 記事の編集中
     category: '%{tags}で投稿'
-<<<<<<< HEAD
-    comments_number:
-      one: '1コメント'
-      other: '%{count}コメント'
-=======
->>>>>>> 124339fb855d4236d4a1b6bb81a16a6f52451257
     locale_not_available: 申し訳ありませんが、この記事は日本語にまだ訳されていないようです。
     continue_reading: 続きを読む
     delete: 削除
@@ -41,6 +35,7 @@ ja:
     main_picture: メイン画像
     friendly_id: Friendly ID
   comments:
+    comment: コメント
     write: コメントを書く
     author: 名前
     email: Gravatarメール (非表示)
