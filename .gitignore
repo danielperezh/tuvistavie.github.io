@@ -19,5 +19,6 @@
 .sass-cache/
 
 db/schema.rb
+db/data.yml
 config/database.yml
 cloudinary.yml
