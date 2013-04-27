@@ -1,8 +1,8 @@
 <div class="container">
   <header>
-<div class="image">
-  <%= $.gravatarHtml(gravatar_email) %>
-</div>
+    <div class="image">
+      <%= $.gravatarHtml(gravatar_email) %>
+    </div>
     <div class="author"><%= author %></div>
     <div class="posted_at">
       <%= I18n.l('time.formats.posted', created_at) %>
@@ -22,4 +22,3 @@
 <% if(!answer_to_id) { %>
   <div class="answers"></div>
 <% } %>
-<div class="border-bottom"></div>
