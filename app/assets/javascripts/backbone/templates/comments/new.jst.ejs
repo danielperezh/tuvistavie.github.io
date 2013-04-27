@@ -5,7 +5,7 @@
         <label for="new-comment-author"><%= I18n.t('comments.author') %></label>
       </th>
       <td>
-        <input type="text" name="author" id="new-comment-name" value="<%= author %>" >
+        <input type="text" name="author" id="new-comment-name" value="<%= _.isNull(adminInfo) ? author : adminInfo.first_name %>" >
         <% if(errors.author) { %>
           <span class="error"><%= errors.author %></span>
         <% } %>
@@ -16,7 +16,7 @@
         <label for="new-comment-gravatar_email"><%= I18n.t('comments.email') %></label>
       </th>
       <td>
-        <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= gravatar_email %>" >
+        <input type="text" name="gravatar_email" id="new-comment-gravatar_email" value="<%= _.isNull(adminInfo) ? gravatar_email : adminInfo.email %>" >
       </td>
     </tr>
     <tr>
