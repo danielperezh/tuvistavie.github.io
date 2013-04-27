@@ -49,6 +49,10 @@ en:
     email: Gravatar email (not displayed)
     post: Post
     reply: Reply
+    markdown_info: You can use markdown in your comments. Github Flavored Markdown style fence code blocks are available.
+    errors:
+      author: Please fill in your name.
+      content: Please fill in the content.
     number:
       zero: No comments
       one: 1 Comment
@@ -64,4 +68,4 @@ en:
     logout: Logout
   time:
     formats:
-      posted: Posted on the %Y-%m-%d at %H:%M.
+      posted: ! '%Y-%m-%d %H:%M'

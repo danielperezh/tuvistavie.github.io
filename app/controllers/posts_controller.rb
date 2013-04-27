@@ -39,7 +39,6 @@ class PostsController < ApplicationController
   def create
     upload_files(params[:files])
     tags_hash = params[:post].delete(:tags_attributes)
-    set_friendly_id!
     @post = Post.new(params[:post])
     manage_tags(@post, tags_hash)
 
@@ -54,7 +53,6 @@ class PostsController < ApplicationController
   def update
     upload_files(params[:files])
     tags_hash = params[:post].delete(:tags_attributes)
-    set_friendly_id!
     @post = Post.find(params[:id])
     manage_tags(@post, tags_hash)
 
@@ -108,12 +106,4 @@ class PostsController < ApplicationController
       post.tags << tag
     end
   end
-
-  def set_friendly_id!
-    friendly_id = params[:post][:friendly_id]
-    if I18n.locale == :en && (friendly_id.nil? || friendly_id.empty?)
-      params[:post][:friendly_id] = params[:post][:title]
-    end
-  end
-
 end

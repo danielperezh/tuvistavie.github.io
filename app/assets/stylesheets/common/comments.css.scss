@@ -5,7 +5,7 @@
   h2{
     text-align:right;
   }
-  
+
   .container{
     margin:20px 0;
   }
@@ -20,6 +20,9 @@
     }
     .content{
       font-size:14px;
+    }
+    .reply {
+      display: none;
     }
   }
 
@@ -145,6 +148,10 @@
         position:relative;
         top:1px;
       }
+    }
+
+    .error {
+      color: #dd0000;
     }
   }
 }

@@ -13,10 +13,7 @@ class CommentsController < ApplicationController
   def create
     post = Post.find(params[:post_id])
     @comment = post.comments.build(params[:comment])
-    unless @comment.answer_to_id.nil?
-      original_comment = Comment.find(@comment.answer_to_id)
-      @comment.answer_to_id = original_comment.answer_to_id unless original_comment.answer_to_id.nil?
-    end
+
     if @comment.save
       render :json => @comment #, :status => :created, :location => @comment
     else
