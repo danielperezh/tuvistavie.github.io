@@ -26,6 +26,8 @@ class Blog.Views.Comments.NewView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
+    @$('input, textarea').trigger 'change'
+
     return if @submitting
 
     @submitting = true
