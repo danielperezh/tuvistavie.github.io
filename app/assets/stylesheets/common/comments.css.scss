@@ -27,6 +27,7 @@
   }
 
   .list > .comment > .container{
+    min-height:150px;
     header{
       float:left;
       width:150px;
@@ -35,6 +36,7 @@
       }
     }
     .content {
+      min-height:80px;
       margin-left:150px;
       position: relative;
       background: #ffffff;
