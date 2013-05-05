@@ -6,7 +6,7 @@
         <% @tweets.each do |tweet| %>
         <li>
             <p>
-                <%= raw tweet.content %>
+                <%= auto_link tweet.content, :html => { :target => '_blank' } %>
             </p>
             <div class="date">
                 <%= t 'common.to_now', :time => time_ago_in_words(tweet.posted) %>
