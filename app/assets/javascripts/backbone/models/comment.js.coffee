@@ -1,6 +1,3 @@
-if not String::trim?
-  String::trim = -> this.replace /^\s+|\s+$/g, ''
-
 class Blog.Models.Comment extends Backbone.Model
   paramRoot: 'comment'
 
