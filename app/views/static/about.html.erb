@@ -13,7 +13,7 @@
         </div>
     </header>
     <span class="image align-left">
-        <%= cl_image_tag(@admin_info.large_picture, :width => 280, :height => 274) %>
+        <%= cl_image_tag(@admin_info.large_picture, :width => 280, :height => 274, :crop => :fill) %>
     </span>
     <div class="content">
         <%= markdown @admin_info.long_profile %>
