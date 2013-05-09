@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
 
   def set_friendly_id
     if I18n.locale == :en && friendly_id.blank?
-      set_attribute :friendly_id, title
+      update_attribute :friendly_id, title
     end
   end
 end
