@@ -10,6 +10,7 @@
   </div>
 </div>
 <script>
+  var adminSignedIn = <%= admin_signed_in? %>;
   var adminInfo = <%= admin_signed_in? ? @admin_info.to_json.html_safe : "null" %>;
   var collection = new Blog.Collections.CommentsCollection(<%= comments.to_json.html_safe %>, { id: <%= @post.id %> });
 

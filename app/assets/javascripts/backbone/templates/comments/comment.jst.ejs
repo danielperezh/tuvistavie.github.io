@@ -13,6 +13,11 @@
   </div>
   <footer>
     <span class="reply">
+      <% if(adminSignedIn) { %>
+        <a href="#" class="destroy">
+          <%= I18n.t('comments.delete') %>
+        </a>
+      <% } %>
       <a href="#" class="add-comment" data-id="<%= id %>">
         <%= I18n.t('comments.reply') %>
       </a>

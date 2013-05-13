@@ -51,6 +51,7 @@ en:
     email: Gravatar email (not displayed)
     post: Post
     reply: Reply
+    delete: Delete
     markdown_info: You can use markdown in your comments. Github Flavored Markdown style fence code blocks are available.
     errors:
       author: Please fill in your name.
