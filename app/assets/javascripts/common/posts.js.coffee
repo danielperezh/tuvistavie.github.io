@@ -25,3 +25,7 @@ $ () ->
     e.preventDefault()
     $(e.target).parents('.file-uploader').remove()
 
+  $(document).on 'confirm:complete', (e, answer) ->
+    if answer
+      $(e.target).parents('.comment').first().remove()
+

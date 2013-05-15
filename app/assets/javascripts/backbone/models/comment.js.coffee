@@ -26,10 +26,9 @@ class Blog.Models.Comment extends Backbone.Model
 
 class Blog.Collections.CommentsCollection extends Backbone.Collection
   model: Blog.Models.Comment
-  url: '/posts/:id/comments'
 
   initialize: (models, options) ->
-    @url = @url.replace(':id', options.id)
+    @url = Routes.post_comments_path(postId)
 
   comparator: (a, b) ->
     if a.get('answer_to_id')? == b.get('answer_to_id')?

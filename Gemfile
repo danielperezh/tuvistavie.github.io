@@ -39,6 +39,7 @@ group :assets do
   gem 'modernizr-rails'
   gem 'rails-backbone'
   gem 'i18n-js'
+  gem 'js-routes'
 end
 
 gem 'jquery-rails'
