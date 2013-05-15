@@ -15,6 +15,11 @@ class Blog.Views.Comments.IndexView extends Backbone.View
     @collection.on 'add', @addOne
     @collection.on 'all', @refreshTitle
     @newCommentView = new Blog.Views.Comments.NewView({collection: @collection})
+    $(document).on 'confirm:complete', (e, answer) =>
+      if answer
+        htmlId = $(e.target).parents('.comment').first().attr 'id'
+        id = htmlId.split('-')[1]
+        @collection.remove id
     @render()
 
   addFormContainer: ($target) ->

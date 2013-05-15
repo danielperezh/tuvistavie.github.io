@@ -12,6 +12,7 @@ class Blog.Views.Comments.CommentView extends Backbone.View
 
   initialize: (options) ->
     @destroyPath = Routes.post_comment_path(postId, options.model.id);
+    @model.on 'remove', () => @$el.remove()
 
   attributes: () ->
     class: 'comment'

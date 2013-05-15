@@ -23,8 +23,7 @@ class CommentsController < ApplicationController
   # DELETE /posts/1/comments/1
   def destroy
     @comment = Comment.find(params[:id])
-    children_comment = Comment.where(:answer_to_id => @comment.id)
-    children_comment.each { |c| c.destroy }
+    Comment.where(:answer_to_id => @comment.id).delete_all
     @comment.destroy
 
     head :no_content

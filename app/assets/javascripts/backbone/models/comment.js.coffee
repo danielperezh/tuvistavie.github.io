@@ -34,3 +34,10 @@ class Blog.Collections.CommentsCollection extends Backbone.Collection
     if a.get('answer_to_id')? == b.get('answer_to_id')?
       return a.get('created_at') - b.get('created_at')
     return a.get('answer_to_id')? ? 1 : -1
+
+  remove: (models, options) ->
+    options ?= {}
+    if not _.isArray(models)
+      toRemove = @where( { 'answer_to_id': parseInt(models, 10) } )
+      @remove(toRemove, { silent: true })
+    super models, options

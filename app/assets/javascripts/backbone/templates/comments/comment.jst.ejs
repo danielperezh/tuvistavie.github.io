@@ -14,7 +14,7 @@
   <footer>
     <span class="reply">
       <% if(adminSignedIn) { %>
-        <a href="<%= destroyPath %>" class="destroy" data-confirm="<%= I18n.t('posts.confirm_delete') %>" data-method="delete">
+        <a href="<%= destroyPath %>" class="destroy" data-confirm="<%= I18n.t('posts.confirm_delete') %>" data-method="delete" data-remote="true">
           <%= I18n.t('comments.delete') %>
         </a>
       <% } %>
