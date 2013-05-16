@@ -25,10 +25,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1/confirm
   def confirm
-    @post = Post.find(params[:id])
+    @post = Post.new(params[:post])
     @confirmation = true
-    @comments_count = @post.comments.count
-    @using_fallback = !@post.translated_locales.include?(I18n.locale)
+    render 'show'
   end
 
   # GET /posts/new

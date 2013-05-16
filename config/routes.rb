@@ -10,6 +10,9 @@ Blog::Application.routes.draw do
 
   resources :posts do
     resources :comments, :only => [:index, :create, :destroy]
+    collection do
+      post 'confirm'
+    end
   end
 
   resources :admins, :only => [:edit, :update]

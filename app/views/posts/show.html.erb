@@ -6,7 +6,11 @@
                 <%= render :partial => 'control', :locals => { :post => @post } %>
             </h2>
             <div class="byline">
-                <%= l @post.created_at, :format => :tiny %>
+                <% if @confirmation %>
+                  <%= l Time.now, :format => :tiny %>
+                <% else %>
+                  <%= l @post.created_at, :format => :tiny %>
+                <% end %>
             </div>
             <% if @using_fallback %>
             <div class="missing-fallback">
@@ -37,6 +41,5 @@
     <% else %>
         <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
     <% end %>
-
 </article>
 
