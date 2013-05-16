@@ -23,9 +23,16 @@ class PostsController < ApplicationController
     @using_fallback = !@post.translated_locales.include?(I18n.locale)
   end
 
-  # GET /posts/1/confirm
+  # post /posts/1/confirm
   def confirm
     @post = Post.new(params[:post])
+    @confirmation = true
+    render 'show'
+  end
+
+  def confirm_update
+    @post = Post.find(params[:id])
+    @post.update_attributes(params[:post])
     @confirmation = true
     render 'show'
   end
@@ -33,6 +40,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @action = :confirm
   end
 
   # GET /posts/1/edit
@@ -41,6 +49,7 @@ class PostsController < ApplicationController
     @post.translated_attribute_names.each do |attr|
       @post[attr] = '' if @post.translation[attr].nil?
     end
+    @action = :confirm_update
   end
 
   # POST /posts

@@ -1,45 +1,56 @@
 <article class="post">
-    <div class="main-content">
-        <header>
-            <h2>
-                <%= @post.title %>
-                <%= render :partial => 'control', :locals => { :post => @post } %>
-            </h2>
-            <div class="byline">
-                <% if @confirmation %>
-                  <%= l Time.now, :format => :tiny %>
-                <% else %>
-                  <%= l @post.created_at, :format => :tiny %>
-                <% end %>
-            </div>
-            <% if @using_fallback %>
-            <div class="missing-fallback">
-                <%= t 'posts.locale_not_available' %>
-            </div>
-            <% end %>
-        </header>
-        <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
-        <span class="image align-left">
-            <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
-        </span>
+  <div class="main-content">
+    <header>
+      <h2>
+        <%= @post.title %>
+        <%= render :partial => 'control', :locals => { :post => @post } %>
+      </h2>
+      <div class="byline">
+        <% if @confirmation %>
+        <%= l Time.now, :format => :tiny %>
+        <% else %>
+        <%= l @post.created_at, :format => :tiny %>
         <% end %>
-        <div class="content">
-            <%= markdown @post.content %>
-        </div>
-
-        <% if not @post.tags.empty? %>
-        <footer>
-            <span class="tags">
-                <%= format_tags(@post.tags) %>
-            </span>
-        </footer>
-        <% end %>
+      </div>
+      <% if @using_fallback %>
+      <div class="missing-fallback">
+        <%= t 'posts.locale_not_available' %>
+      </div>
+      <% end %>
+    </header>
+    <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
+    <span class="image align-left">
+      <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
+    </span>
+    <% end %>
+    <div class="content">
+      <%= markdown @post.content %>
     </div>
 
-    <% if @confirmation %>
-       foo
-    <% else %>
-        <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
+    <% if not @post.tags.empty? %>
+    <footer>
+      <span class="tags">
+        <%= format_tags(@post.tags) %>
+      </span>
+    </footer>
     <% end %>
+  </div>
+
+  <% if @confirmation %>
+    <%= nested_form_for @post do |f| %>
+      <% ['title', 'main_picture', 'content'].each do |v| %>
+        <%= f.hidden_field v.to_sym, :value => @post.send(v) %>
+      <% end %>
+      <%= f.fields_for :tags do |t| %>
+        <%= t.hidden_field :name %>
+      <% end %>
+      <div class="actions">
+        <%= link_to t('common.back'), @post, :class => 'button-style2' %>
+        <%= f.submit t('posts.save'), :class => 'button-style2' %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
+  <% end %>
 </article>
 

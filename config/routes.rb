@@ -13,6 +13,9 @@ Blog::Application.routes.draw do
     collection do
       post 'confirm'
     end
+    member do
+      post 'confirm_update'
+    end
   end
 
   resources :admins, :only => [:edit, :update]
