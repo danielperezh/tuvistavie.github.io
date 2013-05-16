@@ -8,7 +8,6 @@ class Comment < ActiveRecord::Base
 
   validates :content, :author,  :presence => true
 
-
   def set_answer_to_id
     unless answer_to_id.nil?
       original_comment = Comment.find(answer_to_id) rescue nil

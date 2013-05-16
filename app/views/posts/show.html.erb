@@ -32,7 +32,11 @@
         <% end %>
     </div>
 
-    <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
+    <% if @confirmation %>
+       foo
+    <% else %>
+        <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
+    <% end %>
 
 </article>
 

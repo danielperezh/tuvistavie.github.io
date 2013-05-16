@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
   has_and_belongs_to_many :tags
 
   before_save :set_friendly_id
+  before_destroy :remove_tags
 
   accepts_nested_attributes_for :tags, :allow_destroy => true
 
@@ -24,6 +25,12 @@ class Post < ActiveRecord::Base
   def set_friendly_id
     if I18n.locale == :en && friendly_id.blank?
       update_attribute :friendly_id, title
+    end
+  end
+
+  def remove_tags
+    tags.each do |tag|
+      tag.destroy if tag.posts.count == 1
     end
   end
 end

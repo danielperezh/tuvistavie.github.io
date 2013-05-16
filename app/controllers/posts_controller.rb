@@ -18,6 +18,15 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     @post = Post.find(params[:id])
+    @confirmation = false
+    @comments_count = @post.comments.count
+    @using_fallback = !@post.translated_locales.include?(I18n.locale)
+  end
+
+  # GET /posts/1/confirm
+  def confirm
+    @post = Post.find(params[:id])
+    @confirmation = true
     @comments_count = @post.comments.count
     @using_fallback = !@post.translated_locales.include?(I18n.locale)
   end
@@ -66,10 +75,6 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post = Post.find(params[:id])
-    tags = @post.tags
-    tags.each do |tag|
-      tag.destroy if tag.posts.count == 1
-    end
     @post.destroy
     redirect_to posts_path
   end
