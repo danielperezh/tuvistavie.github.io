@@ -3,9 +3,10 @@ class Post < ActiveRecord::Base
   attr_accessible :content, :title, :tags_attributes, :friendly_id, :main_picture
 
   has_many :comments, :dependent => :delete_all
-  has_and_belongs_to_many :tags
+  has_and_belongs_to_many :tags, :uniq => true
 
   before_save :set_friendly_id
+  before_save :fix_tags
   before_destroy :remove_tags
 
   accepts_nested_attributes_for :tags, :allow_destroy => true
@@ -18,7 +19,9 @@ class Post < ActiveRecord::Base
   end
 
   def self.find_by_tag(tag_name, locale=I18n.locale)
-    ids = Tag.find_by_name(tag_name).posts.pluck(:id)
+    tags = Tag.find_by_name(tag_name)
+    raise ActiveRecord::RecordNotFound if tags.nil?
+    ids = tags.posts.pluck(:id)
     Post.with_translations(I18n.locale).where(:id => ids)
   end
 
@@ -31,6 +34,25 @@ class Post < ActiveRecord::Base
   def remove_tags
     tags.each do |tag|
       tag.destroy if tag.posts.count == 1
+    end
+  end
+
+  private
+  def fix_tags
+    return if tags.nil?
+    tag_list = tags.clone
+    tags.clear
+    tag_list.each do |t|
+      if t.id.nil?
+        tag = Tag.find_by_name(t.name)
+        if tag.nil?
+          tags.build(:name => t.name)
+        else
+          tags << tag
+        end
+      else
+        tags << t
+      end
     end
   end
 end

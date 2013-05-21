@@ -55,9 +55,9 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     upload_files(params[:files])
-    tags_hash = params[:post].delete(:tags_attributes)
+    # tags_hash = params[:post].delete(:tags_attributes)
     @post = Post.new(params[:post])
-    manage_tags(@post, tags_hash)
+    # manage_tags(@post, tags_hash)
 
     if @post.save
       redirect_to @post, :notice => 'Post was successfully created.'
@@ -69,9 +69,9 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     upload_files(params[:files])
-    tags_hash = params[:post].delete(:tags_attributes)
+    # tags_hash = params[:post].delete(:tags_attributes)
     @post = Post.find(params[:id])
-    manage_tags(@post, tags_hash)
+    # manage_tags(@post, tags_hash)
 
     if @post.update_attributes(params[:post])
       redirect_to @post, :notice => 'Post was successfully updated.'
