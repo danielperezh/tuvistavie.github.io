@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_url
   before_filter :set_locale
+  before_filter :set_url
   before_filter :set_fallbacks
   before_filter :load_profile
   before_filter :load_recent_posts
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def set_url
     base_url = Rails.application.routes.recognize_path request.url rescue
     base_url = Rails.application.routes.recognize_path root_path if base_url.nil?
-    @url_info = base_url.merge(params)
+    @url_info = base_url.merge(params.symbolize_keys)
   end
 
   def load_profile
