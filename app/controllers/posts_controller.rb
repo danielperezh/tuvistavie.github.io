@@ -27,6 +27,7 @@ class PostsController < ApplicationController
   def confirm
     @post = Post.new(params[:post])
     @confirmation = true
+    @back_page = new_post_path
     render 'show'
   end
 
@@ -34,12 +35,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.update_attributes(params[:post])
     @confirmation = true
+    @back_page = edit_post_path(@post)
     render 'show'
   end
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(params[:post])
     @action = :confirm
   end
 
@@ -48,6 +50,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.translated_attribute_names.each do |attr|
       @post[attr] = '' if @post.translation[attr].nil?
+    end
+    if request.post?
+      @post.assign_attributes(params[:post])
     end
     @action = :confirm_update
   end

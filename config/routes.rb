@@ -18,6 +18,9 @@ Blog::Application.routes.draw do
     end
   end
 
+  match 'posts/new' => 'posts#new', :via => :post
+  match 'posts/:id/edit' => 'posts#edit', :via => :post
+
   resources :admins, :only => [:edit, :update]
 
   get 'about', :to => 'static#about'
