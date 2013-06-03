@@ -63,7 +63,11 @@ class ApplicationController < ActionController::Base
       I18n.locale = cookies[:locale].to_sym
     else
       country = get_country_code
-      I18n.locale = :ja if country == 'jp'
+      if country == 'jp'
+        I18n.locale = :ja
+      else
+        I18n.locale = :en
+      end
     end
     cookies.permanent[:locale] = I18n.locale
   end
