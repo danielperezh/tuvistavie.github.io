@@ -4,7 +4,6 @@
 
 $ () ->
   $('input[name="post[locale]"]').click (e) ->
-    console.log 'foo'
     locale = $(e.target).val()
     window.location.pathname += "?locale=" + locale
 
@@ -24,6 +23,8 @@ $ () ->
   $('#file-uploader-container').on 'click', '.remove-file', (e) ->
     e.preventDefault()
     $(e.target).parents('.file-uploader').remove()
+
+  $('.latex').latex()
 
 
 
