@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(:version => 20130426191531) do
     t.integer  "admin_id"
     t.string   "locale"
     t.text     "profile"
+    t.text     "long_profile"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.text     "long_profile"
   end
 
   add_index "admin_translations", ["admin_id"], :name => "index_admin_translations_on_admin_id"
