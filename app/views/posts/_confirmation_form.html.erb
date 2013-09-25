@@ -1,5 +1,5 @@
 <%= nested_form_for(@post, :html => { :id => "confirm-form" }) do |f| %>
-  <% ['title', 'main_picture', 'content'].each do |v| %>
+  <% ['title', 'main_picture', 'content', 'friendly_id'].each do |v| %>
   <%= f.hidden_field v.to_sym, :value => @post.send(v) %>
   <% end %>
   <%= f.fields_for :tags do |t| %>
