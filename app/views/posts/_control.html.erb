@@ -1,4 +1,4 @@
-<% if admin_signed_in? %>
+<% if admin_signed_in? && !@confirmation %>
 <span class="tiny">
     <%= link_to t('posts.edit'), edit_post_path(post) %>
     |
