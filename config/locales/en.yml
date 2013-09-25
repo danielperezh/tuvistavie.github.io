@@ -44,6 +44,7 @@ en:
     confirm_delete: Are you sure ?
     main_picture: Main picture
     friendly_id: Friendly ID
+    draft: Draft
   comments:
     comment: Comment
     write: Write a comment

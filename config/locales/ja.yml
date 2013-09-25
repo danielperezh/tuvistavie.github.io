@@ -36,6 +36,7 @@ ja:
     confirm_delete: 本当に削除しますか。
     main_picture: メイン画像
     friendly_id: Friendly ID
+    draft: 下書き
   comments:
     comment: コメント
     write: コメントを書く

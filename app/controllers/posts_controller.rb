@@ -13,6 +13,9 @@ class PostsController < ApplicationController
 
     page = params[:page].nil? ? 1 : params[:page]
     @posts = posts.paginate(:page => page).order('posts.created_at DESC')
+    unless admin_signed_in?
+      @posts = @posts.where(:published => true)
+    end
   end
 
   # GET /posts/1
@@ -21,6 +24,9 @@ class PostsController < ApplicationController
     @confirmation = false
     @comments_count = @post.comments.count
     @using_fallback = !@post.translated_locales.include?(I18n.locale)
+    unless @post.published || admin_signed_in?
+      raise ActionController::RoutingError.new('post not published')
+    end
   end
 
   # post /posts/1/confirm
@@ -87,4 +93,5 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_path
   end
+
 end

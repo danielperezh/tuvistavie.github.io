@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   translates :content, :title
-  attr_accessible :content, :title, :tags_attributes, :friendly_id, :main_picture
+  attr_accessible :content, :title, :tags_attributes, :friendly_id, :main_picture, :published
 
   has_many :comments, :dependent => :delete_all
   has_and_belongs_to_many :tags, :uniq => true

@@ -6,6 +6,10 @@
   <%= t.hidden_field :name %>
   <% end %>
   <div class="actions">
+    <%= f.label :published, 'Publish?' %>
+    <%= f.check_box :published %>
+    <br>
+
     <%= link_to t('common.back'), '#', :class => 'button-style2', :id => "back-button" %>
     <%= f.submit t('posts.save'), :class => 'button-style2' %>
   </div>

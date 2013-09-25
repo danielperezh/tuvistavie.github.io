@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426191531) do
+ActiveRecord::Schema.define(:version => 20130925081402) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130426191531) do
     t.datetime "updated_at",   :null => false
     t.string   "friendly_id"
     t.string   "main_picture"
+    t.boolean  "published"
   end
 
   create_table "posts_tags", :id => false, :force => true do |t|
