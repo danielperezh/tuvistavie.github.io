@@ -25,8 +25,5 @@ namespace :db do
     config = Rails.configuration.database_configuration[Rails.env]
     ENV["PGDATABASE"] ||= config["database"]
     ENV["PGUSER"] ||= config["username"] || "root"
-    ENV["PGHOST"] ||= config["host"] || "localhost"
-    ENV["PGPORT"] ||= config["port"] || "5432"
-    ENV["PGPASSWORD"] ||= config["password"] || ""
   end
 end
