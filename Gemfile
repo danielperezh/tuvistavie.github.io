@@ -17,6 +17,8 @@ gem 'nested_form'
 gem 'will_paginate'
 gem 'cloudinary'
 
+gem 'whenever', require: false
+
 gem 'dropbox-sdk', require: 'dropbox_sdk'
 
 gem 'rails_autolink'
