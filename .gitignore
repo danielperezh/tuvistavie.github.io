@@ -23,3 +23,5 @@ db/schema.rb
 db/data.yml
 config/database.yml
 cloudinary.yml
+
+/doc/app
