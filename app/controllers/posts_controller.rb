@@ -13,8 +13,8 @@ class PostsController < ApplicationController
 
     page = params[:page].nil? ? 1 : params[:page]
     @posts = posts.paginate(:page => page).order('posts.created_at DESC')
-    unless admin_signed_in?
-      @posts = @posts.where(:published => true)
+    if admin_signed_in?
+      @posts = @posts.unscoped
     end
   end
 

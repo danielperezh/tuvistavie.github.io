@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id           :integer          not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  friendly_id  :string(255)
+#  main_picture :string(255)
+#  published    :boolean
+#
+
 class Post < ActiveRecord::Base
   translates :content, :title
   attr_accessible :content, :title, :tags_attributes, :friendly_id, :main_picture, :published
@@ -8,6 +20,8 @@ class Post < ActiveRecord::Base
   before_save :set_friendly_id
   before_save :fix_tags
   before_destroy :remove_tags
+
+  default_scope { where(published: true) }
 
   accepts_nested_attributes_for :tags, :allow_destroy => true
 

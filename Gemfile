@@ -16,6 +16,7 @@ gem 'htmlentities'
 gem 'nested_form'
 gem 'will_paginate'
 gem 'cloudinary'
+gem 'annotate'
 
 gem 'whenever', require: false
 
