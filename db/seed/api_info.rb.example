@@ -1,0 +1,7 @@
+DynamicSettings.create(
+  twitter_consumer_key: 'CONSUMER_KEY',
+  twitter_consumer_secret: 'CONSUMER_SECRET',
+  oauth_token: 'OAUTH_TOKEN',
+  oauth_token_secret: 'OAUTH_TOKEN_SECRET',
+  last_tweet_check: Time.now
+) if DynamicSettings.count == 0

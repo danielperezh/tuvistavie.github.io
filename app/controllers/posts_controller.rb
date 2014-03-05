@@ -11,11 +11,12 @@ class PostsController < ApplicationController
 
     @content_limit = Settings.posts["content_limit_#{I18n.locale.to_s}"]
 
+    if admin_signed_in?
+      posts = posts.unscoped
+    end
+
     page = params[:page].nil? ? 1 : params[:page]
     @posts = posts.paginate(:page => page).order('posts.created_at DESC')
-    if admin_signed_in?
-      @posts = @posts.unscoped
-    end
   end
 
   # GET /posts/1
