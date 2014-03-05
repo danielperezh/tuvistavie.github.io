@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_admin!, :except => [:index, :show]
+  before_filter :set_post, :only => [:show, :confirm_update, :update, :edit, :destroy]
 
   # GET /posts
   def index
@@ -11,8 +12,8 @@ class PostsController < ApplicationController
 
     @content_limit = Settings.posts["content_limit_#{I18n.locale.to_s}"]
 
-    if admin_signed_in?
-      posts = posts.unscoped
+    unless admin_signed_in?
+      posts = posts.published
     end
 
     page = params[:page].nil? ? 1 : params[:page]
@@ -21,13 +22,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    @post = Post.find(params[:id])
     @confirmation = false
     @comments_count = @post.comments.count
     @using_fallback = !@post.translated_locales.include?(I18n.locale)
-    unless @post.published || admin_signed_in?
-      raise ActionController::RoutingError.new('post not published')
-    end
   end
 
   # post /posts/1/confirm
@@ -39,7 +36,6 @@ class PostsController < ApplicationController
   end
 
   def confirm_update
-    @post = Post.find(params[:id])
     @post.update_attributes(params[:post])
     @confirmation = true
     @back_page = edit_post_path(@post)
@@ -54,7 +50,6 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @post = Post.find(params[:id])
     @post.translated_attribute_names.each do |attr|
       @post[attr] = '' if @post.translation[attr].nil?
     end
@@ -79,7 +74,6 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     upload_files(params[:files])
-    @post = Post.find(params[:id])
 
     if @post.update_attributes(params[:post])
       redirect_to @post, :notice => 'Post was successfully updated.'
@@ -90,9 +84,17 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path
   end
 
+
+  private
+  def set_post
+    if admin_signed_in?
+      @post = Post.find(params[:id])
+    else
+      @post = Post.published.find(params[:id])
+    end
+  end
 end

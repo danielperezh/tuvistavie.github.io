@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def load_recent_posts
     num = Settings.posts.recents_number
-    posts = Post.with_translations(I18n.locale)
+    posts = Post.published.with_translations(I18n.locale)
     @recent_posts = posts.limit(num).order("posts.created_at DESC")
   end
 

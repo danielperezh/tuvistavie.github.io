@@ -21,11 +21,15 @@ class Post < ActiveRecord::Base
   before_save :fix_tags
   before_destroy :remove_tags
 
-  default_scope { where(published: true) }
+  scope :published, ->{ where(published: true) }
 
   accepts_nested_attributes_for :tags, :allow_destroy => true
 
   self.per_page = Settings.posts.per_page
+
+  def self.scoped_for(signed_in)
+    signed_in ? Post.unscoped : Post
+  end
 
   def to_param
     return id if friendly_id.nil?
