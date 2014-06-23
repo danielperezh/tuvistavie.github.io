@@ -1,22 +1,23 @@
-<article class="post about-me">
-    <header>
-        <h2>
-            <%= @admin_info.nickname %>
-            <% if admin_signed_in? %>
-            <span class="tiny">
-                <%= link_to t('user.edit'), edit_admin_path(current_admin) %>
-            </span>
-            <% end %>
-        </h2>
-        <div class="byline">
-            <%= @admin_info.full_name %>
+<% cache @admin_info do %>
+    <article class="post about-me">
+        <header>
+            <h2>
+                <%= @admin_info.nickname %>
+                <% if admin_signed_in? %>
+                <span class="tiny">
+                    <%= link_to t('user.edit'), edit_admin_path(current_admin) %>
+                </span>
+                <% end %>
+            </h2>
+            <div class="byline">
+                <%= @admin_info.full_name %>
+            </div>
+        </header>
+        <span class="image align-left">
+            <%= cl_image_tag(@admin_info.large_picture, :width => 280, :height => 274, :crop => :fill) %>
+        </span>
+        <div class="content">
+            <%= markdown @admin_info.long_profile %>
         </div>
-    </header>
-    <span class="image align-left">
-        <%= cl_image_tag(@admin_info.large_picture, :width => 280, :height => 274, :crop => :fill) %>
-    </span>
-    <div class="content">
-        <%= markdown @admin_info.long_profile %>
-    </div>
-</article>
-
+    </article>
+<% end %>
