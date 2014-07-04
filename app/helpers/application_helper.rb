@@ -11,4 +11,16 @@ module ApplicationHelper
     end
     url_info
   end
+
+  def cache_if(condition, name={}, options=nil, &block)
+    if condition
+      cache(*options, &block)
+    else
+      yield
+    end
+  end
+
+  def cache_unless(condition, name={}, options=nil, &block)
+    cache_if(!condition, name, options, &block)
+  end
 end

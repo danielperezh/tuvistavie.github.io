@@ -1,4 +1,4 @@
-<% cache @admin_info do %>
+<% cache_unless admin_signed_in?, @admin_info do %>
     <article class="post about-me">
         <header>
             <h2>
