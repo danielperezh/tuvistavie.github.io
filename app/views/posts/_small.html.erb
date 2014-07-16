@@ -1,25 +1,27 @@
-<article class="post">
-    <header>
-        <div class="date">
-            <span>
-                <%= l post.created_at, :format => :tiny %>
-            </span>
+<% cache [post, I18n.locale] do %>
+    <article class="post">
+        <header>
+            <div class="date">
+                <span>
+                    <%= l post.created_at, :format => :tiny %>
+                </span>
+            </div>
+            <h2>
+                <%= link_to post.title, post %>
+                <%= render :partial => 'control', :locals => { :post => post } %>
+            </h2>
+        </header>
+        <div class="list-content excerpt">
+            <%= truncate_html markdown(post.content), :length => @content_limit %>
         </div>
-        <h2>
-            <%= link_to post.title, post %>
-            <%= render :partial => 'control', :locals => { :post => post } %>
-        </h2>
-    </header>
-    <div class="list-content excerpt">
-        <%= truncate_html markdown(post.content), :length => @content_limit %>
-    </div>
-    <footer>
-        <%= link_to t('posts.continue_reading'), post, :class => "button-style1 icon32 icon32-article" %>
-        <%= link_to t('comments.number', :count => post.comments.count), post_path(post, :anchor => "comments"), :class => "button-style1 icon32 icon32-comments" %>
-        <% if not post.tags.empty? %>
-        <span class="tags">
-            <%= format_tags(post.tags) %>
-        </span>
-        <% end %>
-    </footer>
-</article>
+        <footer>
+            <%= link_to t('posts.continue_reading'), post, :class => "button-style1 icon32 icon32-article" %>
+            <%= link_to t('comments.number', :count => post.comments.count), post_path(post, :anchor => "comments"), :class => "button-style1 icon32 icon32-comments" %>
+            <% if not post.tags.empty? %>
+            <span class="tags">
+                <%= format_tags(post.tags) %>
+            </span>
+            <% end %>
+        </footer>
+    </article>
+<% end %>
