@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def cache_if(condition, name={}, options=nil, &block)
     if condition
-      cache(*options, &block)
+      cache(name, *options, &block)
     else
       yield
     end
