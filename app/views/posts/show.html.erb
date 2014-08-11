@@ -1,46 +1,45 @@
-<% cache [@post, admin_signed_in?, I18n.locale] do %>
   <article class="post">
-    <div class="main-content">
-      <header>
-        <h2>
-          <%= @post.title %>
-          <%= render :partial => 'control', :locals => { :post => @post } %>
-        </h2>
-        <div class="byline">
-          <% if @confirmation %>
-          <%= l Time.now, :format => :tiny %>
-          <% else %>
-          <%= l @post.created_at, :format => :tiny %>
+    <% cache [@post, admin_signed_in?, I18n.locale] do %>
+      <div class="main-content">
+        <header>
+          <h2>
+            <%= @post.title %>
+            <%= render :partial => 'control', :locals => { :post => @post } %>
+          </h2>
+          <div class="byline">
+            <% if @confirmation %>
+            <%= l Time.now, :format => :tiny %>
+            <% else %>
+            <%= l @post.created_at, :format => :tiny %>
+            <% end %>
+          </div>
+          <% if @using_fallback %>
+          <div class="missing-fallback">
+            <%= t 'posts.locale_not_available' %>
+          </div>
           <% end %>
-        </div>
-        <% if @using_fallback %>
-        <div class="missing-fallback">
-          <%= t 'posts.locale_not_available' %>
-        </div>
-        <% end %>
-      </header>
-      <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
-      <span class="image align-left">
-        <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
-      </span>
-      <% end %>
-      <div class="content">
-        <%= markdown @post.content %>
-      </div>
-
-      <% if not @post.tags.empty? %>
-      <footer>
-        <span class="tags">
-          <%= format_tags(@post.tags) %>
+        </header>
+        <% if !(@post.main_picture.nil? || @post.main_picture.empty?) %>
+        <span class="image align-left">
+          <%= cl_image_tag(@post.main_picture, :width => 280, :height => 274) %>
         </span>
-      </footer>
-      <% end %>
-    </div>
+        <% end %>
+        <div class="content">
+          <%= markdown @post.content %>
+        </div>
 
+        <% if not @post.tags.empty? %>
+        <footer>
+          <span class="tags">
+            <%= format_tags(@post.tags) %>
+          </span>
+        </footer>
+        <% end %>
+      </div>
+    <% end %>
     <% if @confirmation %>
       <%= render :partial => 'posts/confirmation_form' %>
     <% else %>
       <%= render :partial => 'comments/index', :locals => { :comments => @post.comments } %>
     <% end %>
   </article>
-<% end %>
