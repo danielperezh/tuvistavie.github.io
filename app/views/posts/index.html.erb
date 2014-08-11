@@ -1,4 +1,4 @@
-<% cache [@posts, I18n.locale] do %>
+<% cache [@posts, admin_signed_in?, I18n.locale] do %>
   <% @posts.each do |post| %>
     <%= render :partial => 'posts/small', :locals => { :post => post } %>
   <% end %>
