@@ -16,6 +16,8 @@ class Comment < ActiveRecord::Base
   include MarkdownHelper
   before_validation :set_answer_to_id
 
+  belongs_to :post, :touch => true
+
   attr_accessible :content, :gravatar_email, :author, :answer_to_id
 
   belongs_to :comment
