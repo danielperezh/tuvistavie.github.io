@@ -5,18 +5,13 @@
                 <h1>
                     <%= link_to 'tuvistavie', root_path, :class => "mobileUI-site-name" %>
                 </h1>
-                <nav class="mobileUI-site-nav">
+                <nav>
                     <ul>
-                        <li>
-                            <span>Language</span>
-                            <ul>
-                                <li>
-                                    <%= link_to 'English', get_locale_url_info(@url_info, :en) %>
-                                </li>
-                                <li>
-                                    <%= link_to '日本語', get_locale_url_info(@url_info, :ja) %>
-                                </li>
-                            </ul>
+                        <li class="<%= 'active' if I18n.locale == :en %>">
+                            <%= link_to 'English', get_locale_url_info(@url_info, :en) %>
+                        </li>
+                        <li class="<%= 'active' if I18n.locale == :ja%>">
+                            <%= link_to '日本語', get_locale_url_info(@url_info, :ja) %>
                         </li>
                         <% if admin_signed_in? %>
                         <li>
