@@ -5,7 +5,9 @@
 $ () ->
   $('input[name="post[locale]"]').click (e) ->
     locale = $(e.target).val()
-    window.location.pathname += "?locale=" + locale
+    href = window.location.href
+    href.replace /locale=.{2}/, ''
+    window.location.href = "?locale=" + locale
 
   _.templateSettings =
     interpolate : /\{\{(.+?)\}\}/g
