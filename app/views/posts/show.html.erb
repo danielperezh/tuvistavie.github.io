@@ -1,5 +1,5 @@
   <article class="post">
-    <% cache [@post, admin_signed_in?, I18n.locale] do %>
+    <% cache_unless @post.id.nil?, [@post, admin_signed_in?, I18n.locale] do %>
       <div class="main-content">
         <header>
           <h2>
