@@ -76,5 +76,6 @@ ja:
   time:
     formats:
       tiny: ! '%B%e日'
+      medium: ! '%Y年%B%e日'
       posted: ! '%Y-%m-%d %H:%M'
 

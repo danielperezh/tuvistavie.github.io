@@ -8,9 +8,9 @@
           </h2>
           <div class="byline">
             <% if @confirmation %>
-            <%= l Time.now, :format => :tiny %>
+            <%= l Time.now, :format => :medium %>
             <% else %>
-            <%= l @post.created_at, :format => :tiny %>
+            <%= l @post.created_at, :format => :medium %>
             <% end %>
           </div>
           <% if @using_fallback %>
