@@ -43,6 +43,15 @@
 					text-decoration: none;
 				}
 
+			.post header h3
+			{
+				font-weight: 100;
+				font-size: 1.10em;
+				color: #424242;
+				line-height: 1.25em;
+				margin-top: 0.25em;
+			}
+
 			.post header .byline
 			{
 				font-size: 1.5em;
