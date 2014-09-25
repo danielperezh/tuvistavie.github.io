@@ -31,6 +31,7 @@ class Admin < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :profile, :long_profile
   attr_accessible :small_picture, :large_picture, :first_name, :last_name, :nickname
+  attr_accessible :work_place, :work_position, :work_url
 
   translates :profile, :long_profile
 

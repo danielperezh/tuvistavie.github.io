@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925081402) do
+ActiveRecord::Schema.define(:version => 20140925025141) do
 
   create_table "admin_translations", :force => true do |t|
     t.integer  "admin_id"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(:version => 20130925081402) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nickname"
+    t.string   "work_place"
+    t.string   "work_position"
+    t.string   "work_url"
   end
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
