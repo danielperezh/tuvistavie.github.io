@@ -13,7 +13,7 @@ set :pty, false
 set :linked_files, %w(config/application.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system)
 
-set :default_env, rbenv_root: '/usr/local/rbenv'
+set :default_env, rbenv_root: '/usr/local/rbenv', rails_env: 'production'
 set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
 set :rbenv_type, :system

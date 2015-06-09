@@ -33,9 +33,9 @@ class ApplicationController < ActionController::Base
 
   def load_new_tweets
     last_check = Time.parse(Rails.cache.read('twitter:last_check') || 1.day.ago.iso8601)
-    if last_check < Settings.twitter.tweet_check_interval.minutes.ago
+    if Time.now - last_check > Settings.twitter.tweet_check_interval.minutes
       Tweet.fetch_new
-      Rails.cache.write('twitter:last_check', last_check.iso8601)
+      Rails.cache.write('twitter:last_check', Time.now.iso8601)
     end
     @tweets = Tweet.limit(Settings.twitter.display_tweets).order('posted DESC')
   end
