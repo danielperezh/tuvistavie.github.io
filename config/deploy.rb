@@ -19,6 +19,8 @@ set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 set :rbenv_type, :system
 set :rbenv_ruby, '2.2.2'
 
+set :puma_conf, "#{release_path}/config/puma.rb"
+
 set :bundle_without, %w(development test deployment).join(' ')
 set :bundle_flags, '--deployment --quiet'
 
