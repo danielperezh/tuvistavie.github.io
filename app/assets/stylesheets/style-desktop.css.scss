@@ -62,7 +62,7 @@
 			.post header .date
 			{
 				position: relative;
-				background: url('/assets/images/ribbon.png') 0px 0px repeat-x;
+				background: image-url('ribbon.png') 0px 0px repeat-x;
 				margin: 0 0 1em 0;
 				height: 74px;
 				line-height: 74px;
@@ -73,7 +73,7 @@
 				{
 					width: 50px;
 					height: 74px;
-					background: url('/assets/images/ribbon.png') 0px -148px no-repeat;
+					background: image-url('ribbon.png') 0px -148px no-repeat;
 					content: '';
 					position: absolute;
 					top: 0;
@@ -83,7 +83,7 @@
 				{
 					width: 50px;
 					height: 74px;
-					background: url('/assets/images/ribbon.png') -50px -148px no-repeat;
+					background: image-url('ribbon.png') -50px -148px no-repeat;
 					content: '';
 					position: absolute;
 					top: 0;
@@ -97,7 +97,7 @@
 					display: inline-block;
 					height: 64px;
 					line-height: 70px;
-					background: url('/assets/images/ribbon.png') 0px -74px repeat-x;
+					background: image-url('ribbon.png') 0px -74px repeat-x;
 					padding: 0 1em 0 1em;
 					font-size: 1.3em;
 					font-weight: 400;
@@ -136,7 +136,7 @@
 
 		.widget header
 		{
-			background: url('/assets/images/bg3.png') center center repeat-x;
+			background: image-url('bg3.png') center center repeat-x;
 			position: relative;
 			left: -1em;
 			top: -1em;
@@ -173,7 +173,7 @@
 
 	#header-wrapper
 	{
-		background: url('/assets/images/bg1.png');
+		background: image-url('bg1.png');
 		box-shadow:	inset 0px -1px 0px 0px rgba(0,0,0,0.75),
 		           			inset 0px -2px 0px 0px rgba(255,255,255,0.25);
 	}
@@ -303,7 +303,7 @@
 
 	#content
 	{
-		background: url('/assets/images/bg2.png');
+		background: image-url('bg2.png');
 		position: relative;
 		width: 100%;
 		box-shadow:	inset 0px 0px 0px 1px rgba(0,0,0,0.75),
@@ -333,7 +333,7 @@
 
 	#sidebar
 	{
-		background: url('/assets/images/bg2.png');
+		background: image-url('bg2.png');
 		position: relative;
 		line-height: 1.5em;
 		color: rgba(255,255,255,0.6);
