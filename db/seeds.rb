@@ -6,5 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require File.expand_path('../seed/api_info.rb', __FILE__)
 require File.expand_path('../seed/admin.rb', __FILE__)

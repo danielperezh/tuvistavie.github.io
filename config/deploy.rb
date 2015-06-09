@@ -1,4 +1,3 @@
-# config valid only for current version of Capistrano
 lock '3.4.0'
 
 set :application, 'blog'
@@ -14,13 +13,12 @@ set :pty, false
 set :linked_files, %w(config/application.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system)
 
-set :default_env, { rbenv_root: '/usr/local/rbenv' }
+set :default_env, rbenv_root: '/usr/local/rbenv'
 set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
 set :keep_releases, 5
 
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
@@ -28,5 +26,4 @@ namespace :deploy do
       end
     end
   end
-
 end

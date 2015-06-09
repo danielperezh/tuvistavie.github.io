@@ -15,36 +15,29 @@ class ApplicationController < ActionController::Base
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
   end
 
+  def load_profile
+    @admin_info = Admin.first
+  end
+
   def set_url
     base_url = Rails.application.routes.recognize_path request.url rescue
     base_url = Rails.application.routes.recognize_path root_path if base_url.nil?
     @url_info = base_url.merge(params.symbolize_keys)
   end
 
-  def load_profile
-    @admin_info = Admin.first
-  end
-
   def load_recent_posts
     num = Settings.posts.recents_number
     posts = Post.published.with_translations(I18n.locale)
-    @recent_posts = posts.limit(num).order("posts.created_at DESC")
+    @recent_posts = posts.limit(num).order('posts.created_at DESC')
   end
 
   def load_new_tweets
-    dynamic_settings = DynamicSettings.first
-    if !dynamic_settings.nil? and dynamic_settings.last_tweet_check < Settings.twitter.tweet_check_interval.minutes.ago
+    last_check = Time.parse(Rails.cache.read('twitter:last_check') || 1.day.ago.iso8601)
+    if last_check < Settings.twitter.tweet_check_interval.minutes.ago
       Tweet.fetch_new
-      DynamicSettings.update_tweet_check_time(dynamic_settings)
+      Rails.cache.write('twitter:last_check', last_check.iso8601)
     end
-    @tweets = Tweet.limit(Settings.twitter.display_tweets).order("posted DESC")
-  end
-
-  def get_country_code
-    @geoip ||= GeoIP.new(Rails.root.join('lib/GeoIP.dat'))
-    country = @geoip.country(request.remote_ip)
-    code = country.country_code2
-    code == '--' ? nil : code.downcase
+    @tweets = Tweet.limit(Settings.twitter.display_tweets).order('posted DESC')
   end
 
   def locale_is_available(locale_name)
@@ -52,17 +45,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_fallbacks
-    Globalize.fallbacks = {en: [:en, :ja], ja: [:ja, :en] }
+    Globalize.fallbacks = { en: [:en, :ja], ja: [:ja, :en] }
   end
 
-
   def set_locale
-    if params.has_key? :locale and locale_is_available(params[:locale])
+    if params.key?(:locale) && locale_is_available(params[:locale])
       I18n.locale = params[:locale].to_sym
-    elsif cookies.has_key? :locale and locale_is_available(cookies[:locale])
+    elsif cookies.key?(:locale) && locale_is_available(cookies[:locale])
       I18n.locale = cookies[:locale].to_sym
     else
-      country = get_country_code
+      country = current_country_code
       if country == 'jp'
         I18n.locale = :ja
       else
@@ -86,6 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def render_404
     respond_to do |format|
       format.html { render template: 'errors/not_found', status: 404 }
@@ -98,6 +91,13 @@ class ApplicationController < ActionController::Base
       format.html { render template: 'errors/exception', status: 500 }
       format.all { render nothing: true, status: 500 }
     end
+  end
+
+  def current_country_code
+    @geoip ||= GeoIP.new(Rails.root.join('lib/GeoIP.dat'))
+    country = @geoip.country(request.remote_ip)
+    code = country.country_code2
+    code == '--' ? nil : code.downcase
   end
 
 end

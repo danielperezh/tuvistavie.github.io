@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925025141) do
+ActiveRecord::Schema.define(version: 20150609074319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,17 +62,6 @@ ActiveRecord::Schema.define(version: 20140925025141) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "answer_to_id"
-  end
-
-  create_table "dynamic_settings", force: :cascade do |t|
-    t.datetime "last_tweet_check"
-    t.text     "twitter_consumer_key"
-    t.text     "twitter_consumer_secret"
-    t.text     "oauth_token"
-    t.text     "oauth_token_secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "dropbox_session"
   end
 
   create_table "post_translations", force: :cascade do |t|

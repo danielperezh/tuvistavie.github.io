@@ -1,8 +1,7 @@
 namespace :db do
-  desc "Creates a backup and save it to Dropbox"
+  desc 'Creates a backup and save it to Dropbox'
   task backup: :environment do
-    settings = DynamicSettings.first
-    session = DropboxSession.deserialize(settings.dropbox_session)
+    session = DropboxSession.deserialize(ENV['DROPBOX_SESSION'])
     client = DropboxClient.new(session, :app_folder)
 
     prepare_env
@@ -17,13 +16,13 @@ namespace :db do
 
   task restore: :environment do
     prepare_env
-    backup_file = ENV["DBBACKUP"] || Rails.root.join('db/database.sql')
+    backup_file = ENV['DBBACKUP'] || Rails.root.join('db/database.sql')
     sh "pg_restore -c -a -d #{ENV['PGDATABASE']} #{backup_file}"
   end
 
   def prepare_env
     config = Rails.configuration.database_configuration[Rails.env]
-    ENV["PGDATABASE"] ||= config["database"]
-    ENV["PGUSER"] ||= config["username"] || "root"
+    ENV['PGDATABASE'] ||= config['database']
+    ENV['PGUSER'] ||= config['username'] || 'root'
   end
 end

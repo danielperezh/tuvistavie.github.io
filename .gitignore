@@ -14,13 +14,8 @@
 /log/*.log
 /tmp
 
-/db/seed/api_info.rb
-/db/seed/admin.rb
-/config/initializers/secret_token.rb
 
 .sass-cache/
-
-db/data.yml
 
 /doc/app
 /public/assets
