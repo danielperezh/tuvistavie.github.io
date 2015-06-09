@@ -16,6 +16,12 @@ set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 set :default_env, rbenv_root: '/usr/local/rbenv'
 set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
+set :rbenv_type, :system
+set :rbenv_ruby, '2.2.2'
+
+set :bundle_without, %w(development test deployment).join(' ')
+set :bundle_flags, '--deployment --quiet'
+
 set :keep_releases, 5
 
 namespace :deploy do

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_new_tweets
 
   unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: :render_500
+    rescue_from StandardError, with: :render_500
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ::AbstractController::ActionNotFound, with: :render_404
