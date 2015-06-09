@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.2.1'
 
 gem 'pg'
 gem 'devise'
 gem 'redcarpet'
 gem 'pygments.rb'
-gem 'globalize3'
+gem 'globalize'
 gem 'twitter'
 gem 'rails_config'
 gem 'gravatar_image_tag'
@@ -18,22 +18,25 @@ gem 'will_paginate'
 gem 'cloudinary'
 gem 'annotate'
 
+gem 'puma'
+
+gem 'figaro'
+
 gem 'whenever', require: false
 
 gem 'dropbox-sdk', require: 'dropbox_sdk'
 
 gem 'rails_autolink'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+gem 'sprockets-rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
-  gem 'uglifier', '>= 1.0.3'
-  gem 'modernizr-rails'
-  gem 'rails-backbone'
-  gem 'i18n-js'
-  gem 'js-routes'
-end
+gem 'uglifier'
+gem 'modernizr-rails'
+gem 'rails-backbone'
+gem 'i18n-js'
+gem 'js-routes'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -41,6 +44,14 @@ gem 'jquery-ui-rails'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'jazz_hands'
+  gem 'jazz_fingers'
   gem 'quiet_assets'
+end
+
+group :deployment do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rbenv'
 end

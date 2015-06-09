@@ -3,7 +3,6 @@ module MarkdownHelper
     include CloudinaryHelper
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
-    include Sprockets::Helpers::IsolatedHelper
 
     def block_code(code, language)
       if language.nil?

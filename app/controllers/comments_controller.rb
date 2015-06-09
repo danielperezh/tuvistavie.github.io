@@ -1,31 +1,34 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_admin!, :only => [:destroy]
+  before_filter :authenticate_admin!, only: [:destroy]
 
-  # GET /posts/1/comments
   def index
     post = Post.find(params[:post_id])
     @comments = post.comments
-    render :json => @comments
+    render json: @comments
   end
 
-  # POST /posts/1/comments
   def create
     post = Post.find(params[:post_id])
-    @comment = post.comments.build(params[:comment])
+    @comment = post.comments.build(comment_params)
 
     if @comment.save
-      render :json => @comment #, :status => :created, :location => @comment
+      render json: @comment, status: :created
     else
-      render :json => @comment.errors, :status => :unprocessable_entity
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /posts/1/comments/1
   def destroy
     @comment = Comment.find(params[:id])
-    Comment.where(:answer_to_id => @comment.id).delete_all
+    Comment.where(answer_to_id: @comment.id).delete_all
     @comment.destroy
 
     head :no_content
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:content, :gravatar_email, :author, :answer_to_id)
   end
 end

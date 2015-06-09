@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.dialog
-//= require jquery.ui.effect-slide
+//= require jquery-ui/dialog
+//= require jquery-ui/effect-slide
 //= require jquery_nested_form
 //= require js-routes
 //= require i18n

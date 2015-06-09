@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: daniel
+  pool: 5
+  template: template0
+
+
+development:
+  <<: *default
+  database: blog_development
+
+test:
+  <<: *default
+  database: blog_test
+
+production:
+  database: blog_production
+  host: <%= ENV['VOISEE_DATABASE_ENDPOINT'] %>
+  password: <%= ENV['VOISEE_DATABASE_PASSWORD'] %>

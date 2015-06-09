@@ -63,6 +63,8 @@ ja:
     first_name: 名前
     last_name: 苗字
     nickname: ニックネーム
+    work_place: 会社
+    work_url: 会社ホームページ
   picture:
     add: 画像を追加
     remove: 画像を削除

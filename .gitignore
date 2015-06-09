@@ -20,9 +20,9 @@
 
 .sass-cache/
 
-db/schema.rb
 db/data.yml
-config/database.yml
-cloudinary.yml
 
 /doc/app
+/public/assets
+/vendor/bundle
+/config/application.yml

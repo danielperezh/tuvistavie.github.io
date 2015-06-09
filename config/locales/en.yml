@@ -25,6 +25,8 @@ en:
     first_name: First name
     last_name: Last name
     nickname: Nickname
+    work_place: Company
+    work_url: Company website
   posts:
     new: New
     new_long: New Post
