@@ -4,7 +4,7 @@ module Twitter
       config.consumer_key = ENV['TWITTER_ACCESS_KEY']
       config.consumer_secret = ENV['TWITTER_SECRET_KEY']
       config.oauth_token = ENV['TWITTER_OAUTH_TOKEN']
-      config.oauth_token_secret = ENV['TWITTER_OAUTH_SECRET']
+      config.access_token_secret = ENV['TWITTER_OAUTH_SECRET']
     end
   end
 end

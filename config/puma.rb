@@ -6,6 +6,8 @@ directory '/home/blog/blog/current'
 
 rackup DefaultRackup
 
+bind 'unix:///home/blog/blog/shared/tmp/sockets/puma.sock'
+
 daemonize true
 
 preload_app!
