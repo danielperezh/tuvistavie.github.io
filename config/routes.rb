@@ -24,5 +24,5 @@ Blog::Application.routes.draw do
 
   get 'about', to: 'static#about'
 
-  match '*not_found', to: 'static#not_found', via: :any
+  match '*not_found', to: 'static#not_found', via: :all
 end
