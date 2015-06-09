@@ -27,8 +27,8 @@ set :bundle_flags, '--deployment --quiet'
 set :keep_releases, 5
 
 namespace :deploy do
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+  after :deploy, :clear_cache do
+    on roles(:web), wait: 10 do
       within release_path do
         execute :rake, 'tmp:cache:clear'
       end
