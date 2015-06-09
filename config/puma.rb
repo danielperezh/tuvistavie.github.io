@@ -7,6 +7,8 @@ directory '/home/blog/blog/current'
 rackup DefaultRackup
 
 bind 'unix:///home/blog/blog/shared/tmp/sockets/puma.sock'
+pidfile '/home/blog/blog/shared/tmp/pids/puma.pid'
+state_path '/home/blog/blog/shared/tmp/pids/puma.state'
 
 daemonize true
 
