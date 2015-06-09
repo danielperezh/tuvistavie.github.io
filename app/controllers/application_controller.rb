@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_recent_posts
   before_filter :load_new_tweets
 
-  unless Rails.application.config.consider_all_requests_local
+  unless Rails.env.development?
     rescue_from StandardError, with: :render_500
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
