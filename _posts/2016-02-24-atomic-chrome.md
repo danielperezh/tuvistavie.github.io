@@ -1,7 +1,7 @@
 ---
 title: "Use Atom to edit in Chrome"
 date:   2016-02-24
-tags: [Chrome Atom]
+tags: [Chrome, Atom]
 ---
 
 After [GitHub added plenty of shortcuts](https://github.com/blog/2097-improved-commenting-with-markdown) to edit
