@@ -1,7 +1,7 @@
 ---
 title:  "Grunt errors in browser"
 date:   2014-08-21
-tags: [Grunt NodeJS]
+tags: [Grunt, NodeJS]
 ---
 
 I have been using Grunt for quite a while, but I had never found anything to handle compile errors, to show them in the web browser, for example.
