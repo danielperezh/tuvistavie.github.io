@@ -10,7 +10,7 @@ the native Emacs like shortcuts overridden.
 
 I decided to use Atom to edit even more or less short comments, but
 the copy-pasting was becoming a bit superfluous, taking more time
-than it should.  
+than it should.
 I therefore decided to create a plugin to simplify the process, which I
 named [Atomic Chrome](https://github.com/tuvistavie/atomic-chrome).
 If you want to know why it is (or at least can be) useful, there [a thread on Hackernews](https://news.ycombinator.com/item?id=11022356) about it.
@@ -20,7 +20,7 @@ If you want to know why it is (or at least can be) useful, there [a thread on Ha
 I will give a short explanation of how it works here.
 
 The system uses two plugins, a plugin for Google Chrome, and one for
-Atom and communicates using WebSockets.  
+Atom and communicates using WebSockets.
 When the Atom plugin starts, it launches a WebSocket server and just waits.
 On the Chrome side, when the plugin is launched, it connects to the WebSocket
 server, and sends a message to register the current focused textarea.  
@@ -29,7 +29,7 @@ and the Atom tab is synchronized using WS messages.
 
 The process itself is very simple and straightforward, but the implementation
 is a little more tedious than it seems to be, mainly due to Chrome security
-restrictions.  
+restrictions.
 Basically there were two major issues when implementing this:
 
 1. The content script being executed in the context of the current page,
@@ -58,7 +58,7 @@ done using the [Chrome port](https://developer.chrome.com/extensions/runtime#typ
 To be able to access the JS in the page, the solution was to inject a script
 into the page that will have full access to it, and make it communicate with
 the content script to get and set the value of ACE, or whatever JS editor
-we need to handle.  
+we need to handle.
 Again, this adds another layer of message passing, so
 the final flow becomes something like this:
 

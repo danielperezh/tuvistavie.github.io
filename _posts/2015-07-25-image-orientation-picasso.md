@@ -8,11 +8,11 @@ Short memo about an issue I just had some issue on Android with Picasso library 
 
 The issue on GitHub seems to be this one:
 
-https://github.com/square/picasso/issues/566
+[https://github.com/square/picasso/issues/566](https://github.com/square/picasso/issues/566)
 
 This gist is a workaround to the issue, but it did not work for me out of the box.
 
-https://gist.github.com/dnkoutso/9e34a1bba3d63034e863
+[https://gist.github.com/dnkoutso/9e34a1bba3d63034e863](https://gist.github.com/dnkoutso/9e34a1bba3d63034e863)
 
 This seems to work only with `document://` kind of URLs because of `DocumentsContract.getDocumentId(uri)`.
 

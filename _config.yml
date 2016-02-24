@@ -1,6 +1,8 @@
 # Site settings
 title: Daniel Perez
-description: 'software engineer interested in programming languages and functional programming'
+meta_title: Daniel Perez website
+subtitle: 'software engineer interested in programming languages and functional programming'
+description: 'blog about programming'
 url: 'http://tuvistavie.com/'
 baseurl: '/'
 google_analytics: 'UA-40262798-2'
@@ -26,11 +28,12 @@ defaults:
 destination: _site
 paginate: 10
 permalink: /:year/:title/
-markdown: redcarpet
+markdown: kramdown
 highlighter: rouge
 
-redcarpet:
-  extensions: ['autolink', 'lax_spacing', 'no_intra_emphasis']
+kramdown:
+  input: GFM
+  autolink: true
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
