@@ -1,8 +1,0 @@
-posts:
-  per_page: 3
-  recents_number: 4
-  content_limit_ja: 100
-  content_limit_en: 200
-twitter:
-  display_tweets: 4
-  tweet_check_interval: 1

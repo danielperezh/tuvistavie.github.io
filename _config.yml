@@ -1,0 +1,36 @@
+# Site settings
+title: Daniel Perez
+description: 'software engineer interested in programming languages and functional programming'
+url: 'http://tuvistavie.com/'
+baseurl: '/'
+google_analytics: 'UA-40262798-1'
+disqus_shortname: 'tuvistavie'
+
+author:
+  name: 'Daniel Perez'
+  email: tuvistavie@gmail.con
+  twitter_username: tuvistavie
+  facebook_username: tuvistavie
+  github_username:  tuvistavie
+  linkedin_username:  tuvistavie
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: redcarpet
+highlighter: rouge
+
+redcarpet:
+  extensions: ['autolink', 'lax_spacing', 'no_intra_emphasis']
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
