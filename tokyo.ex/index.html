@@ -44,7 +44,7 @@ case :ok do
   :ok -> x = 2
 end
 IO.puts(x) # 1</code></pre><p>Same goes for <code>receive</code>, <code>cond</code>, and
-constructs derived, such as <code>if</code></p></section><section><h3>What does this gives us?</h3><ul><li>Pros<ul><li>Consistency</li><li>Code easier to understand</li><li>Code easier to refactor</li></ul></li><li>Cons<ul><li>Code sometimes a little verbose</li></ul></li></ul></section></section><section><section><h3><code>with</code> improvements</h3><p>The new special form <code>with</code> has been introduced in 1.2</p><div data-fragment-index="1" class="fragment"><pre><code class="elixir">case HTTPoison.get(url) do
+constructs derived, such as <code>if</code></p></section><section><h3>What does this give us?</h3><ul><li>Pros<ul><li>Consistency</li><li>Code easier to understand</li><li>Code easier to refactor</li></ul></li><li>Cons<ul><li>Code sometimes a little verbose</li></ul></li></ul></section></section><section><section><h3><code>with</code> improvements</h3><p>The new special form <code>with</code> has been introduced in 1.2</p><div data-fragment-index="1" class="fragment"><pre><code class="elixir">case HTTPoison.get(url) do
   {:ok, %HTTPoison{body: body}} ->
     case Poison.decode(body) do
       {:ok, data} ->
