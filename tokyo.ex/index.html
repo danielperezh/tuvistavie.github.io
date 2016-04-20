@@ -119,11 +119,12 @@ receive do
   :work_done -> :ok
 after
   30_000 -> :timeout
-end</code></pre></div></section><section><h3><code>Process.sleep</code> alternatives</h3><h4>Bad</h4><pre><code class="elixir">Task.start_link fn ->
+end</code></pre></div></section><section><h3><code>Process.sleep</code> alternatives</h3><h4>Bad</h4><pre><code class="elixir">Task.start fn ->
   do_something()
 end
 # Wait until task terminates
-Process.sleep(30_000)</code></pre><div class="fragment"><h4>Good</h4><pre><code class="elixir">{:ok, pid} = Task.start_link fn ->
+Process.sleep(30_000)
+# Check if process is alive</code></pre><div class="fragment"><h4>Good</h4><pre><code class="elixir">{:ok, pid} = Task.start fn ->
   do_something()
 end
 ref = Process.monitor(pid)
