@@ -61,3 +61,24 @@ pre.highlight code,
   border-radius:100%;
   background-color: #fff;
 }
+
+.panel-main footer {
+  color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1em;
+  text-align: center;
+  z-index: 100;
+}
+
+.panel-main footer a {
+  text-decoration: underline;
+}
+
+
+@media all and (max-width: 340px) {
+  .panel-cover.panel-cover--collapsed .panel-main footer {
+    display: none;
+  }
+}
