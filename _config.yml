@@ -35,5 +35,5 @@ kramdown:
   input: GFM
   autolink: true
 
-gems: ['jekyll-paginate']
+gems: ['jekyll-paginate', 'jekyll-redirect-from']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
