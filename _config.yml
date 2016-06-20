@@ -22,7 +22,8 @@ defaults:
       path: ''
       type: 'posts'
     values:
-        layout: 'post'
+      layout: 'post'
+      footer: true
 
 # Build settings
 destination: _site
@@ -37,3 +38,6 @@ kramdown:
 
 gems: ['jekyll-paginate', 'jekyll-redirect-from']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+
+sass:
+  sass_dir: _sass

@@ -2,7 +2,7 @@
 <html>
   {% include head.html %}
 
-  <body>
+  <body class="{{ page.body_class }}">
     {% include header.html %}
 
     <div class="content-wrapper">
@@ -10,7 +10,10 @@
         {{ content }}
       </div>
 
-      {% include footer.html %}
+      {% unless page.hide_footer %}
+        {% include footer.html %}
+      {% endunless %}
+      {% include javascript.html %}
     </div>
   </body>
 </html>
