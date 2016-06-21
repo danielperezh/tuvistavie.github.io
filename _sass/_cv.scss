@@ -16,6 +16,10 @@
   }
 }
 
+.panel-cover.panel-cover--collapsed .panel-main .panel-cover__description {
+  display: block;
+  font-size: 0.9em;
+}
 
 .panel-main {
   .user-image {
