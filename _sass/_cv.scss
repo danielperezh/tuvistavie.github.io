@@ -52,3 +52,26 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.7em;
   }
 }
+
+dt, dd {
+  line-height: 2em;
+}
+dt {
+  float: left;
+  width: 160px;
+  text-align: right;
+  font-weight: bold;
+  clear: left;
+}
+dd {
+  margin-left: 180px;
+  &::before {
+    display: table;
+    content: " ";
+  }
+  &::after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
