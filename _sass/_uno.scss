@@ -1029,10 +1029,10 @@ body {
 	color: #666666;
 }
 ::selection {
-	background: #fae3df;
+	background: $selection-color;
 }
 ::-moz-selection {
-	background: #fae3df;
+	background: $selection-color;
 }
 a {
 	text-decoration: none;
