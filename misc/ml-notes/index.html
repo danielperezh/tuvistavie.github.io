@@ -1,0 +1,349 @@
+---
+layout: default
+body_class: 'mobile-layout full-page'
+include_mathjax: true
+---
+
+<h1>Machine learning memo</h1>
+<p>This are some memos I took while taking Coursera machine learning course</p>
+<p>You can download a PDF version <a href="/misc/ml-notes.pdf">here</a>.</p>
+<h2>Model representation</h2>
+<h3>Symbols</h3>
+<ul>
+    <li><span class="math"><script type="math/tex">m</script></span> = number of training example</li>
+    <li><span class="math"><script type="math/tex">x</script></span>'s = “input” variable / features</li>
+    <li><span class="math"><script type="math/tex">y</script></span>'s = “output” variable / “target” variable</li>
+    <li><span class="math"><script type="math/tex">(x, y)</script></span> - one training example</li>
+    <li><span class="math"><script type="math/tex">(x^{(i)}, y^{(i)})</script></span> - <span class="math"><script type="math/tex">i^{th}</script></span> training example</li>
+    <li><span class="math"><script type="math/tex">h: x \rightarrow y</script></span> - hypothesis function (takes input and estimates output)</li>
+</ul>
+<h4>Linear regression</h4>
+<p>Also called univariate linear regression.</p>
+<p><span class="math"><script type="math/tex">h</script></span> is a linear function.</p>
+<span class="math"><script type="math/tex; mode=display">h_{\theta}(x) = \theta_0 + \theta_1x
+</script></span>
+<h3>Cost function</h3>
+<p><span class="math"><script type="math/tex">\theta_i</script></span> are the parameters of the equation. For linear regression: <span class="math"><script type="math/tex">h_{\theta}(x) = \theta_0 + \theta_1x</script></span></p>
+<p>Cost function (square error cost function)</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^m \left(h_\theta(x^{(i)})- y^{(i)}\right)^2
+</script></span>
+<p>We want to minimize over the parameters <span class="math"><script type="math/tex">\theta_0</script></span> and <span class="math"><script type="math/tex">\theta_1</script></span>:</p>
+<span class="math"><script type="math/tex; mode=display">\min_{\theta_0, \theta_1}J(\theta_0, \theta_1)
+</script></span>
+<p>The square error cost function is one of the most used for regression.</p>
+<h2>Multiple features</h2>
+<h3>Notations</h3>
+<ul>
+    <li><span class="math"><script type="math/tex">n</script></span> is the number of features</li>
+    <li><span class="math"><script type="math/tex">x^{(i)}</script></span>: input features of <span class="math"><script type="math/tex">i^{\text{th}}</script></span> training example</li>
+    <li><span class="math"><script type="math/tex">x_j^{(i)}</script></span>: input feature <span class="math"><script type="math/tex">j</script></span> of <span class="math"><script type="math/tex">i^{\text{th}}</script></span> training example</li>
+</ul>
+<h3>Hypothesis</h3>
+<span class="math"><script type="math/tex; mode=display">h_\theta(x) = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n
+</script></span>
+<p>For convenience, <span class="math"><script type="math/tex">x_0 = 1</script></span>, so that</p>
+<span class="math"><script type="math/tex; mode=display">x = \begin{bmatrix}x_0\\x_1\\x_2\\\vdots\\x_n\end{bmatrix}\in \mathbb{R}^{n+1} \hspace{1cm}\theta = \begin{bmatrix}\theta_0\\\theta_1\\\theta_2\\\vdots\\\theta_n\end{bmatrix}\in \mathbb{R}^{n+1}
+</script></span>
+<p>we can therefore write</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}h_\theta(x) &= \theta_0x_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n\\
+&= \theta^Tx
+\end{align}</script></span>
+<p>which means</p>
+<span class="math"><script type="math/tex; mode=display">h_\theta(x) = \underbrace{\begin{bmatrix}\theta_0 & \theta_1 & \cdots & \theta_n\end{bmatrix}}_{\theta^T}\cdot\begin{bmatrix}x_0\\x_1\\\vdots\\x_n\end{bmatrix}
+</script></span>
+<p>This is also called Multivariate linear regression.</p>
+<h3>Gradient descent</h3>
+<ul>
+    <li>Parameters: <span class="math"><script type="math/tex">\theta_0, \theta_1, \cdots, \theta_n</script></span> which we think of as <span class="math"><script type="math/tex">\theta\in \mathbb{R}^{n+1}</script></span></li>
+    <li>Cost function: <span class="math"><script type="math/tex">J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}\left(h_\theta(x^{(i)} - y^{(i)})\right)</script></span> where <span class="math"><script type="math/tex">\theta = \begin{bmatrix}\theta_0 & \theta_1 & \cdots & \theta_n\end{bmatrix}</script></span></li>
+</ul>
+<p>Gradient descent: repeat</p>
+<span class="math"><script type="math/tex; mode=display">\theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta)
+</script></span>
+<p>until we converge.</p>
+<p>with simultaneous update. By computing the partial derivative, this gives us</p>
+<span class="math"><script type="math/tex; mode=display">\theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}) - y^{(i)}\right)x_j^{(i)}
+</script></span>
+<h3>Feature scaling</h3>
+<p>Use features on the same scale (with same range of values).</p>
+<p>e.g.</p>
+<ul>
+    <li>Size of the bedroom (<span class="math"><script type="math/tex">100</script></span> - <span class="math"><script type="math/tex">2000 \text{feet}^2</script></span>)</li>
+    <li>Number of beds (<span class="math"><script type="math/tex">1</script></span> - <span class="math"><script type="math/tex">5</script></span>)</li>
+</ul>
+<p>We will want to have values such as <span class="math"><script type="math/tex">-1 \leq x_i \leq 1</script></span> Otherwise, gradient descent will converge slowly.</p>
+<h3>Mean normalization</h3>
+<p>Replace <span class="math"><script type="math/tex">x_i</script></span> by <span class="math"><script type="math/tex">x_i - \mu_i</script></span>, so that the mean of each feature is around <span class="math"><script type="math/tex">0</script></span></p>
+<p>Combining both:</p>
+<span class="math"><script type="math/tex; mode=display">x_i \leftarrow \frac{x_i - \mu_i}{s_i}
+</script></span>
+<p>where <span class="math"><script type="math/tex">s_i</script></span> can be either the the range (max - min) or the standard derivation of the feature.</p>
+<h3>Learning rate</h3>
+<p>Gradient descent should decrease after each iteration.</p>
+<p>Plotting cost function (<span class="math"><script type="math/tex">y</script></span> axis) and number of iteration (<span class="math"><script type="math/tex">x</script></span> axis) helps to make sure gradient descent is working.</p>
+<p>If cost function increases with gradient descent increases, use smaller learning rate <span class="math"><script type="math/tex">\alpha</script></span>. Same if the cost goes up and down.</p>
+<ul>
+    <li>For sufficiently small <span class="math"><script type="math/tex">\alpha</script></span>, <span class="math"><script type="math/tex">J(\theta)</script></span> should decrease on every iteration</li>
+    <li>But if <span class="math"><script type="math/tex">\alpha</script></span> is too small, gradient descent can be too slow</li>
+</ul>
+<p>When choosing <span class="math"><script type="math/tex">\alpha</script></span>, try a range of values: <span class="math"><script type="math/tex">\cdots</script></span>, <span class="math"><script type="math/tex">0.001</script></span>, <span class="math"><script type="math/tex">0.003</script></span>,
+    <span class="math"><script type="math/tex">0.01</script></span>, <span class="math"><script type="math/tex">0.03</script></span>, <span class="math"><script type="math/tex">0.1</script></span>, <span class="math"><script type="math/tex">0.3</script></span>,
+    <span class="math"><script type="math/tex">1</script></span>, <span class="math"><script type="math/tex">\cdots</script></span></p>
+<h3>Normal equation</h3>
+<p>Given <span class="math"><script type="math/tex">X</script></span> is the matrix containing features, with <span class="math"><script type="math/tex">x_0 = 1</script></span> and <span class="math"><script type="math/tex">y</script></span> is a vector
+    containing the results,</p>
+<span class="math"><script type="math/tex; mode=display">\theta = (X^TX)^{-1}X^Ty
+</script></span>
+<p>In details:</p>
+<span class="math"><script type="math/tex; mode=display">x^{(i)} = \begin{bmatrix}x_0^{(i)}\\x_1^{(i)}\\x_2^{(i)}\\\vdots\\x_n^{(i)}\end{bmatrix}
+\hspace{1cm} X = \begin{bmatrix}\cdots \left(x^{(1)}\right)^T\cdots\\
+\cdots \left(x^{(2)}\right)^T\cdots\\
+\vdots \\
+\cdots \left(x^{(m)}\right)^T\cdots\end{bmatrix}
+</script></span>
+<p><span class="math"><script type="math/tex">X</script></span> will have a dimension of <span class="math"><script type="math/tex">m\times(n+1)</script></span></p>
+<h2>Logistic regression</h2>
+<p>Algorithm to classify a data set in different categories.</p>
+<h3>Hypothesis</h3>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+  h_\theta(x) &= g(\theta^Tx)\\
+  g(z) &= \frac{1}{1 + e^{-z}}
+\end{align}</script></span>
+<p><span class="math"><script type="math/tex">g(z)</script></span> has the following property:</p>
+<span class="math"><script type="math/tex; mode=display">g(z)\geq 0.5 \leftrightarrow z \geq 0
+</script></span>
+<h3>Cost function</h3>
+<p>We want the cost function to be convex, so we cannot use the same function as for linear regression.</p>
+<p>We define the cost function as follow:</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta) = \frac{1}{m}\sum_{i=1}^m \text{Cost}(h_\theta(x), y)
+</script></span>
+<p>For linear regression, the <span class="math"><script type="math/tex">\text{Cost}(h_\theta(x), y)</script></span> was the squared error.</p>
+<p>For logistic regression, we use</p>
+<span class="math"><script type="math/tex; mode=display">\text{Cost}(h_\theta(x), y) = \begin{cases}
+  -\log{(h_\theta(x))} & \text{if } y = 1\\
+  -\log{(1 - h_\theta(x))} & \text{if } y = 0
+\end{cases}</script></span>
+<p>More intuitively, if we predicted with certainty <span class="math"><script type="math/tex">y = 0</script></span> but it turned out that <span class="math"><script type="math/tex">y = 1</script></span>, we pay a very large cost.</p>
+<p>On the opposite, if we predicted with certainty that <span class="math"><script type="math/tex">y = 0</script></span> and it was correct, the cost is very close to <span class="math"><script type="math/tex">0</script></span>.</p>
+<p>The above function can be rewritten as follow:</p>
+<span class="math"><script type="math/tex; mode=display">\text{Cost}(h_\theta(x), y) = -y\log{(h_\theta(x))} - (1 - y)\log{(1 - h_\theta(x))}
+</script></span>
+<p>we therefore get</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta) = -\frac{1}{m}\left[\sum_{i=1}^m
+  y^{(i)}\log{\left(h_\theta(x^{(i)})\right)} + (1 - y^{(i)})\log{\left(1 - h_\theta(x^{(i)})\right)}
+\right]</script></span>
+<p>we then need to compute <span class="math"><script type="math/tex">\min_\theta{J(\theta)}</script></span>, which can be achieved by using the gradient descent.</p>
+<p>We compute the partial derivative as follow</p>
+<span class="math"><script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j} = \frac{1}{m}\sum_{i=1}^m \left(h_\theta(x^{(i)}) - y^{(i)}\right)x_j^{(i)}
+</script></span>
+<h3>Optimizations</h3>
+<p>There are more optimized algorithms that gradient descent that can be used to compute the parameters. For example:</p>
+<ul>
+    <li>Conjugate gradient</li>
+    <li>BFGS</li>
+    <li>L-BFGS</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+    <li>No need to manually pick <span class="math"><script type="math/tex">\alpha</script></span></li>
+    <li>Often fater than gradient descent</li>
+</ul>
+<p>Disadvantages</p>
+<ul>
+    <li>More complex</li>
+</ul>
+<p>These can be used easily in octave as follow. Given the following example,</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+&\theta = \begin{bmatrix}\theta_1 \\ \theta_1\end{bmatrix}\\
+&J(\theta) = (\theta_1 - 5)^2 + (\theta_2 - 5)^2\\
+&\frac{\partial}{\partial \theta_1}J(\theta) = 2(\theta_1 - 5)\\
+&\frac{\partial}{\partial \theta_2}J(\theta) = 2(\theta_2 - 5)
+\end{align}
+</script></span>
+
+{% highlight matlab %}
+function [jVal, gradient] = costFunction(theta)
+  jVal = (theta(1) - 5)^2 + (theta(1) - 5)^2;
+  gradient = zeros(2, 1);
+  gradient(1) = 2 * (theta(1) - 5);
+  gradient(2) = 2 * (theta(2) - 5);
+end
+
+options = optimset('GradObj', 'on', 'MaxIter', 100);
+initialTheta = zeros(2, 1);
+[optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, options);
+{% endhighlight %}
+
+<h3>Multiclass classification</h3>
+<p>We can use the one-vs-all algorithm.</p>
+<p>Train a logistic regression classifier <span class="math"><script type="math/tex">h_\theta^{(i)}(x)</script></span> for each class <span class="math"><script type="math/tex">i</script></span> to predict the probability that <span class="math"><script type="math/tex">y = i</script></span></p>
+<p>On a new input <span class="math"><script type="math/tex">x</script></span>, to make a prediction, pick the class <span class="math"><script type="math/tex">i</script></span> that maximizes</p>
+<span class="math"><script type="math/tex; mode=display">\max_i{h_\theta^{(i)}(x)}
+</script></span>
+<h2>Regularization</h2>
+<h3>Overfitting</h3>
+<p>If we have too many features, the learned hypothesis may fit the training set very well (<span class="math"><script type="math/tex">J(\theta) = \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2 \approx 0</script></span>), but fail to generalize
+    to new examples.</p>
+<h4>Adressing overfitting</h4>
+<p>Options:</p>
+<ol>
+    <li>
+        <p>Reduce number of features</p>
+        <ul>
+            <li>Manually select which features to keep</li>
+            <li>Model selection algorithm</li>
+        </ul>
+    </li>
+    <li>
+        <p>Regularization</p>
+        <ul>
+            <li>Keep all the features, but reduce the magnitude/values of parameters <span class="math"><script type="math/tex">\theta_j</script></span></li>
+            <li>Works well when we have a lot of features, each of which contributes a bit to predicting <span class="math"><script type="math/tex">y</script></span></li>
+        </ul>
+    </li>
+</ol>
+<h3>Cost function</h3>
+<p>Small values for parameters <span class="math"><script type="math/tex">\theta_0, \theta_1, \cdots, \theta_n</script></span></p>
+<ul>
+    <li>Simpler hypothesis</li>
+    <li>Less prone to overfitting</li>
+</ul>
+<p>To implement it, we can change the cost function as follow</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta) = \frac{1}{2m}\left[
+\sum_{i=1}^{m}\left(h_\theta(x^{(i)}) - y^{(i)}\right)^2 + \lambda \sum_{i=1}^m\theta_j^2
+\right]
+</script></span>
+<p><span class="math"><script type="math/tex">\lambda</script></span> is called the regularization parameter.</p>
+<h3>Regularized linear regression</h3>
+<p>With</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta) = \frac{1}{2m}\left[
+\sum_{i=1}^{m}\left(h_\theta(x^{(i)}) - y^{(i)}\right)^2 + \lambda \sum_{i=1}^m\theta_j^2
+\right]
+</script></span>
+<p>we want to compute <span class="math"><script type="math/tex">\min_\theta{J(\theta)}</script></span>.</p>
+<p>We have</p>
+<span class="math"><script type="math/tex; mode=display">\frac{\partial}{\partial \theta_j} J(\theta) =
+\frac{1}{m}\sum_{i=1}^m \left(h_\theta(x^{(i)}) - y^{(i)} \right)x_j^{(i)} + \frac{\lambda}{m}\theta_j
+</script></span>
+<p>therefore we only need to separate the computation of <span class="math"><script type="math/tex">\theta_0</script></span> and <span class="math"><script type="math/tex">\theta_j</script></span> (<span class="math"><script type="math/tex">j \geq 1</script></span>)
+    so we do not regularize <span class="math"><script type="math/tex">\theta_0</script></span>.</p>
+<h4>Gradient descent</h4>
+<p>The gradient descent update for <span class="math"><script type="math/tex">\theta_j</script></span> looks like</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+\theta_j &= \theta_j - \alpha \left[\frac{1}{m}
+\sum_{i=1}^m\left(h_\theta(x^{(i)}) - y^{(i)}\right)x_j^{(i)} + \frac{\lambda}{m}\theta_j\right]\\
+&= \theta_j\left(1 - \alpha\frac{\lambda}{m}\right) -
+\alpha\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}) - y^{(i)}\right)x_j^{(i)}
+\end{align}
+</script></span>
+<p>We usually want <span class="math"><script type="math/tex">\left(1 - \alpha\frac{\lambda}{m}\right) < 1</script></span></p>
+<h4>Normal equation</h4>
+<p>Given</p>
+<span class="math"><script type="math/tex; mode=display">X = \begin{bmatrix}\left(x^{(1)}\right)^T\\ \vdots \\ \left(x^{(m)}\right)^T\end{bmatrix}
+\hskip 1cm y = \begin{bmatrix}y^{(1)} \\ \vdots \\ y^{(m)}\end{bmatrix}
+</script></span>
+<p>we are looking for <span class="math"><script type="math/tex">\min_\theta{J(\theta)}</script></span></p>
+<p>The normal equation in this case is given by</p>
+<span class="math"><script type="math/tex; mode=display">\theta = \left(X^T X + \lambda \begin{bmatrix}
+  0 & & &\\ & 1 & &\\& & \ddots &\\& & & 1
+\end{bmatrix}\right)^{-1} X^Ty
+</script></span>
+<h3>Regularized logistic regression</h3>
+<p>We update our cost function to look as follow:</p>
+<span class="math"><script type="math/tex; mode=display">J(\theta) = -\frac{1}{m}\left[\sum_{i=1}^m
+  y^{(i)}\log{\left(h_\theta(x^{(i)})\right)} + (1 - y^{(i)})\log{\left(1 - h_\theta(x^{(i)})\right)}
+\right] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2</script></span>
+<p>To implement the gradient descent, we need to use the same steps as for linear regression.</p>
+<h2>Neural networks</h2>
+<p>Neural network is made of</p>
+<ol>
+    <li>An input layer</li>
+    <li>0 or more hidden layers</li>
+    <li>An output layer</li>
+</ol>
+<h3>Example and computations</h3>
+<p>Given a neural network with 3 units in the input layer, and a single hidden layer, the computations are defined as follow:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+a_1^{(2)} &= g\left(\Theta_{10}^{(1)}x_0 + \Theta_{11}^{(1)}x_1 + \Theta_{12}^{(1)}x_2 + \Theta_{13}^{(1)}x_3 \right)\\
+a_2^{(2)} &= g\left(\Theta_{20}^{(1)}x_0 + \Theta_{21}^{(1)}x_1 + \Theta_{22}^{(1)}x_2 + \Theta_{23}^{(1)}x_3 \right)\\
+a_3^{(2)} &= g\left(\Theta_{30}^{(1)}x_0 + \Theta_{31}^{(1)}x_1 + \Theta_{32}^{(1)}x_2 + \Theta_{33}^{(1)}x_3 \right)\\
+h_\Theta(x) &= g\left(\Theta_{10}^{(2)}a_0^{(2)} + \Theta_{11}^{(2)}a_1^{(2)} + \Theta_{12}^{(2)}a_2^{(2)} + \Theta_{13}^{(2)}a_3^{(2)}\right)
+\end{align}
+</script></span>
+<p>We define</p>
+<span class="math"><script type="math/tex; mode=display">\Theta_{10}^{(1)}x_0 + \Theta_{11}^{(1)}x_1 + \Theta_{12}^{(1)}x_2 + \Theta_{13}^{(1)}x_3 = z_1^{(2)}
+</script></span>
+<p>so that</p>
+<span class="math"><script type="math/tex; mode=display">a_1^{(2)} = g\left(z_1^{(2)}\right)
+</script></span>
+<p>Given the above example, we have</p>
+<span class="math"><script type="math/tex; mode=display">x = a^{(1)} = \begin{bmatrix}x_0\\x_1\\x_2\\x_3\end{bmatrix}\hspace{1cm}
+z^{(2)} = \begin{bmatrix}z_1^{(2)}\\z_2^{(2)}\\z_3^{(3)}\end{bmatrix}
+</script></span>
+<p>and we can use the following computations.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+z^{(2)} &= \Theta^{(1)}a^{(1)}\\
+a^{(2)} &= g\left(z^{(2)}\right)
+\end{align}
+</script></span>
+<p>To compute the next layer (output layer for this example), add <span class="math"><script type="math/tex">a_0^{(2)} = 1</script></span>, and repeat:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+z^{(3)} &= \Theta^{(2)}a^{(2)}\\
+h_\Theta(x) &= a^{(3)} = g\left(z^{(3)}\right)
+\end{align}
+</script></span>
+<h3>Cost function</h3>
+<ul>
+    <li><span class="math"><script type="math/tex">{\left(x^{(1), y^{(1)}}\right), \left(x^{(2), y^{(2)}}\right), \cdots, \left(x^{(m), y^{(m)}}\right)}</script></span>: training set</li>
+    <li><span class="math"><script type="math/tex">L</script></span>: total number of layers in network</li>
+    <li><span class="math"><script type="math/tex">s_l</script></span>: number of units (not couting bias unit) in layer <span class="math"><script type="math/tex">l</script></span></li>
+</ul>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+J(\Theta) &= -\frac{1}{m} \left[
+\sum_{i=1}^m \sum_{k=1}^K
+  y_k^{(i)} \log{\left(h_\Theta(x^{(i)})\right)}_k +
+  (1 - y_k^{(i)}) \log{\left(1 - (h_\Theta(x^{(i)}))_k\right)}
+\right]\\
+&+ \frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_l+1}\left(\Theta_{ji}^{(l)}\right)
+\end{align}
+</script></span>
+<h3>Back propagation algorithm</h3>
+<p><span class="math"><script type="math/tex">\delta_j^{(l)}</script></span> is the “error” of node <span class="math"><script type="math/tex">j</script></span> in layer <span class="math"><script type="math/tex">l</script></span>.</p>
+<p>For each ouput unit (here layer <span class="math"><script type="math/tex">L = 4</script></span>)</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align}
+\delta_j^{(4)} &= a_j^{(4)} - y_j\\
+\delta_j^{(3)} &= \left(\Theta^{(3)}\right)^T\delta^{(4)}.\star g'\left(z^{(3)}\right)\\
+\delta_j^{(2)} &= \left(\Theta^{(2)}\right)^T\delta^{(3)}.\star g'\left(z^{(2)}\right)
+\end{align}
+</script></span>
+<p>where</p>
+<span class="math"><script type="math/tex; mode=display">g'\left(z^{(3)}\right) = a^{(3)} .\star \left(1 - a^{(3)}\right)
+</script></span>
+<p>and</p>
+<span class="math"><script type="math/tex; mode=display">\frac{\partial}{\partial \Theta_{ij}^{(l)}}J(\Theta) = a_j^{(l)}\delta_i^{(l+1)} \hspace{5mm} \text{if } \lambda = 0
+</script></span>
+<h4>Algorithm</h4>
+<ul>
+    <li>Set <span class="math"><script type="math/tex">\Delta_{ij}^{(l)} = 0 \hspace{5mm} (\text{for all }l, i, j)</script></span></li>
+    <li>For <span class="math"><script type="math/tex">i = 1</script></span> to <span class="math"><script type="math/tex">m</script></span>
+        <ul>
+            <li>Set <span class="math"><script type="math/tex">a^{(1)} = x^{(i)}</script></span></li>
+            <li>Perform forward propagation to compute <span class="math"><script type="math/tex">a^{(l)}</script></span> for <span class="math"><script type="math/tex">l = 2, 3, \cdots, L</script></span></li>
+            <li>Using <span class="math"><script type="math/tex">y^{(i)}</script></span>, compute <span class="math"><script type="math/tex">\delta^{(L)} = a^{(L)} - y^{(i)}</script></span></li>
+            <li>Compute <span class="math"><script type="math/tex">\delta^{(L-1)}, \delta^{(L-2)}, \cdots, \delta^{(2)}</script></span><br>
+                <span class="math"><script type="math/tex">\Delta_{ij}^{(l)} = \Delta_{ij}^{(l)} + a_j^{(l)}\delta_i^{(l + 1)}</script></span></li>
+        </ul>
+    </li>
+    <li><span class="math"><script type="math/tex">D_{ij}^{(i)} = \frac{1}{m}\Delta_{ij}^{(l)} + \lambda\Theta_{ij}^{(l)} \hspace{5mm}\text{if }j \neq 0</script></span></li>
+    <li><span class="math"><script type="math/tex">D_{ij}^{(i)} = \frac{1}{m}\Delta_{ij}^{(l)}\hspace{5mm} \text{if }j = 0</script></span></li>
+</ul>
+<h2>Evaluating algorithms</h2>
+<p>Precision:</p>
+<span class="math"><script type="math/tex; mode=display">\frac{\#\text{true positives}}{\#\text{true positives + false positives}}
+</script></span>
+<p>Recall:</p>
+<span class="math"><script type="math/tex; mode=display">\frac{\#\text{true positives}}{\#\text{true positives + false negatives}}
+</script></span>
+<p><span class="math"><script type="math/tex">F_1</script></span> score:</p>
+<span class="math"><script type="math/tex; mode=display">2\frac{PR}{P + R}
+</script></span>
