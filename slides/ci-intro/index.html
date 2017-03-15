@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presentation</title><link rel="stylesheet" href="components/reveal.js/css/reveal.css"><link rel="stylesheet" href="components/reveal.js/css/theme/sky.css"><link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css"></head><body><div class="reveal"><div class="slides"><section><h3>Introduction to<br> Continuous Integration</h3><h4>Daniel Perez @ RIT</h4><p><a href="http://bit.ly/ci-intro" target="_blank">http://bit.ly/ci-intro</a></p></section><section><h2>Continuous integration</h2><ul class="fragment"><li>Why?</li><li>What?</li><li>When?</li><li>How?</li></ul></section><section><h3>Main goal</h3><p>centralized and iterative check for correctness</p><ul class="fragment"><li>avoid bugs in the code base</li><li>make setups reproducible</li></ul></section><section><section><h3>It works on my computer</h3><img src="images/coco.png" class="fragment"></section><section><h3>It works on my computer</h3><img src="images/coco-error.png"></section><section><h3>It works on my computer</h3><ul><li>Locally installed software</li><li data-fragment-index="2" class="fragment">System level dependency<br>e.g. Particular version of <code>MySQL</code></li><li data-fragment-index="2" class="fragment">OS dependent features<br>e.g. <code>epoll</code> for IO events</li><li data-fragment-index="2" class="fragment">Platform dependent features<br>e.g. <code>SIMD</code> instructions</li></ul></section></section><section><section><h3>What is Continuous Integration?</h3><p class="fragment">Check the software everytime the code is changed</p><ul class="fragment"><li>Run test suites</li><li>Run static code analysis tools</li><li class="fragment">Deploy the code (continuous deployment)</li></ul></section><section><img src="https://insights.sei.cmu.edu/assets/content/image%20for%20continuous%20integration%20and%20devops_01262015.jpg"><small><a href="https://insights.sei.cmu.edu/assets/content/image%20for%20continuous%20integration%20and%20devops_01262015.jpg">Carnegie Mellon University blog</a></small></section></section><section><h2>When should I use CI?</h2><ul data-fragment-index="1" class="fragment"><li>Deploying code to actual users</li><li>Writing library code used by other people</li><li data-fragment-index="2" class="fragment">Working with other people on the same code</li><li data-fragment-index="2" class="fragment">Working on the same code for more than a few weeks</li></ul></section><section><h2>How to use CI?</h2><h3>Short intro to Circle CI</h3><ol><li>How to setup a project</li><li>How to configure the CI server</li><li>How to deploy your code automatically</li></ol></section></div></div><script src="components/headjs/dist/1.0.0/head.min.js"></script><script src="components/reveal.js/js/reveal.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'components/reveal.js/plugin/zoom-js/zoom.js', async: true },
+    { src: 'components/reveal.js/plugin/notes/notes.js', async: true }
+  ]
+});
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
