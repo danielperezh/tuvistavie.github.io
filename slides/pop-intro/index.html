@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Process Oriented Programming</title><link rel="stylesheet" href="components/reveal.js/css/reveal.css"><link rel="stylesheet" href="components/reveal.js/css/theme/serif.css"><link rel="stylesheet" href="components/reveal.js/lib/css/zenburn.css"><link rel="stylesheet" href="components/components-font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="css/main.css"></head><body><div class="reveal"><div class="slides"><section><section><h2><small>a short introduction to</small><br>Process Oriented Programming</h2><h3>Daniel Perez<br><small><span><i class="fa fa-github fa-margin"></i><a href="https://github.com/tuvistavie" target="_blank">tuvistavie</a></span><br><span><a href="https://www.csg.ci.i.u-tokyo.ac.jp/index-j.html" target="_blank">Chiba Lab</a>, 2017/5/14</span></small></h3><h4><a href="http://tuvistavie.com/slides/pop-intro" target="_blank">http://bit.ly/pop-intro</a></h4></section></section><section><section><h2>BEAM</h2><ul><li>Virtual machine to run Erlang</li><li>Native support for concurrency and distribution</li><li>Designed for soft real-time</li></ul></section><section><h2>Erlang processes</h2><ul> <li>Low memory footprint</li><li>Fast to create/destroy</li><li>Low scheduling overhead</li><li>Share nothing</li></ul></section><section><h2>Process mailbox</h2><ul><li>Each process has a mailbox</li><li>Messages are delivered exactly once</li><img src="./images/actors.png"></ul></section></section><section><section><h2>Process state</h2><h3>Stateful arguments</h3><pre><code class="elixir">def loop(some_int) do
+  receive do
+    {:add, value} ->
+      loop(some_int + value)
+  end
+end</code></pre></section><section><h3>Creating a <code>Stack</code> server</h3><pre><code class="elixir">defmodule StackServer do
+  def loop(state) do
+    receive do
+      {:push, value} ->
+        new_state = [value | state]
+        loop(new_state)
+      {:pop, sender} ->
+        [value | new_state] = state
+        send(sender, value)
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section><section><h3><code>push</code> function</h3><pre><code class="elixir">defmodule StackServer do
+  def push(pid, value) do
+    send(pid, {:push, value})
+  end
+end
+</code></pre></section><section><h3>Making <code>pop</code> synchronous</h3><pre><code class="elixir">defmodule StackServer do
+  def pop(pid) do
+    ref = make_ref()
+    send(pid, {:pop, self(), ref})
+    receive do
+      {^ref, value} -> value
+    end
+  end
+
+  def loop(state) do
+    receive do
+      {:pop, sender, ref} ->
+        [value | new_state] = state
+        send(sender, {ref, value})
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section></section><section><section><h2>Error handling</h2><p>Two main primitives</p><ul><li><code>link</code>: non-stackable bidirectional link<p>if linked process dies, I must do something</p></li><li><code>monitor</code>: stackable unidirectional link<p>if monitored process dies, it's not really my problem</p></li></ul></section><section><h2>Process linking</h2><p>Default behavior: if you die, I die</p><pre><code class="elixir">iex(1)> spawn_link(fn -> raise "die!" end)
+** (EXIT from #PID<0.98.0>) an exception was raised:
+    ** (RuntimeError) die!
+        (stdlib) erl_eval.erl:668: :erl_eval.do_apply/6
+ 
+Interactive Elixir (1.4.2) - press Ctrl+C to exit (type h() ENTER for help)
+ 
+22:27:50.586 [error] Process #PID<0.100.0> raised an exception
+** (RuntimeError) die!
+    (stdlib) erl_eval.erl:668: :erl_eval.do_apply/6</code></pre></section><section><h2>Exit trapping</h2><p>New link behavior: if you die, I get a message</p><pre><code class="elixir">iex(1)> Process.flag(:trap_exit, true)
+false
+iex(2)> spawn_link(fn -> raise "die!" end)   
+#PID<0.101.0>
+iex(3)> 
+22:30:04.530 [error] Process #PID<0.101.0> raised an exception
+** (RuntimeError) die!
+    (stdlib) erl_eval.erl:668: :erl_eval.do_apply/6
+flush()
+{:EXIT, #PID<0.101.0>,
+ {%RuntimeError{message: "die!"},
+  [{:erl_eval, :do_apply, 6, [file: 'erl_eval.erl', line: 668]}]}}</code></pre></section></section><section><section><h2>Supervisor vs worker</h2><p>Processes are usually divided in two types</p><ul><li>Worker: processes actually doing the job</li><li>Supervisor: processes starting and taking care of the workers</li></ul><p>Supervisor are responsible for restarting workers</p></section><section><h2>Restart strategies</h2><p>4 main strategies<br>Given processes <code>A,B,C</code>, if <code>B</code> dies</p><ul><li>One for one: restart <code>B</code></li><li>One for all: restart <code>A,B,C</code></li><li>Rest for one: restart <code>B,C</code></li><li>Simple one for one: restart <code>B</code></li></ul><p>Processes in simple one for one must have the same type (i.e. call the same function)
+and are usually spawned dynamically</p></section><section><h2>Supervision tree</h2><p>Application is usually composed of many supervisors and workers</p><img src="./images/supervisor.jpg"></section></section></div></div><script src="components/headjs/dist/1.0.0/head.min.js"></script><script src="components/reveal.js/js/reveal.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'components/reveal.js/plugin/zoom-js/zoom.js', async: true },
+    { src: 'components/reveal.js/plugin/notes/notes.js', async: true }
+  ]
+});
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
