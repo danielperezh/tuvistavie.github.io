@@ -4,6 +4,19 @@ date:   2015-09-02
 tags: [Elixir]
 ---
 
+This post has been updated to take in account OTP 20 new features.
+
+### Update with OTP 20
+
+OTP 20 now supports persistent history out of the box, the only thing
+you need to do is to set the environment variable `ERL_AFLAGS` to `-kernel shell_history enabled`, so you can for example add the following to your `.bashrc` or `.zshrc`.
+
+```zsh
+export ERL_AFLAGS="-kernel shell_history enabled"
+```
+
+### Original post
+
 Recently I am starting to use Elixir a bit more seriously, and a small issue I had was that Elixir repl, IEx, history does not persist between sessions.
 Being used to repl like `ipython` or `pry` which do that out of the box, I wanted to have this functionality, which is in my opinion very convenient.
 
