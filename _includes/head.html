@@ -21,8 +21,8 @@
     <meta name="twitter:description" content="{{ page.content | strip_html | truncatewords: 30 }}">
     <meta property="og:description" content="{{ page.content | strip_html | truncatewords: 30 }}">
     {% if page.image %}
-      <meta property="og:image" content="{{ page.image | prepend: "/images/" | prepend: site.url }}">
-      <meta name="twitter:image" content="{{ page.image | prepend: "/images/" | prepend: site.url }}">
+      <meta property="og:image" content="{{ page.image | prepend: "/images/" | absolute_url }}">
+      <meta name="twitter:image" content="{{ page.image | prepend: "/images/" | absolute_url }}">
     {% endif %}
   {% else %}
     <title>{{ site.title }}</title>
@@ -70,6 +70,6 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="{{ "css/main.css" | relative_url }}">
-  <link rel="canonical" href="{{ page.url | remove_first:'/' | replace:'index.html','' | relative_url | prepend: site.url }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.meta_title }}" href="{{ site.baseurl }}feed.xml">
+  <link rel="canonical" href="{{ page.url | remove_first:'/' | replace:'index.html','' | absolute_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.meta_title }}" href="{{ feed.xml | relative_url }}">
 </head>

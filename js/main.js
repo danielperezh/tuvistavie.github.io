@@ -18,7 +18,7 @@ $(document).ready(function () {
     $('.panel-cover').addClass('panel-cover--collapsed')
   }
 
-  if (window.location.pathname !== '{{ site.baseurl }}' && window.location.pathname !== '{{ site.baseurl }}index.html') {
+  if (window.location.pathname !== '{{ "/" | relative_url }}' && window.location.pathname !== '{{ "index.html" | relative_url }}') {
     $('.panel-cover').addClass('panel-cover--collapsed')
   }
 
