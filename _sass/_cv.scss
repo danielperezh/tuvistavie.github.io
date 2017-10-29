@@ -1,0 +1,17 @@
+section {
+  .info {
+    .period {
+      &::after {
+        content: " | ";
+      }
+    }
+    .location {
+      font-style: italic;
+    }
+  }
+
+  .note {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+}
