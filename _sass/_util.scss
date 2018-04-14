@@ -1,0 +1,20 @@
+h1, h2, h3, h4, h5, h6 {
+  &.sm-top-margin {
+    margin-top: 0.3em;
+  }
+
+  .minor {
+    font-size: 0.8em;
+  }
+}
+
+a {
+  &.discrete {
+    color: $text-color;
+    text-decoration: underline;
+  }
+}
+
+.simple {
+  list-style-type: none;
+}

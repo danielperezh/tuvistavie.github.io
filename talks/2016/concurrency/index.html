@@ -1,0 +1,153 @@
+---
+redirect_from:
+  - /slides/concurrency
+---
+{% raw %}
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Concurrency basics</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/serif.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" href="css/main.css"></head><body><div class="reveal"><div class="slides"><section><section><h1>Daniel Perez</h1><h3>CTO@<a href="http://claudetech.com" target="_blank">ClaudeTech</a></h3><h3><i class="fa fa-github fa-margin"></i><a href="https://github.com/tuvistavie" target="_blank">tuvistavie</a></h3><h2><a href="http://tuvistavie.com/slides/concurrency" target="_blank">bit.ly/tokyo-ex2</a></h2></section><section><h2>Beta users wanted!<br><a href="https://eyecatch.io">https://eyecatch.io</a></h2><h3>CI for UI/UX</h3></section></section><section><h3>Today's topic</h3><h2>Concurrency basics</h2><h4>Implementing a stack server</h4><br><div data-fragment-index="2" class="fragment"><h4>Target audience</h4><ul><li>Getting started with Elixir</li><li>No Erlang background</li></ul></div></section><section><section><h3>Language concurrency builtins</h3><ul><li><code>spawn</code></li><li><code>send</code></li><li><code>receive</code></li><li><code>monitor</code></li><li><code>link</code></li></ul></section><section><h2>Spawn a process</h2><pre><code class="elixir">pid = spawn fn ->
+  IO.puts "Hello from #{inspect(self())}"
+end
+:timer.sleep(10)
+Process.alive?(pid) |> IO.inspect # false
+</code></pre></section><section><h2>Communicate with a process</h2><pre><code class="elixir">pid = spawn fn ->
+  receive do
+    {:ping, sender} -> send(sender, :pong)
+  end
+end
+:timer.sleep(10)
+Process.alive?(pid) # true
+send(pid, {:ping, self()})
+flush() # :pong
+Process.alive?(pid) # false
+</code></pre></section><section><h2>Building a server (kind of)</h2><pre><code class="elixir">defmodule PingServer do
+  def start do
+    spawn(__MODULE__, :loop, [])
+  end
+
+  def loop do
+    receive do
+      {:ping, sender} ->
+        send(sender, :pong)
+        loop()
+    end
+  end
+end
+</code></pre></section><section><h2>We need state!</h2><ul><li>Elixir is immutable</li><li>For state, use <code>Agent</code>s</li><li><code>Agent</code> is a wrapper around <code>GenServer</code></li><li class="fragment">We said no <code>GenServer</code>...</li></ul></section><section><h3>Recursive function arguments</h3><pre><code class="elixir">def loop(some_int) do
+  receive do
+    {:add, value} ->
+      loop(some_int + value)
+  end
+end</code></pre></section><section><h3>Our <code>Stack</code> server</h3><pre><code class="elixir">defmodule StackServer do
+  def loop(state) do
+    receive do
+      {:push, value} ->
+        new_state = [value | state]
+        loop(new_state)
+      {:pop, sender} ->
+        [value | new_state] = state
+        send(sender, value)
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section><section><h3>Abstract <code>push</code></h3><pre><code class="elixir">defmodule StackServer do
+  def push(pid, value) do
+    send(pid, {:push, value})
+  end
+end
+</code></pre></section><section><h3>Make <code>pop</code> synchronous</h3><pre><code class="elixir">defmodule StackServer do
+  def pop(pid) do
+    ref = make_ref()
+    send(pid, {:pop, self(), ref})
+    receive do
+      {^ref, value} -> value
+    end
+  end
+
+  def loop(state) do
+    receive do
+      {:pop, sender, ref} ->
+        [value | new_state] = state
+        send(sender, {ref, value})
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section></section><section><section><h2>Make it generic</h2><ul><li>A server has a state</li><li>A server uses a main loop</li><li>A server can handle sync/async requests</li></ul></section><section><h3>Refactor our loop</h3><pre><code class="elixir">defmodule ClumsyGenServer do
+  def loop(module, state) do
+    receive do
+      {:async, message} ->
+        {:noreply, new_state} = module.handle_cast(message, state)
+        loop(module, new_state)
+      {:sync, message, sender, ref} ->
+        {:reply, reply, new_state} =
+          module.handle_call(message, {sender, ref}, state)
+        send(sender, {ref, reply})
+        loop(module, new_state)
+    end
+  end
+end
+</code></pre></section><section><h3>Extract logic of <code>push</code> and <code>pop</code></h3><pre><code class="elixir">defmodule ClumsyGenServer do
+  def cast(pid, message) do
+    send(pid, {:async, message})
+  end
+
+  def call(pid, message) do
+    ref = make_ref()
+    send(pid, {:sync, message, self(), ref})
+    receive do
+      {^ref, reply} -> reply
+    end
+  end
+end
+</code></pre></section><section><h3>Logic to start <code>ClumsyGenServer</code></h3><pre><code class="elixir">defmodule ClumsyGenServer do
+  def start(module, state) do
+    spawn(__MODULE__, :init, [module, state])
+  end
+
+  def init(module, state) do
+    {:ok, state} = module.init(state)
+    loop(module, state)
+  end
+
+  ...
+end
+</code></pre></section><section><h3>Rewrite <code>push</code> and <code>pop</code></h3><pre><code class="elixir">defmodule StackServer do
+  def init(state) do
+    {:ok, state}
+  end
+  def pop(pid) do
+    ClumsyGenServer.call(pid, :pop)
+  end
+  def push(pid, value) do
+    ClumsyGenServer.cast(pid, {:push, value})
+  end
+  def handle_cast({:push, value}, state) do
+    {:noreply, [value | state]}
+  end
+  def handle_call(:pop, _from, [head | rest]) do
+    {:reply, head, rest}
+  end
+end
+</code></pre></section></section><section><section><h2>Final words</h2><ul><li>OTP has plenty of useful abstractions</li><li>It is mostly about abstracting the generic</li><li class="fragment">Take a look at what is available</li><li class="fragment">Use OTP, <strong>don't reinvent the wheel</strong></li></ul></section></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.min.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.min.js', async: true },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.min.js', async: true }
+  ]
+});</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
+{% endraw %}

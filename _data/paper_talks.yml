@@ -1,0 +1,30 @@
+- title: A Survey of Machine Learning for Big Code and Naturalness
+  paper_authors:  Miltiadis Allamanis, Earl T. Barr, Premkumar Devanbu, Charles Sutton
+  date: 2018/4/2
+  location: Chiba lab, The University of Tokyo
+  path: 2018/ml-bigcode-survey.pdf
+
+- title: Learning a Static Analyzer from Data
+  paper_authors: Pavol Bielik, Veselin Raychev and Martin Vechev
+  date: 2018/1/29
+  location: SRL group, ETH Zurich
+  path: 2018/learning-static-analyzer-slides.pdf
+
+- title:  Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks
+  paper_authors: Kai Sheng Tai, Richard Socher, Christopher D. Manning
+  date: 2017/10/2
+  location: "Tensorflow User Group Tokyo, paper presentation #4"
+  location_url: https://tfug-tokyo.connpass.com/event/67207/
+  path: 2017/tree-lstm.pdf
+
+- title: "FairPlay: Fraud and Malware Detection in Google Play"
+  paper_authors: Mahmudur Rahman, Mizanur Rahman, Bogdan Carbunar, Duen Horng Chau
+  date: 20/12/2016
+  path: 2016/fairplay.pdf
+  location: Anomaly detection class, The University of Tokyo
+
+- title: Automatic Patch Generation by Learning Correct Code
+  paper_authors: Fan Long, Martin Rinard
+  date: 21/11/2016
+  path: 2016/automatic-patch-generation.pdf
+  location: Chiba lab, The University of Tokyo

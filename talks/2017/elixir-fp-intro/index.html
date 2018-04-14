@@ -1,0 +1,272 @@
+---
+redirect_from:
+  - /slides/elixir-fp-intro
+---
+{% raw %}
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Functional programming with Elixir</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/serif.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="css/main.css"></head><body><div class="reveal"><div class="slides"><section><section><h2>Functional programming<br>with Elixir</h2><h3>Daniel Perez<br><small><span><i class="fa fa-github fa-margin"></i><a href="https://github.com/tuvistavie" target="_blank">tuvistavie</a></span><br><span>CTO@<a href="http://claudetech.com" target="_blank">Claude Tech</a></span></small></h3><h4><a href="http://tuvistavie.com/slides/elixir-fp-intro" target="_blank">http://bit.ly/elixir-fp-intro</a></h4></section></section><section><section><h3>Today's topic</h3><h2>Functional programming<br>with Elixir</h2><div class="fragment"><h4>Target audience</h4><ul><li>Programming experience</li><li>Little or now experience with functional programming</li><li>Understanding of Elixir basics</li></ul></div></section><section data-transition="fade-in slide-out"><h3>Today's topic</h3><h2>Functional programming<br>with Elixir</h2><h4>Outline</h4><ol><li>Overview of the functional paradigm</li><li>Elixir functional programming features</li><li>State management in Elixir</li></ol></section></section><section><section><h1>Functional paradigm</h1></section><section><h2>Programming paradigm</h2><h3>A "way of programming"</h3><ul><li>Way of reasonning</li><li>Way of structuring code</li></ul></section><section><h2>A few programming paradigms</h2><ul><li>Imperative programming (C, Fortran, Basic)</li><li>Functional programming (Elixir, Haskell, ML)</li><li>Object oriented programming (SmallTalk, Java)</li><li>Many others: process oriented, logic</li></ul></section><section><h2>Multi paradigms</h2><p>A lot of language support multiple programming paradigms<br>e.g. Scala supports imperative, functional, object oriented</p><p>A lot of languages support some functional features<br>e.g. High order functions are used in many languages</p></section><section><h2>Imperative programming</h2><ul><li>Focus on the "how"</li><li>Program is built by mutating state</li><li>Conditions, loops and functional calls for control flow</li></ul><h2>Functional programming</h2><ul><li>Set of transformations through functions</li><li>Transformations instead of mutations</li><li>Control flow involves recursion</li></ul></section><section><h2>Functional programming</h2><h4>Definition</h4><h3>Programming based on transformations through functions</h3></section><section><h2>Merits of functional programming</h2><ul><li>Easier to reason about</li><li>Needs less context to understand</li><li>Plays well with concurrent programming</li></ul></section><section><h2>Unsuited for functional programming</h2><p>Tasks with a lot of mutations are not appropriate for FP</p><ul><li>Large data structures</li><li>Many mutations in the data structures</li></ul><p>Matrix operations is a good example</p></section></section><section><section><h2>Overview of functional features in Elixir</h2><ul><li>Pattern matching</li><li>Recursion</li><li>High order functions</li><li>Immutable data structures</li></ul></section></section><section><section><h1>Pattern matching</h1></section><section><h2>What is pattern matching?</h2><p>Matching a source expression with a target expression</p><ol><li>Match the target with the source</li><li>Bind the source values to the target variables</li></ol></section><section><h2>Match operator</h2><h4>In Elixir <code>=</code> means "match", not "assignment"</h4><pre><code class="erlang">iex(1)> a = 1
+1
+iex(2)> a
+1
+iex(3)> 1 = a
+1
+iex(4)> 1 = 1
+1
+iex(5)> 2 = a
+** (MatchError) no match of right hand side value: 1
+</code></pre></section><section><h2>Match operator</h2><pre><code class="elixir">iex(1)> a = 1
+1
+iex(2)> [x] = [2]
+[2]
+iex(3)> x
+2
+iex(4)> %{key: value} = %{key: "value", other: "other"}
+%{key: "value", other: "other"}
+iex(5)> value
+"value"
+</code></pre></section><section><h2>Match context</h2><p>Semantic changes depending on the context</p><ul><li>Variable name in normal context returns its value</li><li>Variable name in match context will be bound</li></ul></section><section><h2>Different match contexts</h2><pre><code class="elixir"># match operator
+def match_op_match_context(value) do
+  {a, b} = value
+  a + b
+end
+
+# case expression
+def case_match_conext(value) do
+  case value do
+    {a, b} -> a + b
+  end
+end
+
+# function clause
+def func_match_context({a, b}), do: a + b
+</code></pre></section><section><h2>Enough to implement <code>if</code>/<code>else</code></h2><pre><code class="elixir">case x < 1 do
+  true -> "if branch"
+  false -> "else branch"
+end
+</code></pre></section><section><h2>Matching with guards</h2><p>Using predicates when pattern matching, replacing the need for <code>else if</code></p><pre><code class="elixir">def status(age) when age < 18, do: "child"
+def status(age) when age < 65, do: "adult"
+def status(age), do: "senior"
+</code></pre><p class="fragment">Check docs for usable expressions</p></section><section><h2>Pinning variables</h2><p>The following is a common pattern</p><pre><code class="elixir">case value do
+  a when a == some_variable -> do_something()
+  _ -> do_something_else()
+end
+</code></pre><div class="fragment"><p>Elixir allow to write it as</p><pre><code class="elixir">case value do
+  ^some_variable -> do_something()
+  _ -> do_something_else()
+end
+</code></pre></div></section><section><h2>Pattern matching order of evaluation</h2><p>Match patterns are evaluated simultaneously<br>therefore the following will not work</p><pre><code class="elixir">def published?(platform, %{^platform => %{state: "published"}}), do: true
+def published?(_platform, _info), do: false
+</code></pre></section></section><section><section><h1>Recursion</h1></section><section><h2>Recursive function</h2><h3>A function that directly<br>or indirectly calls itself</h3><p>Recursive functions usually have a</p><ul><li>base case: the case where the function stop recursing</li><li>recursion case: the case where the function keep recursing</li></ul></section><section><h2>The <code>sum</code> function</h2><ul><li>When list is empty, return <code>0</code></li><li>When list is not empty, return <code>current_value + sum(rest_of_the_list)</code></li></ul><p>which translates into</p><pre><code class="elixir">def sum([]), do: 0
+def sum([head | tail]), do: head + sum(tail)
+</code></pre></section><section><h2>Execution of the <code>sum</code>function</h2><p>The result of the recursive call is not enough to compute the function final result</p><pre>sum([1, 2, 3])
+1 + sum([2, 3])
+1 + 2 + sum([3])
+1 + 2 + 3 + sum([])
+1 + 2 + 3 + 0
+1 + 2 + 3
+1 + 5
+6</pre><p>Stack increases at each iteration</p></section><section><h2>Tail recursion</h2><p>Make the recursive call the last expression of the function</p><h4>Non tail-recursive</h4><pre><code class="elixir">def sum([]), do: 0
+def sum([head | tail]), do: head + sum(tail)
+</code></pre><h4>Tail-recursive</h4><pre><code class="elixir">def sum(list), do: do_sum(list, 0)
+defp do_sum([], acc), do: acc
+defp do_sum([head | tail], acc), do: do_sum(tail, acc + head)
+</code></pre></section><section><h2>Tail call optimization</h2><p>Function calls normally accumulate on the stack<br>Tail calls optimization avoids increasing the size of the stack when
+a function call is a tail call</p></section><section><h2>Normal function call</h2><h4>All the function calls stay in the stack</h4><pre><code class="elixir">defmodule WithStack do
+  def foo(), do: "foo" <> bar()
+  def bar(), do: "bar" <> baz()
+  def baz(), do: raise "error"
+end
+
+try do
+  WithStack.foo()
+rescue
+  _ -> :erlang.get_stacktrace()
+end
+# [{WithStack, :baz, 0, [file: 'iex', line: 6]},
+#  {WithStack, :bar, 0, [file: 'iex', line: 5]},
+#  {WithStack, :foo, 0, [file: 'iex', line: 4]},
+#  {:erl_eval, :do_apply, 6, [file: 'erl_eval.erl', line: 670]},
+#  ...
+# ]
+</code></pre></section><section><h2>Tail function calls</h2><h4>Tail calls do not remain in the stack</h4><pre><code class="elixir">defmodule NoStack do
+  def foo(), do: bar()
+  def bar(), do: baz()
+  def baz(), do: raise "error"
+end
+
+try do
+  NoStack.foo()
+rescue
+  _ -> :erlang.get_stacktrace()
+end
+# [{NoStack, :baz, 0, [file: 'iex', line: 17]},
+#  {:erl_eval, :do_apply, 6, [file: 'erl_eval.erl', line: 670]},
+#  ...
+# ]
+</code></pre></section><section><h2>Tail call optimization</h2><p>The following code will not stack overflow</p><pre><code class="elixir">def sample_infinite_loop() do
+  wait_for_something()
+  do_something()
+  sample_infinite_loop()
+end
+</code></pre></section></section><section><section><h1>High order functions</h1></section><section><h2>High order functions motivation</h2><p>We want to abstract common patterns</p><h3>Sum function</h3><pre><code class="elixir">def sum([]), do: 0
+def sum([head | tail]), do: head + sum(tail)
+</code></pre><h3>Count function</h3><pre><code class="elixir">def count([]), do: 0
+def count([head | tail]), do: 1 + sum(tail)
+</code></pre></section><section><h2>Abstracting common patterns</h2><h4><code>sum</code> and <code>count</code> both:</h4><ul><li>recurse on a list</li><li>accumulate a result by applying a function</li></ul><p class="fragment">This is often called <code>reduce</code> or <code>fold</code></p></section><section><h2>First class functions</h2><p>Functions can be used as normal values</p><ul><li>saved into a variable</li><li>used as function parameters</li><li>used as return value</li></ul><p class="fragment">Many languages implement this feature</p></section><section><h2>Implementing a high order function</h2><p>The reduce function could be implemented as follow</p><pre><code class="elixir">def reduce([], initial_value, _f), do: initial_value
+def reduce([head | tail], initial_value, f) do
+  f.(head, reduce(tail, initial_value, f))
+end
+</code></pre><p><code>sum</code> and <code>count</code> can then be implemented as</p><pre><code class="elixir">def sum(list), do: reduce(list, 0, fn (elem, acc) -> elem + acc end)
+def count(list), do: reduce(list, 0, fn (_elem, acc) -> 1 + acc end)
+</code></pre></section><section><h2>Common high order functions</h2><ul><li><code>map</code>: applies a function on all elements of a list</li><li><code>filter</code>: filters a list using a predicate function</li><li><code>reduce</code>: reduces a list to a scalar using a binary function</li></ul></section></section><section><section><h1>Immutability</h1></section><section><h2>Mutable vs Immutable</h2><h4>regarding data structures</h4><ul><li>operations on a mutable structure will modify it</li><li>operations on an immutable structure will return a new updated one</li></ul></section><section><h2>Mutability in Elixir</h2><p>All data structures in Elixir are immutable</p><pre><code class="elixir">list = [1, 2, 3, 4]
+List.delete(list, 3)# returns a new list
+
+map = %{foo: "bar"}
+Map.put(map, :bar, "baz") # returns a new map
+
+conn = get_conn()
+halt(conn) # returns a new conn
+</code></pre></section><section><h2>Common mistake</h2><p>When getting started, is easy to forget about immutability</p><pre><code class="elixir">def some_plug(conn) do
+  unless authorized?(conn) do
+    conn
+    |> put_status(403)
+    |> halt()
+  end
+  conn
+end
+</code></pre></section></section><section><section><h1>A stateful world</h1></section><section><h2>Handling state</h2><ul><li>a lot of real world task need state</li><li>structures cannot be mutated</li><li>we need a way to model the state</li></ul></section><section><h2>State in Elixir</h2><ul><li>Elixir is immutable</li><li>Use <code>Agent</code> when you need state</li><li><code>Agent</code> is a wrapper around <code>GenServer</code></li><li class="fragment">What is going on in <code>GenServer</code>?</li></ul></section><section><h2>A short outline</h2><ul><li>(re)view OTP building blocks</li><li>implement simple stateful server</li><li>generalize our stateful server</li></ul></section><section><h3>Language concurrency builtins</h3><ul><li><code>spawn</code></li><li><code>send</code></li><li><code>receive</code></li><li><code>monitor</code></li><li><code>link</code></li></ul></section><section><h2>Spawning a process</h2><pre><code class="elixir">pid = spawn fn ->
+  IO.puts "Hello from #{inspect(self())}"
+end
+:timer.sleep(10)
+Process.alive?(pid) |> IO.inspect # false
+</code></pre></section><section><h2>Communicate with a process</h2><pre><code class="elixir">pid = spawn fn ->
+  receive do
+    {:ping, sender} -> send(sender, :pong)
+  end
+end
+:timer.sleep(10)
+Process.alive?(pid) # true
+send(pid, {:ping, self()})
+flush() # :pong
+Process.alive?(pid) # false
+</code></pre></section><section><h2>Creating a server</h2><pre><code class="elixir">defmodule PingServer do
+  def start do
+    spawn(__MODULE__, :loop, [])
+  end
+
+  def loop do
+    receive do
+      {:ping, sender} ->
+        send(sender, :pong)
+        loop()
+    end
+  end
+end
+</code></pre></section><section><h3>Stateful arguments</h3><pre><code class="elixir">def loop(some_int) do
+  receive do
+    {:add, value} ->
+      loop(some_int + value)
+  end
+end</code></pre></section><section><h3>Creating a <code>Stack</code> server</h3><pre><code class="elixir">defmodule StackServer do
+  def loop(state) do
+    receive do
+      {:push, value} ->
+        new_state = [value | state]
+        loop(new_state)
+      {:pop, sender} ->
+        [value | new_state] = state
+        send(sender, value)
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section><section><h3><code>push</code> function</h3><pre><code class="elixir">defmodule StackServer do
+  def push(pid, value) do
+    send(pid, {:push, value})
+  end
+end
+</code></pre></section><section><h3>Making <code>pop</code> synchronous</h3><pre><code class="elixir">defmodule StackServer do
+  def pop(pid) do
+    ref = make_ref()
+    send(pid, {:pop, self(), ref})
+    receive do
+      {^ref, value} -> value
+    end
+  end
+
+  def loop(state) do
+    receive do
+      {:pop, sender, ref} ->
+        [value | new_state] = state
+        send(sender, {ref, value})
+        loop(new_state)
+    end
+  end
+end
+</code></pre></section><section><h2>Making the server generic</h2><ul><li>A server has a state</li><li>A server uses a main loop</li><li>A server can handle sync/async requests</li></ul></section><section><h3>Refactoring our main loop</h3><pre><code class="elixir">defmodule ClumsyGenServer do
+  def loop(module, state) do
+    receive do
+      {:async, message} ->
+        {:noreply, new_state} = module.handle_cast(message, state)
+        loop(module, new_state)
+      {:sync, message, sender, ref} ->
+        {:reply, reply, new_state} =
+          module.handle_call(message, {sender, ref}, state)
+        send(sender, {ref, reply})
+        loop(module, new_state)
+    end
+  end
+end
+</code></pre></section><section><h3>Extracting logic of <code>push</code> and <code>pop</code></h3><pre><code class="elixir">defmodule ClumsyGenServer do
+  def cast(pid, message) do
+    send(pid, {:async, message})
+  end
+
+  def call(pid, message) do
+    ref = make_ref()
+    send(pid, {:sync, message, self(), ref})
+    receive do
+      {^ref, reply} -> reply
+    end
+  end
+end
+</code></pre></section><section><h3>Rewriting <code>push</code> and <code>pop</code></h3><pre><code class="elixir">defmodule StackServer do
+  def init(state) do
+    {:ok, state}
+  end
+  def pop(pid) do
+    ClumsyGenServer.call(pid, :pop)
+  end
+  def push(pid, value) do
+    ClumsyGenServer.cast(pid, {:push, value})
+  end
+  def handle_cast({:push, value}, state) do
+    {:noreply, [value | state]}
+  end
+  def handle_call(:pop, _from, [head | rest]) do
+    {:reply, head, rest}
+  end
+end
+</code></pre></section></section><section><h2>Wrap up</h2><ul><li>Functional programming has plenty of useful concepts</li><li>Elixir uses and implements many of these</li><li>State can be modeled using processes and message passing</li></ul></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.min.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.min.js', async: true },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.min.js', async: true }
+  ]
+});
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
+{% endraw %}

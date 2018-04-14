@@ -1,0 +1,192 @@
+---
+redirect_from:
+  - /slides/metaprogramming
+---
+{% raw %}
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Metprogramming in Elixir</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/serif.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" href="css/main.css"></head><body><div class="reveal"><div class="slides"><section><section><h1>Daniel Perez</h1><h3>CTO@<a href="http://claudetech.com" target="_blank">ClaudeTech</a></h3><h3><i class="fa fa-github fa-margin"></i><a href="https://github.com/tuvistavie" target="_blank">tuvistavie</a></h3><h4><a href="http://bit.ly/metaprogramming-ex" target="_blank">http://bit.ly/metaprogramming-ex</a></h4></section></section><section><section><h2>Today's topic</h2><h3>Metaprogramming in Elixir</h3><br><div data-fragment-index="2" class="fragment"><h4>Target audience</h4><ul><li>At least basic knowledge of Elixir</li></ul></div></section><section><h3>Metaprogramming in Elixir</h3><ol><li>Metaprogramming and macros</li><li>AST and code representation</li><li>Writing macros</li><li>Writing DSLs</li></ol></section></section><section><section><h2>What is metaprogramming?</h2><blockquote class="fragment">computer programs with the ability to treat programs as their data.</blockquote></section><section><h2>What is metaprogramming?</h2><h3>In today context:</h3><div class="fragment"><h3>A program which can modify itself</h3></div></section><section><h2>How do we metaprogram?</h2><ul><li>Preprocesor macros (C, C++)</li><li>Reflection (Java, Go)</li><li>Dynamic program modification (Ruby, Python)</li><li>Macros modifying AST (Lisp, Elixir)</li></ul></section><section><h2>A short Ruby example</h2><pre><code class="ruby">class Foo
+  %w(foo bar baz).each do |v|
+    define_method(v) do
+      puts "Hi, I am #{v}"
+    end
+  end
+end
+</code></pre></section></section><section><section><h2>What are macros?</h2><blockquote class="fragment">a rule that specifies how a certain input sequence should be mapped to a replacement output sequence</blockquote></section><section><h2>Preprocessor macros</h2><p>Transform the program before the compiler runs</p><h4>Example in C</h4><pre><code class="c">#ifdef DEBUG_BUILD
+  #define DEBUG(x) fprintf(stderr, x)
+#else
+  #define DEBUG(x) do {} while (0)
+#endif
+</code></pre></section></section><section><section><h2>A long long time ago in LispLand</h2><div class="fragment"><h3>Code is data, data is code!</h3></div></section><section><h2>Homoiconicity <span class="fragment"><small class="text-middle">they say...</small></span></h2><div class="fragment"><pre><code class="lisp">(+ 1 2 3)</code></pre><p>is</p><ul><li class="fragment">a list containing <code>+ 1 2 3</code></li><li class="fragment">an expression adding <code>1 2 3</code></li></ul></div></section><section><h2>Back to the future</h2><h3 class="fragment">And Elixir?</h3><p class="fragment">It's like Lisp...</p><p class="fragment">but Jose hid the parentheses</p></section></section><section><section><h2>Enter the AST</h2></section><section><h2>Abstract Syntax Tree</h2><img src="images/ast.png"></section><section><h2>Compiler frontend</h2><img src="images/compiler.png"></section><section><h2>AST in Elixir</h2><div class="fragment"><h3>An expression is a tuple</h3></div><div class="fragment"><p>Simple expression</p><pre><code class="elixir">iex(1)> quote do: 1 + 2
+{:+, [context: Elixir, import: Kernel], [1, 2]}</code></pre></div><div class="fragment"><p>A little more complex expression</p><pre><code class="elixir">iex(2)> quote do 
+...(2)>   if a > 20, do: "major", else: "minor"  
+...(2)> end
+{:if, [context: Elixir, import: Kernel],
+ [{:>, [context: Elixir, import: Kernel], [{:a, [], Elixir}, 20]},
+  [do: "major", else: "minor"]]}</code></pre></div></section></section><section><section><h2>Writing macros</h2><h3>Quoting and unquoting</h3><ul><li><code>quote</code> transforms an expression into its AST representation<div data-fragment-index="2" class="fragment"><code>`</code> in Lisp</div></li><li><code>unquote</code> allows to inject a value in the AST<div data-fragment-index="2" class="fragment"><code>,</code> in Lisp</div></li><li><code>unquote_splicing</code> allows to inject an array in the AST<div data-fragment-index="2" class="fragment"><code>,@</code> in Lisp</div></li></ul></section><section><h2>Using <code>unquote</code></h2><pre><code class="elixir">iex(1)> a = 5
+iex(2)> ast = quote do 
+...(2)>   a + 5
+...(2)> end
+iex(3)> Code.eval_quoted(ast)
+** (CompileError) nofile:1: undefined function a/0</code></pre></section><section data-transition="fade-in slide-out"><h2>Using <code>unquote</code></h2><pre><code class="elixir">iex(1)> a = 5
+iex(2)> ast = quote do 
+...(2)>   unquote(a) + 5
+...(2)> end
+iex(3)> Code.eval_quoted(ast)
+{10, []}</code></pre></section><section><h2>Using <code>unquote_splicing</code></h2><pre><code class="elixir">iex(1)> args = ["a,b,c", ","]
+iex(2)> ast = quote do
+...(2)>   String.split(unquote(args))
+...(2)> end
+iex(3)> Code.eval_quoted(ast)
+** (FunctionClauseError) no function clause matching in String.Break.split/1</code></pre></section><section data-transition="fade-in slide-out"><h2>Using <code>unquote_splicing</code></h2><pre><code class="elixir">iex(1)> args = ["a,b,c", ","]
+iex(2)> ast = quote do
+...(2)>   String.split(unquote_splicing(args))
+...(2)> end
+iex(3)> Code.eval_quoted(ast)
+{["a", "b", "c"], []}</code></pre></section></section><section><section><h1>Writing macros</h1></section><section><h2>Reimplementing <code>if</code></h2><pre><code class="elixir">defmacro if(condition, do: do_clause, else: else_clause) do
+  quote do
+    case unquote(condition) do
+      x when x in [nil, false] -> unquote(else_clause)
+      _ -> unquote(do_clause)
+    end
+  end
+end
+</code></pre></section><section><h2>Reimplementing <code>defdelegate</code></h2><pre><code class="elixir">defdelegate fun(a, b), to: Mod</code></pre><div class="fragment"><p>should expand to</p><pre><code class="elixir">def fun(a, b) do
+  Mod.fun(a, b)
+end</code></pre></div></section><section data-transition="fade-in slide-out"><h2>Reimplementing <code>defdelegate</code></h2><h4>Implementing <code>defdelegate</code></h4><pre><code class="elixir">defmacro defdelegate(function, to: module) do
+  {name, _, vars} = function  # {:fun, _, [{:a, _, _}, {:b, _, _}]}
+  quote do
+    def unquote(name)(unquote_splicing(vars)) do
+      unquote(module).unquote(name)(unquote_splicing(vars))
+    end
+  end
+end
+</code></pre></section><section><h2>Macro expansion</h2><ul><li>Macro are expanded at compile time</li><li>Compiler expands until it reaches a special form</li><li>Expansion can be checked with <code>Macro.expand</code></li><li>Expanded form can be formatted with <code>Macro.to_string</code></li></ul></section><section><h2>Macro hygiene</h2><ul><li>Macros are hygienic by default: they do not leak</li><li>Macros can be non-hygienic by using <code>var!</code></li></ul></section><section><h2>A look at Plug router</h2><h3>Where is <code>conn</code>?</h3><pre><code class="elixir">get "/hello" do
+  send_resp(conn, 200, "world")
+end</code></pre></section><section><h2>Plug router like macro</h2><h4>This will not work</h4><pre><code class="elixir">defmacro get(route, do: block) do
+  quote do
+    def handle_request(conn, :get, unquote(route)) do
+      unquote(block)
+    end
+  end
+end
+&nbsp;
+# when trying to use conn
+** (CompileError) iex:8: undefined function conn/0</code></pre></section><section data-transition="fade-in slide-out"><h2>Plug router like macro</h2><pre><code class="elixir">defmacro get(route, do: block) do
+  quote do
+    def handle_request(var!(conn), :get, unquote(route)) do
+      unquote(block)
+    end
+  end
+end
+&nbsp;
+# somewhere else
+get "/foo" do
+  IO.inspect(conn)
+end</code></pre></section></section><section><section><h1>Writing a DSL</h1></section><section><h2>What's a DSL?</h2><ul><li>Domain Specific Language</li><li>More or less a "mini-language"</li><li>Usually a set of macros/functions</li></ul><div class="fragment"><h3>Examples</h3><ul><li>Mix config</li><li>Phoenix router</li><li>ExUnit</li><li class="fragment"><a href="https://github.com/tuvistavie/ex_cli">ExCLI</a>&nbsp; (Today's sample)</li></ul></div></section><section><h2>Writing a DSL</h2><pre><code class="elixir">defmodule MyApp.SampleCLI do
+  use ExCLI.DSL
+
+  name "mycli"
+  description "My CLI"
+  long_description "This is my long description"
+
+  option :verbose, help: "Increase the verbosity level", aliases: [:v], count: true
+
+  command :hello do
+    description "Greets the user"
+    long_description """
+    Gives a nice a warm greeting to whoever would listen
+    """
+
+    argument :name
+    option :from, help: "the sender of hello"
+
+    run context do
+      if context.verbose >= 1 do
+        IO.puts("Running hello command.")
+      end
+      if from = context[:from] do
+        IO.write("#{from} says: ")
+      end
+      IO.puts("Hello #{context.name}!")
+    end
+  end
+end
+</code></pre></section><section><h2>We want to</h2><ul><li>Write the DSL macros</li><li>Store the data defined in macros</li><li>Retrieve and use the data</li></ul></section><section><h2>Storing data</h2><ul><li>Module attributes (compile time)</li><li>External process (run time)</li></ul></section><section><h2>Using <code>use</code></h2><ul><li><code>use MyModule, opts</code> is equivalent to<ul><li><code>require Module</code></li><li><code>Module.__using__(opts)</code></li></ul></li><li><code>use</code> is (often) used to inject functionality</li></ul></section><section><h2>Defining <code>__using__</code></h2><pre><code class="elixir">defmacro __using__(_opts) do
+  quote do
+    import unquote(__MODULE__)
+    @app %{commands: []}
+    @command nil
+    @before_compile unquote(__MODULE__)
+  end
+end
+</code></pre></section><section><h2><code>before_compile</code></h2><pre><code class="elixir">defmacro __before_compile__(_env) do
+  quote do
+    def __app__ do
+      @app
+    end
+  end
+end
+</code></pre></section><section><h2>Simple setter</h2><pre><code class="elixir">defmacro name(name) do
+  quote do
+    @app Map.put(@app, :name, unquote(name))
+  end
+end
+</code></pre></section><section><h2>Changing scope</h2><pre><code class="elixir">defmacro command(name, do: block) do
+  quote do
+    @command %{name: unquote(name)}
+    unquote(block)
+    @app Map.put(@app, :commands, [@command | @app.commands])
+    @command nil
+  end
+end
+</code></pre></section><section><h2>Changing scope</h2><pre><code class="elixir">defmacro argument(name) do
+  quote do
+    if @command do
+      @command Map.put(@command, :arguments, [unquote(name), @command.arguments])
+    else
+      raise "argument should be called from inside a command"
+    end
+  end
+end
+</code></pre></section><section><h2>Definining functions</h2><pre><code class="elixir">defmacro run(context, do: block) do
+  quote bind_quoted: [context: Macro.escape(context), block: Macro.escape(block)] do
+    def __run__(unquote(@command.name), var!(unquote(context))) do
+      unquote(block)
+    end
+  end
+end
+</code></pre></section><section><h2>Trying it out</h2><pre><code class="elixir">defmodule MyCLI do
+  use MyDSL
+
+  name "my_cli"
+
+  command :my_command do
+    argument :hello
+
+    run context do
+      IO.inspect(context)
+    end
+  end
+end
+</code></pre></section></section><section><section><h2>Wrapping up</h2><h4>Today we saw</h4><ul><li>Metaprogramming</li><li>Macros</li><li>How to write a DSL</li></ul><div class="fragment"><h4>We did not see</h4><ul><li>Using other processes to store data</li><li>How to test macros</li><li>Code generation</li></ul></div></section><section><h2>Wrapping up</h2><h4>A few guidelines</h4><ul><li>Do not use macros just to use macros</li><li>Do not create DSLs just to create DSLs</li><li>Test your macros properly</li><li class="fragment">Have fun!</li></ul></section></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.min.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.min.js', async: true },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.min.js', async: true }
+  ]
+});</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
+{% endraw %}

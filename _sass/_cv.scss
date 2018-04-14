@@ -1,17 +1,20 @@
-section {
-  .info {
-    .period {
-      &::after {
-        content: " | ";
+.cv {
+  section {
+    .info {
+      font-size: $small-font-size;
+      .period {
+        &:not(.period-only)::after {
+          content: " | ";
+        }
+      }
+      .location {
+        font-style: italic;
       }
     }
-    .location {
-      font-style: italic;
-    }
-  }
 
-  .note {
-    font-style: italic;
-    font-size: 0.9em;
+    .note {
+      font-style: italic;
+      font-size: 0.8em;
+    }
   }
 }

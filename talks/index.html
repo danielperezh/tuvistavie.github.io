@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<div class="post">
+  <h1>Talks</h1>
+  <p>These are slides for some talks I gave,
+    mostly about the Elixir programming language</p>
+  <ol class="post-list">
+  {% for talk in site.data.talks %}
+    {% include talk.html %}
+  {% endfor %}
+  </ol>
+</div>
+
+<div class="post">
+  <h1>Paper presentation</h1>
+  <p>These are slides for some papers I read and presented.
+    <br>
+    NB: the papers are <strong>not by me</strong>, I just made the slides to
+    introduce the papers and shared them here
+  </p>
+  <ol class="post-list">
+  {% for talk in site.data.paper_talks %}
+    {% include talk.html %}
+  {% endfor %}
+  </ol>
+</div>

@@ -2,17 +2,14 @@
 <html>
   {% include head.html %}
 
-  <body class="{{ page.body_class }}">
-    {% include header.html %}
+  <body>
+    <div class="page">
+      {% include header.html %}
 
-    <div class="content-wrapper">
-      <div class="content-wrapper__inner">
+      <main class="content">
         {{ content }}
-      </div>
+      </main>
 
-      {% unless page.hide_footer %}
-        {% include footer.html %}
-      {% endunless %}
       {% include javascript.html %}
     </div>
   </body>

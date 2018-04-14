@@ -4,25 +4,21 @@ title: assertRaises in Python
 tags: [Python, unittest]
 ---
 
-A friend asked me about Python `unittest`'s `assertRaises` and the answer was becoming too long for Slack, so I decided to write a short blog post about it.
+A friend asked me about Python `unittest`'s `assertRaises` and the answer was
+becoming too long for Slack, so I decided to write a short blog post about it.
 
 In this blog post, we will cover how `assertRaises` in `unittest.TestCase` works, and implement a simplified version of it.
-
-For the sake of example, let's say we want to check that `next(iter([]))` raises a `StopIteration` error.
-
-We will use a very simple Python script to try the code
+For the sake of example, let's say we want to check that `next(iter([]))` raises a `StopIteration` error. We will use a very simple Python script to try the code
 
 ```python
 import unittest
 
-
 class SampleTest(unittest.TestCase):
-  def test_assert_raises(self):
-    pass
-
+    def test_assert_raises(self):
+        pass
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()
 ```
 
 ### Common mistake
@@ -53,13 +49,13 @@ To see how this might work, here is a sample implementation of `assertRaises` th
 
 ```python
 def argsAssertRaises(self, exc_type, func, *args, **kwargs):
-  raised_exc = None
-  try:
-    func(*args, **kwargs)
-  except exc_type as e:
-    raised_exc = e
-  if not raised_exc:
-    self.fail("{0} was not raised".format(exc_type))
+    raised_exc = None
+    try:
+      func(*args, **kwargs)
+    except exc_type as e:
+      raised_exc = e
+    if not raised_exc:
+      self.fail("{0} was not raised".format(exc_type))
 ```
 
 There are three possible outcomes here:
@@ -78,7 +74,7 @@ A sample usage would look like this
 
 ```python
 with self.assertRaises(StopIteration):
-  next(iter([]))
+    next(iter([]))
 ```
 
 To understand how it might work, there are a few things we need to understand about context managers.
@@ -86,7 +82,7 @@ A context manager is typically used as
 
 ```python
 with MyContextManager() as m:
-  do_something_with(m)
+    do_something_with(m)
 ```
 
 The identifier in the `as` clause will be assigned whatever the `__enter__` method of `MyContextManager` returns. When the `with` statement exits, it will call the `__exit__` method of `MyContextManager`, potentially passing in the exception type, exception value and exception traceback - respectively `exc_type`, `exc_value` and `exc_tb`. If an exception has been raised and the `__exit__` method returns `True`, the exception is suppressed, otherwise, the exception will propagate.
@@ -132,14 +128,14 @@ in our test case class, which will return an instance of it:
 
 ```python
 def cmAssertRaises(self, expected_exc):
-  return SampleRaiseContextManager(expected_exc, self)
+    return SampleRaiseContextManager(expected_exc, self)
 ```
 
 we can now use our helper method to test for exceptions
 
 ```python
 with self.cmAssertRaises(StopIteration):
-  next(iter([]))
+    next(iter([]))
 ```
 
 This is pretty much it for how `assertRaises` works.

@@ -1,0 +1,19 @@
+<li>
+  <h3>
+    <a class="discrete" href="{{ talk.path | prepend: "talks/" | relative_url }}">
+      {{ talk.title }}
+    </a>
+  </h3>
+  <p>
+    {% if talk.paper_authors %}
+      <span class="authors">by {{ talk.paper_authors }}</span>
+      <br>
+    {% endif %}
+    {{ talk.date }} @
+    {% if talk.location_url %}
+      <a href="{{ talk.location_url }}" target="_blank">{{ talk.location }}</a>
+    {% else %}
+      {{ talk.location }}
+    {% endif %}
+  </p>
+</li>

@@ -2,23 +2,45 @@
 layout: default
 ---
 
-<div class="main-post-list">
+<h1>Daniel Perez</h1>
 
-  <ol class="post-list">
-    {% for post in paginator.posts %}
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="{{ post.url | relative_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-        <p class="excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}&hellip;</p>
-        <div class="post-list__meta"><time datetime="{{ post.date | date: "%-d %b %Y" }}" class="post-list__meta--date date">{{ post.date | date: "%-d %b %Y" }}</time> &#8226; <span class="post-meta__tags">on {% for tag in post.tags %}<a href="{{ tag | prepend: "tags/#" | relative_url }}">{{ tag }}</a> {% endfor %}</span></div>
-        <hr class="post-list__divider">
-      </li>
-    {% endfor %}
-  </ol>
+<div class="intro">
+  <div class="alignleft">
+    <p>
+      My name is Daniel Perez. I am a software engineer based in Tokyo.
+      I have mostly been working on backend systems in various companies and
+      I particularly enjoy writing in functional languages.
+      <br>
+      I am currently doing research as a first year PhD student in professor
+      <a href="https://www.csg.ci.i.u-tokyo.ac.jp/~chiba/site/">Shigeru Chiba</a>'s
+      group at <a href="https://www.u-tokyo.ac.jp/index_e.html">the University of Tokyo</a>.
+      My current research theme is how we can apply machine learning methods to
+      programming related tasks.
+      <br>
+      I am usually open to freelance work, please feel free to contact me for
+      more information.
+    </p>
 
-  <hr class="post-list__divider ">
+    <h2>Contact information</h2>
+    <dl class="inline small-term">
+      <dt><i class="fa fa-envelope"></i></dt>
+      <dd>[first]@[last].sh</dd>
 
-  {% if paginator.previous_page or paginator.next_page %}
-      {% include pagination.html %}
-  {% endif %}
+      <dt><i class="fa fa-github"></i></dt>
+      <dd><a href="https://github.com/tuvistavie">GitHub</a></dd>
 
+      <dt><i class="fa fa-linkedin"></i></dt>
+      <dd><a href="https://www.linkedin.com/in/tuvistavie/">LinkedIn</a></dd>
+
+      <dt><i class="fa fa-facebook"></i></dt>
+      <dd><a href="https://www.facebook.com/tuvistavie">Facebook</a></dd>
+
+      <dt><i class="fa fa-twitter"></i></dt>
+      <dd><a href="https://twitter.com/tuvistavie">Twitter</a></dd>
+    </dl>
+  </div>
+
+  <div class="alignright">
+    <img class="image" src="images/profile-coffee-2016.jpg" alt="Profile picture">
+  </div>
 </div>

@@ -1,7 +1,5 @@
 ---
 layout: default
-body_class: 'mobile-layout full-page'
-hide_footer: true
 ---
 
 <div class="cv">
@@ -56,7 +54,8 @@ hide_footer: true
         <span class="location">Tokyo, Japan</span>
       </div>
       <ul class="details">
-        <li>Development of <a href="https://www.usaginote.jp/">Usagi Note</a> web API in Ruby</li>
+        <li>Development of <a href="https://www.usaginote.jp/">Usagi Note</a>
+        web API in Ruby, first service to exit <a href="https://ring.recruit.co.jp/">Recruit Ventures</a></li>
         <li>Development of webservice backend in Java</li>
       </ul>
     </section>
@@ -150,19 +149,27 @@ hide_footer: true
       <h3>
         <span class="title">Master of Computer Science</span>
         <span class="minor">at</span>
-        <a href="http://www.u-tokyo.ac.jp/" class="affiliation">Tokyo University</a>
+        <a href="http://www.u-tokyo.ac.jp/" class="affiliation">The University of Tokyo</a>
       </h3>
       <div class="info">
-        <span class="period">Apr 2014 - Mar 2018 (expected)</span>
+        <span class="period">Apr 2014 - Mar 2018</span>
         <span class="location">Tokyo, Japan</span>
       </div>
-      <div class="note">two gap years to setup my startup</div>
+      <div class="note">two years off to work on my startup</div>
       <p class="content">
-        Specialization in machine learning application to programming language analysis.
-        <br>
-        Working on cross-language source code clone detection using
-        supervised learning. Created new clone detection dataset and currently
-        experimenting with LSTM based models.
+        <dl class="emph inline">
+          <dt>Specialization</dt>
+          <dd>Machine learning application to programming languages</dd>
+          <dt>Master thesis</dt>
+          <dd>A study of machine learning approaches to cross-language code
+          clone detection
+            [<a href="{{ "research/master-thesis/thesis.pdf" | relative_url }}">PDF</a>]
+          </dd>
+        </dl>
+        Worked on cross-language source code clone detection using
+        semi-supervised learning. Created a new clone detection dataset
+        for this task implemented a model able to detect cross-language clones
+        missed by state-of-the-art tools.
       </p>
     </section>
 
@@ -203,8 +210,10 @@ hide_footer: true
 
     <section>
       <h3><a href="https://www.paypal.com/stories/us/team-talk%E2%80%99n%E2%80%99pick-wins-battlehack-tokyo">Paypal Battlehack 2015</a> Japan winner and world finalist</h3>
-      <span class="period">Jun 2015</span>
-      <span class="location">Tokyo, Japan</span>
+      <div class="info">
+        <span class="period">Jun 2015</span>
+        <span class="location">Tokyo, Japan</span>
+      </div>
       <div class="content">
         Developed TalkNPick, a video editing system which automatically
         tracks audio input fluctuations and extracts the most important segments in a video.
@@ -214,8 +223,10 @@ hide_footer: true
 
     <section>
       <h3><a href="http://hackday.jp/2015/winners/">Open Hack Day Japan 3</a> Intel and Ricoh awards</h3>
-      <span class="period">Feb 2015</span>
-      <span class="location">Tokyo, Japan</span>
+      <div class="info">
+        <span class="period">Feb 2015</span>
+        <span class="location">Tokyo, Japan</span>
+      </div>
       <div class="content">
         Developed <a href="http://hackday.jp/2015/team/3/">IoTISSUE</a>, a tissue box which self-drives and pops out
         a tissue for sneezing persons.
@@ -225,8 +236,10 @@ hide_footer: true
 
     <section>
       <h3><a href="http://www.tbs.co.jp/tv_hack_day/">TBS TV Hack Day</a> perfection award, PUX and Gracenote awards</h3>
-      <span class="period">Mar 2014</span>
-      <span class="location">Tokyo, Japan</span>
+      <div class="info">
+        <span class="period">Mar 2014</span>
+        <span class="location">Tokyo, Japan</span>
+      </div>
       <div class="content">
         Developed <a href="http://conductor.hajipion.com/">Conductor</a>, a system which enables to control TV with
         just one finger by using Leap Motion.
@@ -236,8 +249,10 @@ hide_footer: true
 
     <section>
       <h3><a href="http://hackday.jp/2014/winners/">Open Hack Day Japan 2</a> winner and IDCF award </h3>
-      <span class="period">Feb 2014</span>
-      <span class="location">Tokyo, Japan</span>
+      <div class="info">
+        <span class="period">Feb 2014</span>
+        <span class="location">Tokyo, Japan</span>
+      </div>
       <div class="content">
         Developed <a href="https://www.youtube.com/watch?v=LLrUGa-bsus&feature=youtu.be">SmartWalk</a>, an application which helps people walking
         safely while looking at their phone.
@@ -252,7 +267,9 @@ hide_footer: true
 
     <section>
       <h3><a href="https://github.com/tuvistavie/bigcode-tools">BigCode tools</a></h3>
-      <span class="period">Mar 2017 - Present</span>
+      <div class="info">
+        <span class="period period-only">Mar 2017 - Present</span>
+      </div>
       <div class="content">
         BigCode tools is a set of tools to work with source code
         developed as part of my research. It mainly contains tools to help source
@@ -263,7 +280,9 @@ hide_footer: true
 
     <section>
       <h3><a href="https://github.com/tuvistavie/atomic-chrome">Atomic Chrome</a></h3>
-      <span class="period">Jan 2015 - Present</span>
+      <div class="info">
+        <span class="period period-only">Jan 2015 - Present</span>
+      </div>
       <div class="content">
         Developed an Atom editor and Google Chrome plugin to live edit
         textareas directly in Chrome. Plugin now has 10k+ users and has
@@ -274,7 +293,9 @@ hide_footer: true
 
     <section>
       <h3><a href="/papers/scala-x-server.pdf">X sever in Web Browser</a></h3>
-      <span class="period">Mar 2013 - Aug 2013</span>
+      <div class="info">
+        <span class="period period-only">Mar 2013 - Aug 2013</span>
+      </div>
       <div class="content">
         Developed a system to run an X server directly in a browser by
         using Canvas rendering and duplex communication with the remote
@@ -327,13 +348,13 @@ hide_footer: true
 
   <article>
     <h2>Languages</h2>
-    <dl>
+    <dl class="emph inline">
       <dt>French</dt>
       <dd>native</dd>
       <dt>English</dt>
-      <dd>fluent <span class="score"><a href="https://www.ets.org/toefl/ibt/about">TOEFL iBT</a> 108/120</span></dd>
+      <dd>fluent <span class="score">(<a href="https://www.ets.org/toefl/ibt/about">TOEFL iBT</a> 108/120)</span></dd>
       <dt>Japanese</dt>
-      <dd>fluent <span class="score"><a href="http://www.jlpt.jp/e/about/levelsummary.html">JLPT N1</a> 165/180</span></dd>
+      <dd>fluent <span class="score">(<a href="http://www.jlpt.jp/e/about/levelsummary.html">JLPT N1</a> 165/180)</span></dd>
       <dt>Spanish</dt>
       <dd>intermediate</dd>
     </dl>
@@ -341,7 +362,7 @@ hide_footer: true
 
   <article>
     <h2>Interests</h2>
-    <dl>
+    <dl class="emph inline">
       <dt>professional</dt>
       <dd>programming language analysis, programming language design, functional programming</dd>
       <dt>personal</dt>

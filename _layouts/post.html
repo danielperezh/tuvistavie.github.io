@@ -1,17 +1,36 @@
 ---
 layout: default
 ---
-<article class="post-container post-container--single">
+
+<div class="post">
   <header class="post-header">
-    <div class="post-meta">
-      <time datetime="{{ page.date | date: "%-d %b %Y" }}" class="post-meta__date date">{{ page.date | date: "%-d %b %Y" }}</time> &#8226; <span class="post-meta__tags">on {% for tag in page.tags %}<a href="{{ tag | prepend: "tags#" | relative_url }}">{{ tag }}</a> {% endfor %}</span>
-    </div>
-    <h1 class="post-title">{{ page.title }}</h1>
+  <h1>{{ page.title }}</h1>
+  <p class="post-meta">
+    Posted on {{ page.date | date: "%B %-d, %Y" }}
+    {% if page.location %} ({{ page.location }}){% endif %}
+  </p>
+
+  {% if page.description %}
+  <p class="post-meta">Description: {{ page.description }}</p>
+  {% endif %}
+
+  {% if page.tags %}
+  <p class="post-meta">Tags:
+  {% for tag in page.tags %}
+    <a href="{{ tag | prepend: "tags/#" | relative_url }}">
+      {{ tag }}{% unless forloop.last %},&nbsp;{% endunless %}
+    </a>
+  {% endfor %}
+
+  </p>
+  {% endif %}
   </header>
 
-  <section class="post">
-    {{ content }}
-  </section>
-  {% if page.comments != false and site.disqus_shortname %}<section id="disqus_thread"></section><!-- /#disqus_thread -->{% endif %}
-</article>
-{% if page.comments != false %}{% include disqus.html %}{% endif %}
+  {{ content }}
+
+  {% if page.comments != false and site.disqus_shortname  %}
+      <section id="disqus_thread"></section><!-- /#disqus_thread -->
+      {% include disqus.html %}
+  {% endif %}
+</div>
+{% include copyright_footer.html %}

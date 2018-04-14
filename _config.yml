@@ -2,7 +2,7 @@
 title: Daniel Perez
 meta_title: Daniel Perez website
 subtitle: 'software engineer interested in programming languages and functional programming'
-description: 'blog about programming'
+description: 'personal homepage of Daniel Perez'
 url: 'https://tuvistavie.com'
 baseurl: '/'
 google_analytics: 'UA-40262798-2'
@@ -28,7 +28,8 @@ defaults:
 # Build settings
 destination: _site
 paginate: 10
-permalink: /:year/:title/
+paginate_path: /blog/page:num/
+permalink: blog/:year/:title/
 markdown: kramdown
 highlighter: rouge
 

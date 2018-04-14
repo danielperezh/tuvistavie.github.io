@@ -1,0 +1,34 @@
+- title: Intro to Process Oriented Programming
+  date: 2017/5/14
+  location: Chiba lab, The University of Tokyo
+  path: 2017/pop-intro/#/
+
+- title: Intro to Functional Programming with Elixir
+  date: 2017/4/1
+  location: ElixirConf Japan 2017
+  location_url: http://www.elixirconf.jp
+  path: 2017/elixir-fp-intro/#/
+
+- title: Elixir logger
+  date: 2016/8/31
+  location: "tokyo.ex #5"
+  location_url: https://beam-lang.connpass.com/event/37733/
+  path: 2016/elixir-logger/#/
+
+- title: Metaprogramming in Elixir
+  date: 2016/6/30
+  location: "tokyo.ex #3"
+  location_url: https://beam-lang.connpass.com/event/32704/
+  path: 2016/metaprogramming/#/
+
+- title: Elixir concurrency basics
+  date: 2016/5/23
+  location: "tokyo.ex #2"
+  location_url: https://beam-lang.connpass.com/event/30513/
+  path: 2016/concurrency/#/
+
+- title: Elixir 1.3
+  date: 2016/4/19
+  location: "tokyo.ex #1"
+  location_url: https://beam-lang.connpass.com/event/29050/
+  path: 2016/elixir-1-3/#/

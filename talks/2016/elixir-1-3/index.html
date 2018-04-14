@@ -1,0 +1,253 @@
+---
+redirect_from:
+  - /tokyo.ex/
+  - /slides/elixir-1-3
+---
+{% raw %}
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Elixir 1.3</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/serif.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" href="css/main.css"></head><body><div class="reveal"><div class="slides"><section><section><h1>Daniel Perez</h1><h3>CTO @<a href="http://claudetech.com" target="_blank">ClaudeTech</a></h3><h3><i class="fa fa-github fa-margin"></i><a href="https://github.com/tuvistavie" target="_blank">tuvistavie</a></h3><h3><a href="http://tuvistavie.com/tokyo.ex" target="_blank">http://tuvistavie.com/tokyo.ex</a></h3><h4>Blog article available at&nbsp;<a href="http://tuvistavie.com/2016/elixir-1-3">http://tuvistavie.com/2016/elixir-1-3</a></h4></section><section><h2>Elixir experience</h2><ul><li>Using in production for ~3 months</li><li>Helping to maintain<a href="https://github.com/HashNuke/hound"> Hound (browser automation library)</a></li><li>Loosely helping in the core</li><li>Released a few libraries</li></ul></section></section><section><section><h2>Today's topic</h2><h3>What's new in Elixir 1.3</h3><br><div data-fragment-index="2" class="fragment"><h4>Target audience</h4><ul><li>Familiar with Elixir</li><li data-fragment-index="3" class="fragment">More or less aware of 1.2 features</li></ul></div></section><section><h3>Elixir 1.3</h3><ul><li>Deprecation of imperative assignment</li><li><code>with</code> improvements</li><li>Date datatypes</li><li>Plenty of other stuff</li></ul></section><section><h3>How to try it</h3><h4>Normal Install</h4><pre><code class="shell">git clone https://github.com/elixir-lang/elixir.git
+cd elixir
+make
+./bin/iex</code></pre><h4>With <a href="https://github.com/taylor/kiex">kiex</a></h4><pre><code class="shell">kiex install master
+source $HOME/.kiex/elixirs/elixir-master.env
+iex</code></pre></section></section><section><section><h3>Deprecation of imperative assignments</h3><p>From 1.2, conditional variable declaration
+has been deprecated.</p><pre><code class="elixir">if condition do
+  n = 1
+else
+  n = 2
+end
+IO.puts(n)
+</code></pre><div data-fragment-index="2" class="fragment"><p>should be written as</p><pre><code class="elixir">n = if condition do
+      1
+    else
+      2
+    end
+IO.puts(n)
+</code></pre></div></section><section><h3>Deprecation of imperative assignments</h3><p>From 1.3 this code will also give a warning</p><pre><code class="elixir">def imperative_duplicate(str, n, opts \\ []) do
+  if opts[:double] do
+    n = n * 2
+  end
+  String.duplicate(str, n)
+end
+
+# warning: the variable "n" is unsafe as it has been set in a conditional clause
+</code></pre><div data-fragment-index="2" class="fragment"><p>we can refactor</p><pre><code class="elixir">def functional_duplicate(str, n, opts \\ []) do
+  n = double_if_true(n, opts[:double])
+  String.duplicate(str, n)
+end
+
+defp double_if_true(n, true), do: n * 2
+defp double_if_true(n, false), do: n
+</code></pre></div></section><section><h3>But why?</h3><p>Compare</p><pre><code class="elixir">x = 1
+with :ok <- :ok do
+  x = 2
+end
+IO.puts(x) # 1</code></pre><div data-fragment-index="2" class="fragment"><p>and</p><pre><code class="elixir">x = 1
+case :ok do
+  :ok -> x = 2
+end
+IO.puts(x) # 2</code></pre></div><div data-fragment-index="3" class="fragment"><p><code>case</code>, <code>cond</code>, <code>receive</code> scope leaks<br><code>try</code>, <code>with</code>, <code>for</code> scope do not</p></div></section><section><h3>Towards new scoping rules (Elixir 2.0)</h3><p>Scope will be consistent, no leaking</p><pre><code class="elixir">x = 1
+case :ok do
+  :ok -> x = 2
+end
+IO.puts(x) # 1</code></pre><p>Same goes for <code>receive</code>, <code>cond</code>, and
+constructs derived, such as <code>if</code></p></section><section><h3>What does this give us?</h3><ul><li>Pros<ul><li>Consistency</li><li>Code easier to understand</li><li>Code easier to refactor</li></ul></li><li>Cons<ul><li>Code sometimes a little verbose</li></ul></li></ul></section></section><section><section><h3><code>with</code> improvements</h3><p>The new special form <code>with</code> has been introduced in 1.2</p><div data-fragment-index="1" class="fragment"><pre><code class="elixir">case HTTPoison.get(url) do
+  {:ok, %HTTPoison{body: body}} ->
+    case Poison.decode(body) do
+      {:ok, data} ->
+        case process_data(data) do
+          {:ok, _processed} = result -> result
+          {:error, _err} = error -> error
+        end
+      {:error, _err} = error -> error
+    end
+  {:error, _err} = error -> error
+end
+</code></pre></div><div data-fragment-index="2" class="fragment"><p>becomes</p><pre><code class="elixir">with {:ok, %HTTPoison.Response{body: body}} <- HTTPoison.get(url),
+     {:ok,  data} <- Poison.decode(body),
+     {:ok, _processed} = result <- process_data(data) do
+  result
+end
+</code></pre></div></section><section><h3><code>with</code> improvements</h3><p>Improvements in 1.3</p><ul><li>Addition of an <code>else</code> clause</li><li>Possibility to use guards</li></ul></section><section><h3>Addition of an <code>else</code> clause</h3><p>We want to rewrite</p><pre><code class="elixir">case create_organization(params) do
+  {:ok, organization} ->
+    case create_address(organization, params) do
+      {:ok, address} ->
+        %{organization | address: address}
+      {:error, changeset} -> {:error, changeset |> error_string}
+    end
+  {:error, changeset} -> {:error, changeset |> error_string}
+end
+</code></pre></section><section data-transition="fade-in slide-out"><h3>Addition of an <code>else</code> clause</h3><p>Without <code>with</code> <code>else</code> clause</p><pre><code class="elixir">with {:ok, organization} <- create_organization(params),
+     {:ok, address}      <- create_address(organization, params) do
+  {:ok, %{organization | address: address}}
+end
+|> case do
+     {:ok, organization} -> {:ok, organization}
+     {:error, changeset} -> {:error, changeset |> error_string}
+   end
+</code></pre></section><section data-transition="fade-in slide-out"><h3>Addition of an <code>else</code> clause</h3><p>With <code>with</code> <code>else</code> clause</p><pre><code class="elixir">with {:ok, organization} <- create_organization(params),
+     {:ok, address}      <- create_address(organization, params) do
+  {:ok, %{organization | address: address}}
+else
+  {:error, changeset} -> {:error, changeset |> error_string}
+end
+</code></pre></section><section><h3>Support for guards in <code>with</code></h3><p>We can rewrite</p><pre><code class="elixir">case HTTPoison.get(url) do
+  {:ok, %Response{status_code: code, body: body}} when code in 200..299 ->
+    case Poison.decode(body) do
+      {:ok, data} -> data
+      _           -> :error
+    end
+  _ -> :error
+end
+</code></pre><div data-fragment-index="1" class="fragment"><p>into</p><pre><code class="elixir">with {:ok, %Response{status_code: code, body: body}}
+        when code in 200..299 <- HTTPoison.get(url),
+     {:ok, data} <- Poison.decode(body) do
+  data
+else
+  _ -> :error
+end
+</code></pre></div></section></section><section><section><h3>Date datatypes</h3><p>Before Elixir 1.3, two main libraries for time/date</p><ul><li><a href="https://github.com/lau/calendar">Calendar</a></li><li><a href="https://github.com/bitwalker/timex">Timex</a></li></ul><p>Both are great, but not (easily) interoperable</p></section><section><h3>Date datatypes</h3><p>Elixir 1.3 introduces the following types</p><ul><li><code>Calendar</code></li><li><code>Date</code></li><li><code>Time</code></li><li><code>NaiveDateTime</code> (without timezone)</li><li><code>DateTime</code> (with timezone)</li></ul><p>and will provide a ISO8601 compatible implementation</p></section></section><section><h3><code>escript</code> installation tasks</h3><p><code>mix escript.build</code> produces a single easy to run binary</p><p>In Elixir 1.3, tasks to manage <code>escript</code>s have been added</p><ul><li><code>mix escript</code></li><li><code>mix escript.install URL</code></li><li><code>mix escript.uninstall NAME</code></li></ul><div data-fragment-index="1" class="fragment"><p>One liner in README</p><code>mix escript.install https://example.com/my-escript</code></div></section><section><section><h3>ExUnit pretty diff</h3><p>Before Elixir 1.3</p><img src="images/ex_unit_diff_12.png" class="small"></section><section data-transition="fade-in slide-out"><h3>ExUnit pretty diff</h3><p>From Elixir 1.3</p><img src="images/ex_unit_diff_13.png" class="small"></section></section><section><h3>Make compiler</h3><p>Before 1.3 it was <a href="https://github.com/elixircnx/comeonin/blob/master/mix.exs">a little complicated</a> to run make</p><p>With Elixir 1.3, simply add <code>:make</code> to compilers</p><pre><code class="elixir">defmodule MyApp.Mixfile do
+  def project do
+    [app: my_app,
+     compilers: [:make] ++ Mix.compilers]
+  end
+end</code></pre></section><section><section><h3>Changes in <code>defdelegate</code></h3><p>Before 1.3 we could write this</p><pre><code class="elixir">defdelegate [reverse(list), map(list, callback)], to: :lists, append_first: true</code></pre><div class="fragment"><p>This is now deprecated:</p><pre><code>warning: passing a list to Kernel.defdelegate/2 is deprecated,
+         please define each delegate separately
+warning: Kernel.defdelegate/2 :append_first option is deprecated</code></pre></div></section><section><h3>Changes in <code>defdelegate</code></h3><p>Before 1.3 we had to write</p><pre><code class="elixir">defdelegate start_session,            to: Hound.Helpers.Session
+defdelegate start_session(opts),      to: Hound.Helpers.Session</code></pre><div class="fragment"><p>From 1.3, we can write</p><pre><code class="elixir">defdelegate start_session(opts \\ []), to: Hound.Helpers.Session</code></pre></div></section></section><section><section><h3>Addition of <code>Process.sleep</code></h3><p>Before 1.3, we could achieve this with <code>:timer.sleep</code><br>Probably added mainly for documentation:<br><strong>we usually do not need it</strong></p></section><section><h3><code>Process.sleep</code> alternatives</h3><h4>Bad</h4><pre><code class="elixir">Task.async fn ->
+  do_something()
+end
+Process.sleep(30_000)</code></pre><div class="fragment"><h4>Good</h4><pre><code class="elixir">parent = self()
+Task.async fn ->
+  do_something()
+  send parent, :work_done
+end
+receive do
+  :work_done -> :ok
+after
+  30_000 -> :timeout
+end</code></pre></div></section><section><h3><code>Process.sleep</code> alternatives</h3><h4>Bad</h4><pre><code class="elixir">Task.start fn ->
+  do_something()
+end
+# Wait until task terminates
+Process.sleep(30_000)
+# Check if process is alive</code></pre><div class="fragment"><h4>Good</h4><pre><code class="elixir">{:ok, pid} = Task.start fn ->
+  do_something()
+end
+ref = Process.monitor(pid)
+receive do
+  {:DOWN, ^ref, _, _, _} -> :task_is_down
+after
+  30_000 -> :timeout
+end</code></pre></div></section></section><section><h3><code>optionalcallback</code> and <code>optionalmacrocallback</code></h3><ul><li>Possible to achieve something similar with <code>defoverridable</code></li><li>Added for better Erlang interoperability</li><li>Still in discussion in <a href="https://github.com/elixir-lang/elixir/pull/4037">#4037</a></li></ul></section><section><section><h3><code>app.tree</code> and <code>deps.tree</code> mix tasks</h3><pre><code>$ mix deps.tree
+foobar
+├── gettext ~> 0.9 (Hex package)
+├── cowboy ~> 1.0 (Hex package)
+│   ├── cowlib ~> 1.0.0 (Hex package)
+│   └── ranch ~> 1.0 (Hex package)
+├── phoenix_html ~> 2.4 (Hex package)
+│   └── plug ~> 0.13 or ~> 1.0 (Hex package)
+│       └── cowboy ~> 1.0 (Hex package)
+├── phoenix ~> 1.1.4 (Hex package)
+│   ├── poison ~> 1.5 or ~> 2.0 (Hex package)
+│   ├── plug ~> 1.0 (Hex package)
+│   │   └── cowboy ~> 1.0 (Hex package)
+│   └── cowboy ~> 1.0 (Hex package)
+├── phoenix_live_reload ~> 1.0 (Hex package)
+│   ├── phoenix ~> 0.16 or ~> 1.0 (Hex package)
+│   └── fs ~> 0.9.1 (Hex package)
+├── postgrex >= 0.0.0 (Hex package)
+│   ├── decimal ~> 1.0 (Hex package)
+│   ├── db_connection ~> 0.2 (Hex package)
+│   │   ├── poolboy ~> 1.5 (Hex package)
+│   │   └── connection ~> 1.0.2 (Hex package)
+│   └── connection ~> 1.0 (Hex package)
+└── phoenix_ecto ~> 2.0 (Hex package)
+    ├── poison ~> 1.3 (Hex package)
+    ├── phoenix_html ~> 2.2 (Hex package)
+    └── ecto ~> 1.1.2 (Hex package)
+        ├── postgrex ~> 0.11.0 (Hex package)
+        ├── poolboy ~> 1.4 (Hex package)
+        ├── poison ~> 1.0 (Hex package)
+        └── decimal ~> 1.0 (Hex package)
+</code></pre></section><section><h3><code>app.tree</code> and <code>deps.tree</code> mix tasks</h3><pre><code>$ mix app.tree
+foobar
+├── elixir
+├── phoenix
+│   ├── elixir
+│   ├── plug
+│   │   ├── elixir
+│   │   ├── crypto
+│   │   └── logger
+│   │       └── elixir
+│   ├── poison
+│   │   └── elixir
+│   ├── logger
+│   │   └── elixir
+│   └── eex
+│       └── elixir
+├── phoenix_html
+│   ├── elixir
+│   ├── logger
+│   │   └── elixir
+│   └── plug
+│       ├── elixir
+│       ├── crypto
+│       └── logger
+│           └── elixir
+├── cowboy
+│   ├── ranch
+│   ├── cowlib
+│   │   └── crypto
+│   └── crypto
+├── logger
+│   └── elixir
+├── gettext
+│   ├── elixir
+│   └── logger
+│       └── elixir
+├── phoenix_ecto
+│   ├── elixir
+│   ├── logger
+│   │   └── elixir
+│   └── ecto
+│       ├── elixir
+│       ├── logger
+│       │   └── elixir
+│       ├── decimal
+│       │   └── elixir
+│       └── poolboy
+└── postgrex
+├── elixir
+├── logger
+│   └── elixir
+├── db_connection
+│   ├── elixir
+│   ├── logger
+│   │   └── elixir
+│   └── connection
+│       └── elixir
+└── decimal
+└── elixir
+</code></pre></section></section><section><h3>When can we use it?</h3><div class="fragment"><p>Soon enough?</p><img src="./images/milestone-13.png"></div></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.min.js"></script><script>Reveal.initialize({
+  controls: true,
+  progress: true,
+  history: true,
+  center: true,
+
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  dependencies: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.min.js', async: true },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.min.js', async: true }
+  ]
+});</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40262798-2', 'auto');
+ga('send', 'pageview');</script></body></html>
+{% endraw %}
