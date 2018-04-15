@@ -64,10 +64,12 @@ main.content {
 .intro {
     @extend %clearfix;
 
-    & > .alignleft {
-        width: 76%;
-    }
-    & > .alignright {
-        width: 20%;
+    .image {
+        float: right;
+        margin: 0 1em;
+        max-width: 20%;
+        @include media-query($desktop) {
+            max-width: 30%;
+        }
     }
 }

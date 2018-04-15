@@ -213,11 +213,18 @@ dl {
         }
         &.small-term {
             dt {
-                width: 4%;
                 margin-right: 1%;
+                width: 4%;
+                @include media-query($desktop) {
+                    margin-right: 3%;
+                    width: 10%;
+                }
             }
             dd {
                 width: 95%;
+                @include media-query($desktop) {
+                    width: 87%;
+                }
             }
         }
     }
