@@ -1,14 +1,14 @@
 <ul class="menu">
     {% for item in site.data.menu %}
     {% if item.subcategories != null %}
-    <li><a href="{{ item.href | prepend: site.baseurl }}" class="page-link">{{ item.title }}</a>
+    <li><a href="{{ item.href | relative_url }}" class="page-link">{{ item.title }}</a>
     <ul class="sub-menu">
     {% for subcategory in item.subcategories %}
-    <li><a href="{{ subcategory.subhref | prepend: site.baseurl }}">{{ subcategory.subtitle }}</a></li>
+    <li><a href="{{ subcategory.subhref | relative_url }}">{{ subcategory.subtitle }}</a></li>
     {% endfor %}
     </ul>
     {% else %}
-    {% assign url = item.href | prepend: site.baseurl %}
+    {% assign url = item.href | relative_url %}
     <li class="{% if url == page.url %}active{% endif %}">
         <a href="{{ url }}" class="page-link">{{ item.title }}</a>
     </li>
