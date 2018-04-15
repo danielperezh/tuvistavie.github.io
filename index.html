@@ -5,7 +5,7 @@ layout: default
 <h1>Daniel Perez</h1>
 
 <div class="intro">
-  <img class="image" src="images/profile-coffee-2016.jpg" alt="Profile picture">
+  <img class="image" src="{{ site.author.avatar | prepend: "/images/" | relative_url }}" alt="Profile picture">
   <p>
     My name is Daniel Perez. I am a software engineer based in Tokyo.
     I have mostly been working on backend systems in various companies and
@@ -24,18 +24,18 @@ layout: default
   <h2>Contact information</h2>
   <dl class="inline small-term">
     <dt><i class="fa fa-envelope"></i></dt>
-    <dd>[first]@[last].sh</dd>
+    <dd>{{ site.author.email }}</dd>
 
     <dt><i class="fa fa-github"></i></dt>
-    <dd><a href="https://github.com/tuvistavie">GitHub</a></dd>
+    <dd><a href="https://github.com/{{ site.author.github_username }}">GitHub</a></dd>
 
     <dt><i class="fa fa-linkedin"></i></dt>
-    <dd><a href="https://www.linkedin.com/in/tuvistavie/">LinkedIn</a></dd>
+    <dd><a href="https://www.linkedin.com/in/{{ site.author.linkedin_username }}/">LinkedIn</a></dd>
 
     <dt><i class="fa fa-facebook"></i></dt>
-    <dd><a href="https://www.facebook.com/tuvistavie">Facebook</a></dd>
+    <dd><a href="https://www.facebook.com/{{ site.author.facebook_username }}">Facebook</a></dd>
 
     <dt><i class="fa fa-twitter"></i></dt>
-    <dd><a href="https://twitter.com/tuvistavie">Twitter</a></dd>
+    <dd><a href="https://twitter.com/{{ site.author.twitter_username }}">Twitter</a></dd>
   </dl>
 </div>

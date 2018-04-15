@@ -7,14 +7,16 @@ url: 'https://daniel.perez.sh'
 baseurl: '/'
 google_analytics: 'UA-40262798-2'
 disqus_shortname: 'tuvistavie'
+fb_app_id: '235454057192512'
 
 author:
   name: 'Daniel Perez'
-  email: tuvistavie@gmail.com
+  email: "[first]@[last].sh"
   twitter_username: tuvistavie
   facebook_username: tuvistavie
   github_username:  tuvistavie
   linkedin_username:  tuvistavie
+  avatar: profile-coffee-2016-small.jpg
 
 defaults:
   -

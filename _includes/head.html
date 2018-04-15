@@ -24,8 +24,8 @@
       <meta property="og:image" content="{{ page.image | prepend: "/images/" | absolute_url }}">
       <meta name="twitter:image" content="{{ page.image | prepend: "/images/" | absolute_url }}">
     {% else %}
-      <meta property="og:image" content="{{ 'profile-coffee-2016.jpg' | prepend: "/images/" | absolute_url }}">
-      <meta name="twitter:image" content="{{ 'profile-coffee-2016.jpg' | prepend: "/images/" | absolute_url }}">
+      <meta property="og:image" content="{{ site.author.avatar | prepend: "/images/" | absolute_url }}">
+      <meta name="twitter:image" content="{{ site.author.avatar | prepend: "/images/" | absolute_url }}">
     {% endif %}
   {% else %}
     <title>{{ site.title }}</title>
@@ -35,10 +35,11 @@
     <meta name="description" content="{{ site.description }}">
     <meta name="twitter:description" content="{{ site.description }}">
     <meta property="og:description" content="{{ site.description }}">
-    <meta property="og:image" content="{{ 'profile-coffee-2016.jpg' | prepend: "/images/" | absolute_url }}">
-    <meta name="twitter:image" content="{{ 'profile-coffee-2016.jpg' | prepend: "/images/" | absolute_url }}">
+    <meta property="og:image" content="{{ site.author.avatar | prepend: "/images/" | absolute_url }}">
+    <meta name="twitter:image" content="{{ site.author.avatar | prepend: "/images/" | absolute_url }}">
   {% endif %}
   <meta property="og:url" content="{{ page.url | remove_first:'/' | replace:'index.html','' | absolute_url }}">
+  <meta property="og:fb_app_id" content="{{ site.fb_app_id }}">
 
   {% if page.include_mathjax %}
     <script type="text/x-mathjax-config">
