@@ -1,5 +1,11 @@
 .cv {
   section {
+    line-height: 2;
+
+    ul {
+      margin-left: 2em;
+    }
+
     .info {
       font-size: $small-font-size;
       .period {
