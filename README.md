@@ -1,8 +1,8 @@
 # Personal blog
 
-This is the repository for my personal blog available at
+This is the repository for my personal website available at
 
-http://tuvistavie.com
+https://daniel.perez.sh
 
 The blog content is under the [Creative Commons BY 4.0 license](http://creativecommons.org/licenses/by/4.0/).
 
