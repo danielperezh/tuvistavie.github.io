@@ -9,7 +9,9 @@
     </ul>
     {% else %}
     {% assign url = item.href | relative_url %}
-    <li class="{% if url == page.url %}active{% endif %}">
+    {% assign path_prefix = url | remove_first: '/' | split: '/' | first %}
+    {% assign page_prefix = page.url | remove_first: '/' | split: '/' | first %}
+    <li class="{% if page_prefix == path_prefix %}active{% endif %}">
         <a href="{{ url }}" class="page-link">{{ item.title }}</a>
     </li>
     {% endif %}
