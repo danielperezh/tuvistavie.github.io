@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<h1>Blog</h1>
+<h1>Blog&nbsp;<a href="{{ '/blog/feed.xml' | relative_url }}" class="minor icon"><i class="fa fa-rss"></i></a></h1>
 <div class="blog">
   <ol class="post-list">
     {% for post in paginator.posts %}
