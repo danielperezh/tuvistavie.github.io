@@ -4,10 +4,7 @@ title: assertRaises in Python
 tags: [Python, unittest]
 ---
 
-A friend asked me about Python `unittest`'s `assertRaises` and the answer was
-becoming too long for Slack, so I decided to write a short blog post about it.
-
-In this blog post, we will cover how `assertRaises` in `unittest.TestCase` works, and implement a simplified version of it.
+In this blog post, we will cover how `assertRaises` in `unittest.TestCase` works and implement a simplified version of it.
 For the sake of example, let's say we want to check that `next(iter([]))` raises a `StopIteration` error. We will use a very simple Python script to try the code
 
 ```python
