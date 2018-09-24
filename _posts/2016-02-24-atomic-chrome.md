@@ -12,7 +12,7 @@ I decided to use Atom to edit even more or less short comments, but
 the copy-pasting was becoming a bit superfluous, taking more time
 than it should.
 I therefore decided to create a plugin to simplify the process, which I
-named [Atomic Chrome](https://github.com/danielperezh/atomic-chrome).
+named [Atomic Chrome](https://github.com/danhper/atomic-chrome).
 If you want to know why it is (or at least can be) useful, there [a thread on Hackernews](https://news.ycombinator.com/item?id=11022356) about it.
 
 ![Gmail editing](https://cloud.githubusercontent.com/assets/1436271/12668226/afe32e26-c697-11e5-9814-2158e665f774.gif)

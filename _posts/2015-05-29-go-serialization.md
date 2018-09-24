@@ -44,4 +44,4 @@ userSerializer := structomap.New().
 
 and then I just need to call `userSerializer.Transform` on any user to get the result I want as a `map[string]interface{}`. What is nice about this is that it also works with arrays: `userSerializer.TransformArray` will transform an array of `User` in an array of `map[string]interface{}` which can be directly serialized to JSON.
 
-You can find more information on [the project page](https://github.com/danielperezh/structomap).
+You can find more information on [the project page](https://github.com/danhper/structomap).
