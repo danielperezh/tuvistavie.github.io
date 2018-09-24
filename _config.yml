@@ -41,6 +41,7 @@ kramdown:
 
 plugins: ['jekyll-paginate', 'jekyll-redirect-from']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+include: ['.well-known']
 
 sass:
   sass_dir: _sass

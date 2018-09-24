@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/tuvistavie
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://daniel.perez.sh
+  * I am tuvistavie (https://keybase.io/tuvistavie) on keybase.
+  * I have a public key ASCusmLiJUiU4smze78NA5NRBc5LqbkSFPpLHGh_miQC8Ao
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120de74380c0fca2bf15f810e358def0a9692ac601515591af9c93a1ec6f25250070a",
+      "host": "keybase.io",
+      "kid": "0120aeb262e2254894e2c9b37bbf0d03935105ce4ba9b91214fa4b1c687f9a2402f00a",
+      "uid": "806717e717a1d492ec6d3696b62c6119",
+      "username": "tuvistavie"
+    },
+    "merkle_root": {
+      "ctime": 1537818589,
+      "hash": "a5e85e1d1bb1f9a333e78f1eb76bde30c5863f71ef9e90293d845f9c37cb06d646a9c5f4a2a91492659ff759cf105811df7309103e2735a0a857ad2ebb0e90d4",
+      "hash_meta": "a2d3f2d062d3b7d1841f534e264eaef912e48f1e83d8d72f7421503ac35fa2a6",
+      "seqno": 3680671
+    },
+    "service": {
+      "entropy": "1SYhCLvgGFFT25/MIX/TaxmQ",
+      "hostname": "daniel.perez.sh",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.6.2"
+  },
+  "ctime": 1537818593,
+  "expire_in": 504576000,
+  "prev": "12bfe3e37ff4397fd6aa79f6c90f81fccf3e9adb6bc23186ece9e375863214f8",
+  "seqno": 53,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgrrJi4iVIlOLJs3u/DQOTUQXOS6m5EhT6Sxxof5okAvAKp3BheWxvYWTESpcCNcQgEr/j43/0OX/Wqnn2yQ+B/M8+mttrwjGG7OnjdYYyFPjEIOZe3DO0Cdg2/X/18tOPBrYDcXA9kn7qx7QbNPpfRChvAgHCo3NpZ8RAASkbBz3gPJgIILS1HggOXYjov6aeeMzn6r5UDixYWsuEeF9jgBu1Anj5Y8i73eepwzPURiJjO3VclNtY4xXQCqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIIBVIfThAeHR/R3ZjYIHHI8RM0H+N4RqZz7nTwzp70pro3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/tuvistavie
+
+==================================================================
