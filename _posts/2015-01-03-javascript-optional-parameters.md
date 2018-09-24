@@ -214,4 +214,4 @@ This should work for all the cases in the example above, and provides an easy wa
 work with optional parameters.
 
 I have published this small code with proper tests as a package working for browser and NodeJS.
-It is available at: [https://github.com/tuvistavie/js-easy-params](https://github.com/tuvistavie/js-easy-params).
+It is available at: [https://github.com/danielperezh/js-easy-params](https://github.com/danielperezh/js-easy-params).
