@@ -99,13 +99,13 @@ wget -O config.py https://raw.githubusercontent.com/airbnb/knowledge-repo/master
 ```
 
 Then, modify `config.py` to reflect the SQL configuration.
-For the above example, assuming MySQL is running on the same server
+For the above example, assuming PostgreSQL is running on the same server
 
 ```python
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://knowledge_repo:password@localhost:5432/knowledge_repo'
 ```
 
-Finally, stop the server, install PyMySQL and restart the server
+Finally, stop the server, install the SQL driver (psycopg2 here) and restart the server
 with the configuration file.
 
 ```
