@@ -1,0 +1,22 @@
+.authors {
+  font-size: 0.8em;
+}
+
+.note {
+  font-size: 0.8em;
+}
+
+dl {
+  dt {
+    font-weight: bold;
+    .plain {
+      font-weight: normal;
+    }
+  }
+  &, dd {
+    font-size: .9rem;
+  }
+  dd {
+    margin-bottom: 1em;
+  }
+}
