@@ -4,45 +4,40 @@ layout: default
 
 <h1>Research activities</h1>
 
-<h2>Peer-reviewed</h2>
+{% for paper_type in site.data.papers %}
+<h2>{{ paper_type.title }}</h2>
 <ol class="post-list">
-  <ol class="post-list">
-  <li>
-    Cross-language clone detection by learning over abstract syntax trees
-    [<a href="{{ '/research/2019/cross-language-clones/' | relative_url }}">project</a>]
-    [<a href="https://static.perez.sh/research/2019/cross-language-clone-detection/clone-detection-msr19.pdf">paper</a>]
-    <div class="authors">
-      <strong>Daniel Perez</strong>, Shigeru Chiba
-    </div>
-    <div class="note">
-      in proceedings of the 2019 IEEE/ACM 16th International Conference on Mining Software Repositories (MSR)
-    </div>
-  </li>
+  {% for paper in paper_type.papers %}
+    <li>
+      {{ paper.title }}
+      {% for link in paper.links %}
+        [<a href="{{ link.href | relative_url }}">{{ link.text }}</a>]
+      {% endfor %}
+      <div class="authors">
+        {% for author in paper.authors %}
+          {%- if author == site.author.name -%}
+            <strong>{{ author }}</strong>
+          {%- else -%}
+            {{ author }}
+          {%- endif -%}
+          {% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+      </div>
+      <div class="note">
+        {{ paper.note }}
+      </div>
+    </li>
+  {% endfor %}
 </ol>
+{% endfor %}
 
-</ol>
-
-<h2>Posters (without peer review)</h2>
-<ol class="post-list">
-  <li>
-    Using competitive programming data to detect code clones
-    [<a href="https://static.perez.sh/research/2019/cross-language-clone-detection/poster-ppl.pdf">poster</a>]
-    <div class="authors">
-      <strong>Daniel Perez</strong>, Shigeru Chiba
-    </div>
-    <div class="note">
-      poster presented at <a href="https://jssst-ppl.org/workshop/2018/">JSSST SIG-PPL 2018</a>, Tottori, Japan
-    </div>
-  </li>
-</ol>
+<hr>
 
 <h2>Master thesis</h2>
 <p>
   A study of machine learning approaches to cross-language code clone detection
   [<a href="{{ "research/master-thesis/thesis.pdf" | relative_url }}">PDF</a>]
-  &nbsp;
   [<a href="{{ "research/master-thesis/resume.pdf" | relative_url }}">Summary</a>]
-  &nbsp;
   [<a href="{{ "research/master-thesis/slides.pdf" | relative_url }}">Slides</a>]
 <br>
 <small>Supervisor: <a href="https://www.csg.ci.i.u-tokyo.ac.jp/~chiba/site/">Shigeru Chiba</a></small>
