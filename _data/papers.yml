@@ -1,5 +1,16 @@
 - title: Conferences
   papers:
+    - title: "PoolSim: A Discrete-Event Mining Pool Simulation Framework"
+      links:
+        - href: https://github.com/samwerner/poolsim
+          text: project
+        - href: https://static.perez.sh/research/2019/poolsim/poolsim-marble19.pdf
+          text: paper
+      authors:
+        - Sam M. Werner
+        - Daniel Perez
+      note: >
+        in proceedings of the 1st International Conference on Mathematical Research for Blockchain Economy (<a href="https://www.marble2019.org">MARBLE 2019</a>)
     - title: Cross-language clone detection by learning over abstract syntax trees
       links:
         - href: /research/2019/cross-language-clones/
