@@ -21,7 +21,7 @@ $tertiary-color: #aca9bb;
 }
 
 /* headers and fonts*/
-h1, h2, h3 {
+h1, h2, h3, h4 {
   margin-top: 0;
   padding-top: 0.5em;
   font-family: 'Oswald';
@@ -69,6 +69,12 @@ h1, h2, h3 {
   font-size: 25px;
 }
 
+.remark-slide-content h4, .inverse h4 {
+  color: $tertiary-color;
+  font-size: 22px;
+}
+
+
 /* title slide */
 /* .title-slide { */
 /*   background-color: #121316; */
@@ -97,6 +103,15 @@ h1, h2, h3 {
   margin-left: 40px;
   margin-bottom: 0;
 }
+
+.title-slide h4  {
+  font-size: 22px;
+  font-weight: 300;
+  text-align: left;
+  margin-left: 40px;
+  margin-bottom: 0;
+}
+
 
 /* slide number */
 .remark-slide-number {
