@@ -17,6 +17,7 @@ class: larger-fonts
 
 # Overview
 
+.spaced-list[
 1. Background
   * Smart contracts basics
   * Common vulnerabilities
@@ -25,6 +26,7 @@ class: larger-fonts
   * Finding exploits in the wild
 3. Takeaways and discussion
 4. Questions
+]
 
 ---
 
@@ -39,10 +41,12 @@ class: middle, title-slide
 # Ethereum Smart Contracts
 
 .pull-left-40[
+.spaced-list[
 * Programs deployed on the Ethereum blockchain
 * Usually written in Solidity, compiled into EVM bytecode
 * Can transfer money to other addresses (including contracts)
 * Each instruction execution consumes gas
+]
 ]
 
 .pull-right-60[![Smart Contracts](./smart-contracts.png)]
@@ -51,9 +55,84 @@ class: middle, title-slide
 
 # Solidity
 
+.pull-left-40[
+* High-level language targeting the EVM
+
+* Looks vaguely like JavaScript
+
+* Strongly typed, with a fairly simple type-system
+
+* Contains smart contract related primitives
+]
+
+.pull-right-60[
+```solidity
+// Contract allowing a single address to create coins
+contract Coin {
+  address public minter;
+  mapping (address => uint) public balances;
+
+  constructor() public { minter = msg.sender; }
+
+  function mint(address receiver, uint amount) public {
+    require(msg.sender == minter);
+    require(amount < 1e60);
+    balances[receiver] += amount;
+  }
+
+  function send(address receiver, uint amount) public {
+    require(amount <= balances[msg.sender]);
+    balances[msg.sender] -= amount;
+    balances[receiver] += amount;
+  }
+}
+```
+.caption[
+Contract implementing a simple coin
+]
+]
+
 ---
 
 # Ethereum Virtual Machine
+
+.pull-left-70[
+* Stack-based virtual machine
+* Very low-level
+  * No functions/block, only jumps
+  * No types
+* Contains a lot of common instructions
+  * `ADD`, `SUB`, `PUSH`, `POP`
+* Contains instructions to interact with environment
+  * `SENDER`, `CALL`, `BALANCE`
+* Has 2 types of storage
+  * Ephemeral storage: Memory
+  * Permanent storage: Storage
+* Uses 256-bits words
+]
+
+.pull-right-30[
+```
+PUSH1 0x00
+PUSH1 0x00
+MSTORE
+JUMPDEST
+PUSH1 0x0a
+PUSH1 0x00
+MLOAD
+PUSH1 0x01
+ADD
+DUP1
+PUSH1 0x00
+MSTORE
+LT
+PUSH1 0x05
+JUMPI
+```
+.caption[
+Simple loop from 0 to 10 using EVM instructions
+]
+]
 
 ---
 
@@ -62,26 +141,31 @@ class: middle, title-slide
 .pull-left-50[
 ## TheDAO hack (2016)
 
+.spaced-list[
 * TheDAO raised *~$150M in ICO*
 * Soon after, it got hacked *~$50M*
 * Price of Ether halved
 * Ethereum community decided to hard-fork
 * Attacker used a *re-entrancy* vulnerability
 ]
+]
 
 .pull-left-50[
 ## Parity Wallet bug (2017)
 
+.spaced-list[
 * Parity wallet library was used to manage multisig wallet contracts
 * Parity *wallet* has been *removed* due to a "bug"
 * *Dependent contracts* became unable to send funds
 * Around *$280M frozen*
+]
 ]
 
 ---
 
 # Common vulnerabilities / bugs
 
+.spaced-list[
 * Re-entrancy
   * Can allow an attacker to drain funds
 * Unhandled exceptions
@@ -92,6 +176,7 @@ class: middle, title-slide
   * Can allow an attacker to manipulate prices
 * Integer overflow
   * Can result in locked fund
+]
 
 ---
 
@@ -136,10 +221,15 @@ function () {
 # Unhandled exception
 
 .pull-left-50[
-* In Solidity, not all "calls" raise an exception
+* In Solidity, not all failed "calls" raise an exception
+
+* If the failed call returns a boolean, it must be checked correctly
+
+* Failure to do this could result in inconsistent state or even locked funds
 ]
 
 .pull-right-50[
+.middle-block[
 ```solidity
 // allows user to withdraw funds
 function withdraw(address account) public {
@@ -152,16 +242,56 @@ function withdraw(address account) public {
   Problematic contract
 ]
 ]
+]
 
 ---
 
 # Dependency on destructed contract
+
+.pull-left-40[
+* Contracts can use other contracts as library
+
+* If the library contract gets destructed, the call becomes a no-op
+
+* If the only way for a contract to send money is to use the library,
+Ether can be locked
+]
+
+
+.pull-right-60[
+```solidity
+function sendEther(address recipient,
+                   uint value) public onlyOwner {
+  address.send(value)
+}
+```
+.caption[
+Library contract
+]
+
+```solidity
+address public library = 0xdcc703c0E500B653Ca82273B7BFAd8045D85a470;
+function sendEther(address recipient,
+                   uint value) public onlyOwner {
+  bytes4 sig =  bytes4(sha3("sendEther(address, uint)"));
+  library.delegatecall(sig, recipient, value);
+}
+```
+.caption[
+Contract using library
+]
+]
 
 ---
 
 # Transaction Order Dependency
 
 .pull-left-50[
+* Result can change depending on the order of the transactions
+
+* Miners are free to choose the miner order of the transactions in a block
+
+* There can be financial incentives to perform such manipulations
 ]
 
 .pull-right-50[
@@ -187,11 +317,13 @@ Contract vulnerable to transaction order dependency
 # Integer Overflow
 
 .pull-left-50[
+.spaced-list[
 * Solidity has many different numeric types
   * `int8` to `int256` and `uint8` to `uint256`
 * Types are encoded in EVM using bit manipulations
   * If `a` is `uint8`, a `AND a 0xff` would be generated
 * Variables may therefore overflow or underflow during execution
+]
 ]
 
 .pull-right-40[
@@ -516,7 +648,6 @@ In total, *at most 0.30%* of the 3M Ether at stake has been *exploited*
 class: middle, title-slide
 
 # Takeaways and conclusions
-## Trying to understand why not more ETH has been exploited
 
 ---
 
