@@ -11,11 +11,16 @@
 {{ content }}
     </textarea>
 
+    <script type="text/javascript" src="{{ "js/highlight-solidity.js" | relative_url }}"></script>
     <script src="{{ "js/remark-latest.min.js" | relative_url }}" type="text/javascript">
     </script>
     <script type="text/javascript">
+    remark.highlighter.engine.registerLanguage('solidity', window.hljsDefineSolidity);
      var slideshow = remark.create({
        ratio: '16:9',
+       {% if page.highlightLanguage %}
+       highlightLanguage: '{{ page.highlightLanguage }}',
+       {% endif %}
        navigation: {
          scroll: true,
        }

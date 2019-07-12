@@ -1,6 +1,7 @@
 ---
 layout: presentation
 title: Smart Contract Vulnerabilities
+highlightLanguage: solidity
 ---
 
 class: middle, title-slide
@@ -69,7 +70,6 @@ class: middle, title-slide
 
 .pull-right-60[
 ```solidity
-// Contract allowing a single address to create coins
 contract Coin {
   address public minter;
   mapping (address => uint) public balances;
@@ -273,8 +273,7 @@ Library contract
 
 ```solidity
 address public library = 0xdcc703c0E500B653Ca82273B7BFAd8045D85a470;
-function sendEther(address recipient,
-                   uint value) public onlyOwner {
+function sendEther(address recipient, uint value) public {
   bytes4 sig =  bytes4(sha3("sendEther(address, uint)"));
   library.delegatecall(sig, recipient, value);
 }
@@ -328,7 +327,7 @@ Contract vulnerable to transaction order dependency
 ]
 ]
 
-.pull-right-40[
+.pull-right-50[
 .middle-block[
 ```solidity
 function overflow(uint fee) {
@@ -418,11 +417,11 @@ class: middle, title-slide
 .right[
 .left[Name]          | Contracts analyzed | Vulnerabilities found | Ether at stake
 ---------------------|--------------------|-----------------------|---------------
-.left.bold[Oyente]   | 19,366             | 7,527                 | 1,289,177
-.left.bold[Zeus]     | 1,120              | 855                   | 729,376
-.left.bold[Maian]    | NA                 | 2,691                 | 14.13
-.left.bold[Securify] | 29,694             | 9,185                 | 719,567
-.left.bold[MadMax]   | 91,800             | 6,039                 | 1,114,692
+.left[Oyente]   | 19,366             | 7,527                 | 1,289,177
+.left[Zeus]     | 1,120              | 855                   | 729,376
+.left[Maian]    | NA                 | 2,691                 | 14.13
+.left[Securify] | 29,694             | 9,185                 | 719,567
+.left[MadMax]   | 91,800             | 6,039                 | 1,114,692
 
 .caption[
   Dataset overview
@@ -596,18 +595,17 @@ Contract vulnerable to transaction order dependency
 
 # Checking for integer overflow
 
-.pull-left-60[
+.pull-left-50[
 1. Infer variable types from bytecode
    * `SIGNEXTEND` means the variable is signed
    * `AND n 0xff` means it is a `uint8`
 
 2. Compare typed and untyped results
 
-<br>
-**The approach can lead to some false-positives**
+.italic[The approach can lead to some false-positives]
 ]
 
-.pull-right-40[
+.pull-right-50[
 .middle-block[
 ```solidity
 function overflow(uint fee) {
@@ -628,19 +626,19 @@ Contract vulnerable to integer overflow
 
 <style>
   .results-table th, .results-table td {
-    font-size: 24px;
+    font-size: 20px;
   }
 </style>
 
 .right.results-table[
 .left[Vulnerability] | Vulnerable contracts | Total Ether at Stake | Contracts exploited (with Ether) | Exploited Ether | % of Exploited Ether
 --------------|----------------------|----------------------|----------------------------------|-----------------|---------------------
-.left[Re-entrancy]   | 4,336                | 1,027,585            | 113 (6)                          | 6,075           | 0.59%
-.left[Unhandled Exception]  | 11,426        | 208,528              | 268 (6)                          | 169             | 0.081%
-.left[Destructed contract dep.] | 7,271     | 1,135,313            | 0 (0)                            | 0               | 0%
-.left[Transaction order dependency] | 1,877 | 207,926              | 57 (14)                          | 189             | 0.0091%
-.left[Integer overflow] | 2,472             | 508,750              | 141 (23)                         | 2,661           | 0.52%
-.left.bold[Total]     | 21,270              | 3,088,102            | 504 (49)                         | 9,094           | *0.30%*
+.left[Re-entrancy]   | 4,336                | 1,027,585            | 113 (6)                          | 6,075           | **0.59%**
+.left[Unhandled Exception]  | 11,426        | 208,528              | 268 (6)                          | 169             | **0.081%**
+.left[Destructed contract dep.] | 7,271     | 1,135,313            | 0 (0)                            | 0               | **0%**
+.left[Transaction order dependency] | 1,877 | 207,926              | 57 (14)                          | 189             | **0.0091%**
+.left[Integer overflow] | 2,472             | 508,750              | 141 (23)                         | 2,661           | **0.52%**
+.left[Total]           | 21,270             | 3,088,102            | 504 (49)                         | 9,094           | **0.30%**
 ]
 
 In total, *at most 0.30%* of the 3M Ether at stake has been *exploited*

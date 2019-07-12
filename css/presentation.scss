@@ -60,7 +60,7 @@ h1, h2, h3 {
     font-weight: bold;
   }
 
-  strong {
+  .italic {
     font-style: italic;
   }
 
@@ -83,6 +83,12 @@ h1, h2, h3 {
   .spaced-list {
     & > ul > li, & > ol > li {
       margin-bottom: 0.5em;
+    }
+  }
+
+  thead {
+    th {
+      font-size: 0.7em;
     }
   }
 }
