@@ -1,0 +1,93 @@
+---
+---
+
+@charset "utf-8";
+
+@import "fc-theme";
+
+body {
+  font-family: 'Droid Serif';
+}
+
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.remark-slide-content {
+  font-size: 30px;
+
+
+  @each $size in 30, 40, 50, 60, 70 {
+    .width-#{$size} {
+      width: $size * 1%;
+    }
+  }
+
+  .center-block {
+    margin: auto;
+    display: block;
+  }
+
+  .middle-block {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .pull-right-60 {
+    .middle-block {
+      max-width: 60%;
+    }
+  }
+
+  a, a:visited {
+    color: $secondary-color;
+  }
+
+  table {
+    font-size: 26px;
+
+    border-collapse: collapse;
+    tbody tr:nth-of-type(2n+1) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    td {
+      padding: 0.3em;
+      vertical-align: top;
+    }
+  }
+
+  em {
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  strong {
+    font-style: italic;
+  }
+
+  .caption {
+    margin-top: -.5em;
+    text-align: center;
+    p {
+      font-size: 24px;
+    }
+  }
+
+  &.larger-fonts {
+    font-size: 36px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.remark-code, .remark-inline-code {
+  font-family: 'Consolas';
+}
