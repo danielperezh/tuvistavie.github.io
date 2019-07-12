@@ -43,7 +43,7 @@ class: middle, title-slide
 
 # Ethereum Smart Contracts
 
-.pull-left-40[
+.pull-left-50[
 .spaced-list[
 * Programs deployed on the Ethereum blockchain
 * Usually written in Solidity, compiled into EVM bytecode
@@ -52,7 +52,7 @@ class: middle, title-slide
 ]
 ]
 
-.pull-right-60[![Smart Contracts](./smart-contracts.png)]
+.pull-right-50[![Smart Contracts](./smart-contracts.png)]
 
 ---
 
@@ -103,13 +103,11 @@ Contract implementing a simple coin
 * Very low-level
   * No functions/block, only jumps
   * No types
-* Contains a lot of common instructions
+* Has regular VM instructions
   * `ADD`, `SUB`, `PUSH`, `POP`
-* Contains instructions to interact with environment
+* Has instructions to interact with environment
   * `SENDER`, `CALL`, `BALANCE`
-* Has 2 types of storage
-  * Ephemeral storage: Memory
-  * Permanent storage: Storage
+* Has both ephemeral and permanent storage
 * Uses 256-bits words
 ]
 
@@ -599,7 +597,6 @@ Contract vulnerable to transaction order dependency
 1. Infer variable types from bytecode
    * `SIGNEXTEND` means the variable is signed
    * `AND n 0xff` means it is a `uint8`
-
 2. Compare typed and untyped results
 
 .italic[The approach can lead to some false-positives]
