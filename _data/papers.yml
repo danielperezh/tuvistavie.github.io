@@ -48,7 +48,7 @@
 
 - title: Drafts
   papers:
-    - title: "Broken Metre:Attacking Resource Metering in EVM"
+    - title: "Broken Metre: Attacking Resource Metering in EVM"
       links:
         - href: https://arxiv.org/abs/1909.07220
           text: arXiv
