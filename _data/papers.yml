@@ -48,6 +48,18 @@
 
 - title: Drafts
   papers:
+    - title: "Broken Metre:Attacking Resource Metering in EVM"
+      links:
+        - href: https://arxiv.org/abs/1909.07220
+          text: arXiv
+        - href: https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Benjamin Livshits
+      note: >
+        Technical Report arXiv:1909.07220, September 2019.
+
     - title: "Smart Contract Vulnerabilities: Does Anyone Care?"
       links:
         - href: https://arxiv.org/abs/1902.06710
