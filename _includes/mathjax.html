@@ -1,0 +1,16 @@
+{% if page.include_mathjax %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured">
+  </script>
+  <script>
+    MathJax.Hub.Config({
+      jax: ["input/TeX","output/HTML-CSS"],
+      extensions: [],
+      TeX: {
+        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+      },
+      showMathMenu: false,
+    });
+    MathJax.Hub.Configured();
+  </script>
+
+{% endif %}

@@ -5,6 +5,10 @@
     <title>{{ page.title | strip_html }}</title>
     <link rel="stylesheet" href="{{ "css/presentation.css" | relative_url }}">
     <link rel="stylesheet" href="{{ "css/presentation-fonts.css" | relative_url }}">
+
+    {% include metadata.html %}
+    {% include mathjax.html %}
+    {% include favicon.html %}
   </head>
   <body>
     <textarea id="source">
