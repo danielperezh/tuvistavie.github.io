@@ -1,7 +1,7 @@
 ---
 layout: presentation
 title: Introduction to Smart Contracts
-highlightLanguage: solidity
+highlight_language: solidity
 ---
 
 class: middle, title-slide
@@ -208,11 +208,12 @@ class: middle, title-slide
 
 # EVM Bytecode
 
+.small-margin[
 ```solidity
 for (uint i = 0; i < 10; i++) {}
 ```
 
-will look something like
+.text.minor[will look something like]
 
 ```x86asm
 PUSH1 0x00
@@ -233,6 +234,7 @@ JUMPI         ; jump to position 6 if true
 ```
 .caption[
 Simple loop from 0 to 10 using EVM instructions
+]
 ]
 
 ---
@@ -311,7 +313,7 @@ to the amount of gas each transaction consumes.
 * Transaction senders set a *gas price*
   * Amount of money/gas that the sender is ready to pay
   * Miners are incentivized to include transactions with higher gas price
-* Miners receive "gas used x gas price" for each transaction in the mined block
+* Miners receive gas used &times; gas price for each transaction in the mined block
   * If gas budget is not fully used, gas left is returned to sender
   * If execution fails, the gas used is not returned
 

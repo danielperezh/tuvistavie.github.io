@@ -22,8 +22,8 @@
     remark.highlighter.engine.registerLanguage('solidity', window.hljsDefineSolidity);
      var slideshow = remark.create({
        ratio: '16:9',
-       {% if page.highlightLanguage %}
-       highlightLanguage: '{{ page.highlightLanguage }}',
+       {% if page.highlight_language %}
+       highlightLanguage: '{{ page.highlight_language }}',
        {% endif %}
        navigation: {
          scroll: true,
