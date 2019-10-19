@@ -44,7 +44,7 @@ class: middle, title-slide
 .spaced-list[
 * Bitcoin uses a scripting language
   * Stack-based
-  * Control flow (if)
+  * Has conditional jump
   * Not Turing-complete (no loop)
 * Mostly used to define how to spend Bitcoins
 * Transaction is invalid if script fails
@@ -100,6 +100,8 @@ OP_CHECKMULTISIG
 # From Bitcoin Scripting to Smart Contracts
 
 We need more features to write general programs
+
+--
 
 * Persistent state  
   &rarr; account-based  
@@ -319,19 +321,24 @@ to the amount of gas each transaction consumes.
 
 ---
 
+class: middle, title-slide
+
+# Ethereum Smart Contract Programming
+
+---
+
 # Solidity
 
-.pull-left-40[
 * High-level language targeting the EVM
-
 * Looks vaguely like JavaScript
-
 * Strongly typed, with a fairly simple type-system
-
 * Contains smart contract related primitives
-]
+* Supports multiple inheritance
 
-.pull-right-60[
+---
+
+# Solidity Example
+
 ```solidity
 contract Coin {
   address public minter;
@@ -355,7 +362,62 @@ contract Coin {
 .caption[
 Contract implementing a simple coin
 ]
+
+---
+
+# Compiling Smart Contracts: functions
+
+.pull-left-50[
+* EVM bytecode has no concept of functions, only conditional jumps
+* Solidity creates a conditional jump for each function
+* Solidity uses function signatures to choose which function to call
+* Transaction sent to the contract must contain the necessary data to trigger the function
 ]
+
+.pull-right-50.small-margin.text.minor[
+Sample signature
+```solidity
+claimFunds(address receiver)
+```
+
+Conditional jumps
+```x86asm
+CALLDATASIZE      ; load data size
+ISZERO
+PUSH2 0x00c4      ; default function location
+JUMPI
+CALLDATALOAD      ; load data
+DUP1
+PUSH4 0x24600fc3  ; function signature hash
+EQ
+PUSH2 0x00db      ; function location
+JUMPI
+DUP1
+PUSH4 0x30b67baa
+EQ
+PUSH2 0x00e6
+JUMPI
+```
+]
+
+---
+
+# Compiling Smart Contracts: types
+
+* EVM only has 256 bit words
+* Solidity has a simple type system including
+  * integer types
+  * data structures (lists, maps)
+* Integer types are encoded using bitwise operations  
+  e.g. `uint8`: `uint256 & 0xff`
+* Data structures are encoded using hash  
+  e.g. `key(list[5]) = keccak256(index(list) . 5)`
+
+---
+
+class: middle, title-slide
+
+# Smart Contract Security
 
 ---
 
@@ -590,359 +652,15 @@ https://securify.chainsecurity.com
 
 ---
 
-# Smart Contract exploitation
-
-.pull-left-50[
-## According to analysis tools
-
-* Thousands of vulnerable contracts
-
-* Hundreds of millions USD at risk
-]
-
-.pull-right-50[
-## In the real-world
-
-* TheDAO and Parity wallet bug were impressive
-
-* Otherwise, a few attacks here and there
-]
-
-<br>
-
-⇒ We analyze the Ethereum blockchain to look for *actual exploitation*
-
-
----
-
 class: middle, title-slide
 
-# Overview of the Research
-## https://arxiv.org/abs/1902.06710
+# Programming hands-on
 
 ---
 
-# Dataset
-
-.pull-left-40[
-* Data received from the paper authors
-
-* Received replies from 5 out of 8 of the authors we contacted
-
-* Ether at stake computed at time of the report
-
-* Total of around *3M ETH at stake*
-]
-
-.pull-right-60[
-.right[
-.left[Name]          | Contracts analyzed | Vulnerabilities found | Ether at stake
----------------------|--------------------|-----------------------|---------------
-.left[Oyente]   | 19,366             | 7,527                 | 1,289,177
-.left[Zeus]     | 1,120              | 855                   | 729,376
-.left[Maian]    | NA                 | 2,691                 | 14.13
-.left[Securify] | 29,694             | 9,185                 | 719,567
-.left[MadMax]   | 91,800             | 6,039                 | 1,114,692
-
-.caption[
-  Dataset overview
-]
-]
-]
-
----
-
-# Detection overview
-
-.pull-left-40[
-1. Retrieve all transactions
-
-2. Retrieve execution traces for all transactions
-
-3. Encode execution traces to Datalog
-
-4. Query Datalog for vulnerabilities
-]
-
-.pull-right-60[![Smart Contracts](./system-overview.png)]
-
----
-
-# Checking for re-entrancy
-
-.pull-left-50[
-1. Record all calls
-
-2. Check for mutually recursive calls between contracts
-
-<br>
-```prolog
-call_flow(A, B) :- call(A, B).
-call_flow(A, B) :- call(A, C), call_flow(C, B).
-reentrant_call(A, B) :- call_flow(A, B),
-                        call_flow(B, A),
-                        A != B.
-```
-.caption[
-Datalog rules
-]
-]
-
-
-.pull-right-50[
-```solidity
-function payMe(address account) public {
-  uint amount = getAmount(account);
-  // XXX: vulnerable
-  if (!account.send(amount))
-    throw;
-  balance[account] -= amount;
-}
-```
-.caption[
-  Vulnerable contract
-]
-
-```solidity
-function () {
-  victim.payMe(owner);
-}
-```
-.caption[
-  Attacker contract
-]
-
-]
-
----
-
-# Checking for unhandled exceptions
-
-.pull-left-50[
-1. Record all call results
-  * Top value on the stack after a call
-
-2. Check if the return value is used in a condition (`JUMPI`)
-
-```prolog
-influences_condition(A) :- used_in_condition(A).
-influences_condition(A) :-
-  depends(B, A), used_in_condition(B).
-
-unhandled_exception(A) :-
-  failed_call(A), ~influences_condition(A).
-```
-.caption[
-Datalog rules
-]
-]
-
-.pull-right-50[
-.middle-block[
-```solidity
-// allows user to withdraw funds
-function withdraw(address account) public {
-  uint amount = getAmount(account);
-  balance[account] -= amount;
-  account.send(amount); // could silently fail
-}
-```
-.caption[
-  Problematic contract
-]
-]
-]
-
----
-
-# Checking for dependency on destructed contract
-
-1. Find `DELEGATECALL` instructions
-
-2. Check the program counter after the call
-
-3. If the PC was incremented by 1, the call was a no-op
-
-
-.center-block.width-50[
-```prolog
-empty_delegate(A) :- call_entry(V, A),
-                     call_exit(V, V2),
-                     successor(V2, V).
-```
-.caption[
-Datalog rule
-]
-]
-
----
-
-# Checking for transaction order dependency
-
-.pull-left-50[
-1. Find transactions in the same block
-
-2. Check if two calls read and write to the same storage key
-
-```prolog
-tod(Block, Tx, Tx2, Idx) :-
-          tx_sstore(Block, Tx, Idx),
-          tx_sload(Block, Tx2, Idx),
-          Tx != Tx2.
-```
-.caption[
-Datalog rule
-]
-]
-
-.pull-right-50[
-```solidity
-function solve() {
-  if (msg.sender == owner) {// update reward
-    owner.send(reward);
-    reward = msg.value;
-  } else if (puzzleSolved(msg.data)) {
-    msg.sender.send(reward); //send reward
-    solution = msg.data;
-  }
-}
-```
-.caption[
-Contract vulnerable to transaction order dependency
-]
-]
-
----
-
-# Checking for integer overflow
-
-.pull-left-50[
-1. Infer variable types from bytecode
-   * `SIGNEXTEND` means the variable is signed
-   * `AND n 0xff` means it is a `uint8`
-2. Compare typed and untyped results
-
-.italic[The approach can lead to some false-positives]
-]
-
-.pull-right-50[
-.middle-block[
-```solidity
-function overflow(uint fee) {
-  uint amount = 100;
-  amount -= fee;
-  msg.sender.send(amount);
-}
-```
-.caption[
-Contract vulnerable to integer overflow
-]
-]
-]
-
----
-
-# Detection results
-
-<style>
-  .results-table th, .results-table td {
-    font-size: 20px;
-  }
-</style>
-
-.right.results-table[
-.left[Vulnerability] | Vulnerable contracts | Total Ether at Stake | Contracts exploited (with Ether) | Exploited Ether | % of Exploited Ether
---------------|----------------------|----------------------|----------------------------------|-----------------|---------------------
-.left[Re-entrancy]   | 4,336                | 1,027,585            | 113 (6)                          | 6,075           | **0.59%**
-.left[Unhandled Exception]  | 11,426        | 208,528              | 268 (6)                          | 169             | **0.081%**
-.left[Destructed contract dep.] | 7,271     | 1,135,313            | 0 (0)                            | 0               | **0%**
-.left[Transaction order dependency] | 1,877 | 207,926              | 57 (14)                          | 189             | **0.0091%**
-.left[Integer overflow] | 2,472             | 508,750              | 141 (23)                         | 2,661           | **0.52%**
-.left[Total]           | 21,270             | 3,088,102            | 504 (49)                         | 9,094           | **0.30%**
-]
-
-In total, *at most 0.30%* of the 3M Ether at stake has been *exploited*
-
----
-
-class: middle, title-slide
-
-# Takeaways and conclusions
-
----
-
-# Takeaways
-
-* **Re-entrancy** seems to be the *most dangerous* issue. Good target for static analysis. Better prevention at the EVM level could be helpful.
-
-* **Unhandled exceptions** are *handled well enough* by current tooling.
-
-* **Dependency on destructed contract** is mostly a *non-issue*.
-
-* **Transactions order dependency** seems to be *very rare* in practice
-
-* **Integer overflow** is hard to prevent and consequences *hard to predict*. Also good target for static analysis.
-
----
-
-# Contracts wealth distribution
-
-.pull-left-50[
-* Combined value: *~2 million ETH*
-
-* Only *~2,000* out of 21,270 contracts *held Ether*
-
-* Less than 100 contracts had more than 10 Ether
-
-* The *top 6 contracts held 83%* of the total Ether
-]
-
-.pull-right-50[
-![Cumulative distribution of Ether](./cumulative-ether.png)
-.caption[
-Cumulative Ether held in contracts holding more than 10 ETH
-]
-]
-
----
-
-# Vulnerable but not exploitable
-
-.pull-left-50[
-* Many cases where "vulnerable" contracts are not exploitable
-
-* High-value contracts flagged vulnerable are typically not exploitable
-
-* Usually limitation due to the nature of static analysis
-]
-
-.pull-right-50[
-```solidity
-function removeOwner(address owner) onlyWallet {
-  isOwner[owner] = false;
-  // Could in Theory run out of gas
-  for (uint i=0; i<owners.length - 1; i++) {
-    if (owners[i] == owner) {
-      owners[i] = owners[owners.length - 1];
-      break;
-    }
-  }
-  // a bit more logic
-}
-```
-.caption[
-  Multisig wallet with >350K ETH at address .small[`0x7da82C7AB4771ff031b66538D2fB9b0B047f6CF9`]
-]
-]
-
----
-
-class: middle
-
-# Summary
-
-* Analyzed 21k contracts with *3M Ether at risk*
-
-* *At most 0.3%* of this Ether, less than 10k ETH, was *exploited*
-
-* Overall, *high-value contracts* seem to be quite *secure*
+# Ecosystem Overview
+
+* Solc: Solidity compiler
+* Truffle: Framework to help build/test
+* Ganache: Easy setup of local private chain 
+* Mythril, Securify, etc: Static analysis tools
