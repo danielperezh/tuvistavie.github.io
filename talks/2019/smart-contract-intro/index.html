@@ -2,6 +2,7 @@
 layout: presentation
 title: Introduction to Smart Contracts
 highlight_language: solidity
+description: A short introduction to smart contracts
 ---
 
 class: middle, title-slide
@@ -132,6 +133,34 @@ class: middle, title-slide
   ![Smart Contracts](./smart-contracts.png)
   .caption[
   Ethereum Smart Contracts overview]
+]
+
+---
+
+# Smart Contract Example
+
+```solidity
+contract Coin {
+  address public minter;
+  mapping (address => uint) public balances;
+
+  constructor() public { minter = msg.sender; }
+
+  function mint(address receiver, uint amount) public {
+    require(msg.sender == minter);
+    require(amount < 1e60);
+    balances[receiver] += amount;
+  }
+
+  function send(address receiver, uint amount) public {
+    require(amount <= balances[msg.sender]);
+    balances[msg.sender] -= amount;
+    balances[receiver] += amount;
+  }
+}
+```
+.caption[
+Contract implementing a simple coin
 ]
 
 ---
@@ -664,3 +693,138 @@ class: middle, title-slide
 * Truffle: Framework to help build/test
 * Ganache: Easy setup of local private chain 
 * Mythril, Securify, etc: Static analysis tools
+
+---
+
+# Installing software
+
+.small-margin[
+
+## NodeJS (if not already installed)
+
+Follow instructions at: https://nodejs.org/en/download/
+
+## Truffle and Ganache
+
+```
+npm install -g truffle
+npm install -g ganache-cli
+```
+
+## Geth (optional)
+
+Follow instructions at: https://geth.ethereum.org/docs/install-and-build/installing-geth
+
+]
+
+---
+
+# What we will build
+
+A simple token compliant with the [ERC-20 standard](https://eips.ethereum.org/EIPS/eip-20)
+
+This is how most "coins" or "tokens" are implemented on Ethereum.
+It defines a common interface to
+
+* Transfer tokens
+* Allow other parties to transfer tokens
+* Check balance for tokens
+* Emit events for token transfers
+
+---
+
+# ERC-20 interface
+
+```solidity
+// Returns the total supply of tokens
+function totalSupply() public view returns (uint256)
+
+// Returns the balance of `_owner`
+function balanceOf(address _owner) public view returns (uint256 balance)
+
+// Transfers `_value` from sender to `_to`
+function transfer(address _to, uint256 _value) public returns (bool success)
+
+// Transfers `_value` from `_from` to `_to` if `_from` authorized the send
+function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)
+
+// Approves `_spender` to spend `_value` in behalf of the sender
+function approve(address _spender, uint256 _value) public returns (bool success)
+
+// Returns how much `_spender` is allowed to spend in behalf of `_owner`
+function allowance(address _owner, address _spender) public view returns (uint256 remaining)
+
+// Is emitted when `_from` transfers `_value` to `_to`
+event Transfer(address indexed _from, address indexed _to, uint256 _value)
+// Is emitted when `_owner` allows `_spender` to spend `_value` on his behalf
+event Approval(address indexed _owner, address indexed _spender, uint256 _value)
+```
+
+---
+
+# Token specifics
+
+We will build a very simple token:
+
+* Fixed total supply (1,000,000 for the sake of example)
+  * No tokens can be created or burned after creation
+* All tokens belong to owner at contract creation time
+* No other particular limitation
+
+---
+
+# Starting to develop
+
+.small-margin[
+
+Start a new project
+
+```
+mkdir my-token
+cd my-token
+truffle init
+truffle create contract MyToken
+```
+
+Create migration file: .text.minor[`migrations/2_my_token.js`]
+
+```javascript
+const MyToken = artifacts.require("MyToken");
+
+module.exports = function(deployer) {
+  deployer.deploy(MyToken);
+};
+```
+]
+
+---
+
+# Test project
+
+
+.small-margin[
+
+Download the specs for the project
+
+```bash
+wget https://git.io/smart-contract-intro-spec -O test/my-token-test.js
+```
+
+.small[&#9888; The specs were written by me, please complain if something does not look right]
+
+Run the tests
+
+```
+truffle test
+```
+
+Get the contract skeleton (optional)  
+.text.minor[If you are not confident, you can get the skeleton to get started]
+
+```bash
+wget https://git.io/smart-contract-intro-skeleton -O contracts/MyToken.sol
+```
+
+Now, implement the contract and run the tests regularly.
+
+]

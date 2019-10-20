@@ -12,7 +12,12 @@
   <meta property="og:title" content="{{ page.title }}">
   <meta name="twitter:title" content="{{ page.title }}">
 
-  <meta name="description" content="{{ page.content | strip_html | truncatewords: 30 }}">
+  {% if page.description %}
+    <meta name="description" content="{{ page.description }}">
+  {% else %}
+    <meta name="description" content="{{ page.content | strip_html | truncatewords: 30 }}">
+  {% endif %}
+
   <meta name="twitter:description" content="{{ page.content | strip_html | truncatewords: 30 }}">
   <meta property="og:description" content="{{ page.content | strip_html | truncatewords: 30 }}">
   {% if page.image %}
