@@ -699,24 +699,15 @@ class: middle, title-slide
 
 # Installing software
 
-.small-margin[
-
 ## NodeJS (if not already installed)
 
 Follow instructions at: https://nodejs.org/en/download/
 
-## Truffle and Ganache
+## Truffle
 
 ```
 npm install -g truffle
-npm install -g ganache-cli
 ```
-
-## Geth (optional)
-
-Follow instructions at: https://geth.ethereum.org/docs/install-and-build/installing-geth
-
-]
 
 ---
 
@@ -800,10 +791,10 @@ module.exports = function(deployer) {
 
 ---
 
-# Test project
+# Implement and test the project
 
 
-.small-margin[
+.small-margin.text.minor[
 
 Download the specs for the project
 
@@ -823,9 +814,10 @@ Get the contract skeleton (optional)
 .text.minor[If you are not confident, you can get the skeleton to get started]
 
 ```bash
-wget https://git.io/smart-contract-intro-skeleton -O contracts/MyToken.sol
+wget https://git.io/smart-contract-intro-skel -O contracts/MyToken.sol
 ```
 
-Now, implement the contract and run the tests regularly.
-
 ]
+
+Now, implement the contract and run the tests regularly.  
+Check [the ERC-20 standard](https://eips.ethereum.org/EIPS/eip-20) for more details about each function.
