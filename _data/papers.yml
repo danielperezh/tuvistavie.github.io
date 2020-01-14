@@ -48,6 +48,19 @@
 
 - title: Drafts
   papers:
+    - title: "Fast-Fourier-Forecasting Resource Utilisation in Distributed Systems"
+      links:
+        - href: https://arxiv.org/abs/2001.04281
+          text: arXiv
+        - href: https://static.perez.sh/research/2019/fast-fourier-forecasting/fast-fourier-forecasting.pdf
+          text: paper
+      authors:
+        - Paul J. Pritz
+        - Daniel Perez
+        - Kin K. Leung
+      note: >
+        Technical Report arXiv:2001.04281, January 2020.
+
     - title: "Broken Metre: Attacking Resource Metering in EVM"
       links:
         - href: https://arxiv.org/abs/1909.07220
