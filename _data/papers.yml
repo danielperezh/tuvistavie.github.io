@@ -48,11 +48,20 @@
 
 - title: Drafts
   papers:
+    - title: "Step on the Gas? A Better Approach for Recommending the Ethereum Gas Price"
+      links:
+        - href: https://static.perez.sh/research/2020/step-on-gas/step-on-gas.pdf
+          text: paper
+      authors:
+        - Sam M. Werner
+        - Paul J. Pritz
+        - Daniel Perez
+
     - title: "Fast-Fourier-Forecasting Resource Utilisation in Distributed Systems"
       links:
         - href: https://arxiv.org/abs/2001.04281
           text: arXiv
-        - href: https://static.perez.sh/research/2019/fast-fourier-forecasting/fast-fourier-forecasting.pdf
+        - href: https://static.perez.sh/research/2020/fast-fourier-forecasting/fast-fourier-forecasting.pdf
           text: paper
       authors:
         - Paul J. Pritz
