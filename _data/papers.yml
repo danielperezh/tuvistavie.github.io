@@ -11,6 +11,7 @@
         - Daniel Perez
       note: >
         in proceedings of the 1st International Conference on Mathematical Research for Blockchain Economy (<a href="https://www.marble2019.org">MARBLE 2019</a>)
+
     - title: Cross-language clone detection by learning over abstract syntax trees
       links:
         - href: /research/2019/cross-language-clones/
@@ -22,29 +23,6 @@
         - Shigeru Chiba
       note: >
         in proceedings of the 2019 IEEE/ACM 16th International Conference on Mining Software Repositories (<a href="https://2019.msrconf.org/track/msr-2019-papers#event-overview">MSR 2019</a>)
-
-- title: Workshops
-  papers:
-    - title: Grammar Induction for Programming Languages using Skip-Gram model
-      links:
-        - href: https://static.csg.ci.i.u-tokyo.ac.jp/papers/18/matsunaga-jssst2018.pdf
-          text: paper
-      authors:
-        - Tomomasa Matsunaga
-        - Tetsuro Yamazaki
-        - Daniel Perez
-        - Shigeru Chiba
-      note: >
-        <strong>Best student paper award</strong> at <a href="https://jssst2018.wordpress.com/">JSSST 2018</a>, Tokyo, Japan
-    - title: Using competitive programming data to detect code clones
-      links:
-        - href: https://static.perez.sh/research/2019/cross-language-clone-detection/poster-ppl.pdf
-          text: poster
-      authors:
-        - Daniel Perez
-        - Shigeru Chiba
-      note: >
-        poster presented at <a href="https://jssst-ppl.org/workshop/2018/">JSSST SIG-PPL 2018</a>, Tottori, Japan
 
 - title: Drafts
   papers:
@@ -94,3 +72,26 @@
       note: >
         Technical Report arXiv:1902.06710, February 2019.
 
+- title: Workshops
+  papers:
+    - title: Grammar Induction for Programming Languages using Skip-Gram model
+      links:
+        - href: https://static.csg.ci.i.u-tokyo.ac.jp/papers/18/matsunaga-jssst2018.pdf
+          text: paper
+      authors:
+        - Tomomasa Matsunaga
+        - Tetsuro Yamazaki
+        - Daniel Perez
+        - Shigeru Chiba
+      note: >
+        <strong>Best student paper award</strong> at <a href="https://jssst2018.wordpress.com/">JSSST 2018</a>, Tokyo, Japan
+
+    - title: Using competitive programming data to detect code clones
+      links:
+        - href: https://static.perez.sh/research/2019/cross-language-clone-detection/poster-ppl.pdf
+          text: poster
+      authors:
+        - Daniel Perez
+        - Shigeru Chiba
+      note: >
+        poster presented at <a href="https://jssst-ppl.org/workshop/2018/">JSSST SIG-PPL 2018</a>, Tottori, Japan
