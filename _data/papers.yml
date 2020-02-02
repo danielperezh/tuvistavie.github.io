@@ -1,5 +1,17 @@
 - title: Conferences
   papers:
+    - title: "Broken Metre: Attacking Resource Metering in EVM"
+      links:
+        - href: https://arxiv.org/abs/1909.07220
+          text: arXiv
+        - href: https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Benjamin Livshits
+      note: >
+        to appear at the 27th Annual Network and Distributed System Security Symposium, NDSS 2020
+
     - title: "PoolSim: A Discrete-Event Mining Pool Simulation Framework"
       links:
         - href: https://github.com/samwerner/poolsim
@@ -47,18 +59,6 @@
         - Kin K. Leung
       note: >
         Technical Report arXiv:2001.04281, January 2020.
-
-    - title: "Broken Metre: Attacking Resource Metering in EVM"
-      links:
-        - href: https://arxiv.org/abs/1909.07220
-          text: arXiv
-        - href: https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf
-          text: paper
-      authors:
-        - Daniel Perez
-        - Benjamin Livshits
-      note: >
-        Technical Report arXiv:1909.07220, September 2019.
 
     - title: "Smart Contract Vulnerabilities: Does Anyone Care?"
       links:
