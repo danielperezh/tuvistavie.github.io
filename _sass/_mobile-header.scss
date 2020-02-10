@@ -1,4 +1,4 @@
-@include media-query($mobile) {
+@include mobile() {
     .site-nav h1 {
         border-bottom: 1px solid $line-color;
         cursor: pointer;

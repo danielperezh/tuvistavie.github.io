@@ -1,19 +1,14 @@
-<li>
-  <h3>
-    <a class="discrete" href="{{ talk.path | prepend: "talks/" | relative_url }}">
-      {{ talk.title }}
-    </a>
-  </h3>
-  <p>
+<li class="talk">
+  {{ talk.title }} [<a href="{{ talk.path | prepend: "talks/" | relative_url }}">slides</a>]
     {% if talk.paper_authors %}
-      <span class="authors">by {{ talk.paper_authors }}</span>
-      <br>
+      <div class="authors">by {{ talk.paper_authors }}</div>
     {% endif %}
-    {{ talk.date }} @
-    {% if talk.location_url %}
-      <a href="{{ talk.location_url }}" target="_blank">{{ talk.location }}</a>
-    {% else %}
-      {{ talk.location }}
-    {% endif %}
-  </p>
+    <div class="info">
+      {{ talk.date }} @
+      {% if talk.location_url %}
+        <a href="{{ talk.location_url }}" target="_blank">{{ talk.location }}</a>
+      {% else %}
+        {{ talk.location }}
+      {% endif %}
+    </div>
 </li>

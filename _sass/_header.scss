@@ -120,7 +120,7 @@
         }
     }
 
-    @include media-query($mobile) {
+    @include mobile() {
         position: absolute;
         top: 9px;
         right: 20px;

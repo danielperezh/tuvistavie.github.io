@@ -30,7 +30,7 @@
     margin-bottom: 0.75em;
 }
 
-@include media-query($mobile) {
+@include mobile() {
     .alignleft, .alignright {
         display: block;
         margin-left: auto;

@@ -186,45 +186,19 @@ dl {
 
     &.inline {
         width: 100%;
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
+        display: grid;
+        grid-template-columns: max-content auto;
         dt {
-            float: left;
-            padding: 0;
-            margin: 0;
-            margin-right: 2%;
-            text-align: right;
-            width: 13%;
-            @include media-query($desktop) {
-                margin-right: 5%;
-                width: 28%;
-            }
-
+            grid-column-start: 1;
+            margin-right: 0.5em;
         }
         dd {
-            float: left;
-            padding: 0;
-            margin: 0;
-            width: 85%;
-            @include media-query($desktop) {
-                width: 67%;
-            }
+            grid-column-start: 2;
         }
+
         &.small-term {
-            dt {
-                margin-right: 1%;
-                width: 4%;
-                @include media-query($desktop) {
-                    margin-right: 3%;
-                    width: 10%;
-                }
-            }
             dd {
-                width: 95%;
-                @include media-query($desktop) {
-                    width: 87%;
-                }
+                margin-bottom: 0.2em;
             }
         }
     }

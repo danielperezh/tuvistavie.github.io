@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<h1>About me</h1>
+<h2>About me</h2>
 
 <div class="intro">
   <img class="image" src="{{ site.author.avatar | prepend: "/images/" | relative_url }}" alt="Profile picture">
@@ -25,6 +25,15 @@ layout: default
     I am sometimes open to freelance work, please feel free to contact me for
     more information.
   </p>
+
+  <h2>News</h2>
+  <dl class="inline news">
+    {% for news in site.data.news %}
+    <dt>{{ news.date }}</dt>
+    <dd>{{ news.content }}</dd>
+    {% endfor %}
+  </dl>
+
 
   <h2>Contact information</h2>
   <dl class="inline small-term">

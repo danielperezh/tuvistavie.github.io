@@ -35,11 +35,17 @@ $line-color:        $grey-light;
 // Width of the content area
 $content-width:    50em;
 $content-min-width:15em;
-$mobile:           32em;
-$desktop:          50em;
+$mobile:           640px;
+$desktop:          960px;
 
-@mixin media-query($device) {
-    @media screen and (max-width: $device) {
+@mixin mobile() {
+    @media screen and (max-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin desktop() {
+    @media screen and (min-width: $desktop) {
         @content;
     }
 }
@@ -55,5 +61,6 @@ $desktop:          50em;
     "fancy-image",
     "cv",
     "research",
+    "talks",
     "util"
 ;
