@@ -3,18 +3,28 @@
     My paper <a href="https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf">Broken Metre: Attacking Resource Metering in EVM</a>
     with <a href="https://www.doc.ic.ac.uk/~livshits/">Ben Livshits</a> was accepted at
     <a href="https://www.ndss-symposium.org/ndss2020/accepted-papers/">NDSS'20</a>
+
+- date: 2020/01/07
+  content: |
+    Received a <a href="https://bounty.ethereum.org/">5,000 USD bounty reward</a> from the <a href="https://ethereum.foundation/">Ethereum Foundation</a> with the help of <a href="https://twitter.com/MatthiasEgli">Matthias Egli</a>
+    and <a href="https://twitter.com/HRitzdorf">Hubert Ritzorf</a> from <a href="https://www.pwc.ch/">PwC Switzerland</a>,
+    for a report based on my <a href="https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf">Broken Metre paper</a>
+
 - date: 2019/12/20
   content: |
     I will present <a href="https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf">Broken Metre: Attacking Resource Metering in EVM</a>
     at <a href="https://cbr.stanford.edu/sbc20/">The Stanford Blockchain Conference 2020</a> on 2020/02/20
+
 - date: 2019/10/22
   content: |
-    I gave an <a href="/talks/2019/smart-contract-intro/">introduction to Smart Contracts</a> at EPFL
+    Gave an <a href="/talks/2019/smart-contract-intro/">introduction to Smart Contracts</a> at EPFL
+
 - date: 2019/07/13
   content: |
-    I presented <a href="https://static.perez.sh/research/2019/smart-contract-vulnerabilities/smart-contracts-vulnerabilities.pdf">Smart Contract Vulnerabilities: Does Anyone Care?</a>
+    Presented <a href="https://static.perez.sh/research/2019/smart-contract-vulnerabilities/smart-contracts-vulnerabilities.pdf">Smart Contract Vulnerabilities: Does Anyone Care?</a>
     at a <a href="https://www.eventbrite.com/e/free-full-day-smart-contracts-security-technical-workshop-tickets-63227934454">
     workshop at University College London</a>
+
 - date: 2019/03/02
   content: |
     My paper <a href="https://static.perez.sh/research/2019/cross-language-clone-detection/clone-detection-msr19.pdf">Cross-language clone detection by learning over abstract syntax trees</a>
