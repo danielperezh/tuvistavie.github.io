@@ -38,6 +38,21 @@
 
 - title: Drafts
   papers:
+    - title: "The Decentralized Financial Crisis: Attacking DeFi"
+      links:
+        - href: https://arxiv.org/abs/2002.08099
+          text: arXiv
+        - href: https://static.perez.sh/research/2020/defi-crisis/defi-crisis.pdf
+          text: paper
+      authors:
+        - Lewis Gudgeon
+        - Daniel Perez
+        - Dominik Harz
+        - Arthur Gervais
+        - Benjamin Livshits
+      note: >
+        Technical Report arXiv:2002.08099, February 2020.
+
     - title: "Fast-Fourier-Forecasting Resource Utilisation in Distributed Systems"
       links:
         - href: https://arxiv.org/abs/2001.04281
