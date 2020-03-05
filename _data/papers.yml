@@ -10,7 +10,7 @@
         - Daniel Perez
         - Benjamin Livshits
       note: >
-        to appear at the 27th Annual Network and Distributed System Security Symposium, NDSS 2020
+        in proceedings of the 27th Annual Network and Distributed System Security Symposium (<a href="https://www.ndss-symposium.org/ndss2020/">NDSS 2020</a>)
 
     - title: "PoolSim: A Discrete-Event Mining Pool Simulation Framework"
       links:
@@ -38,6 +38,15 @@
 
 - title: Drafts
   papers:
+    - title: "We Know What They've Been Put Through: Revisiting High-scalability Blockchain Transactions"
+      links:
+        - href: https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Jiahua Xu
+        - Benjamin Livshits
+
     - title: "The Decentralized Financial Crisis: Attacking DeFi"
       links:
         - href: https://arxiv.org/abs/2002.08099
