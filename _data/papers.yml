@@ -40,6 +40,8 @@
   papers:
     - title: "We Know What They've Been Put Through: Revisiting High-scalability Blockchain Transactions"
       links:
+        - href: https://arxiv.org/abs/2003.02693
+          text: arXiv
         - href: https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf
           text: paper
       authors:
