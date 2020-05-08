@@ -3,6 +3,7 @@ title:  "Bitcoin serialization format"
 date:   2020-05-07
 tags: [bitcoin]
 include_mathjax: true
+image: images/bitcoin-logo.png
 ---
 
 I recently had to parse raw Bitcoin transactions and blocks for [a project][btc-relay]
