@@ -38,6 +38,18 @@
 
 - title: Drafts
   papers:
+    - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
+      links:
+        - href: https://eprint.iacr.org/2020/580
+          text: pre-print
+        - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
+          text: paper
+      authors:
+        - Alexei Zamyatin
+        - Zeta Avarikioti
+        - Daniel Perez
+        - William J. Knottenbelt
+
     - title: "We Know What They've Been Put Through: Revisiting High-scalability Blockchain Transactions"
       links:
         - href: https://arxiv.org/abs/2003.02693
