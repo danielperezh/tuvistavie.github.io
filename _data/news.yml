@@ -1,6 +1,30 @@
+- date: 2020/06/11
+  content: |
+    <a href="https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf">Revisiting Transactional Statistics of High-scalability Blockchain</a>
+    with <a href="https://www.linkedin.com/in/jiahuaxu/">Jiahua Xu</a> and <a href="https://www.doc.ic.ac.uk/~livshits/">Ben Livshits</a>
+    was <a href="https://www.coindesk.com/free-transactions-invite-systemic-attacks-on-blockchains-researchers-find">featured on CoinDesk</a>
+
+- date: 2020/05/25
+  content: |
+    <a href="https://static.perez.sh/research/2020/defi-crisis/defi-crisis.pdf">The Decentralized Financial Crisis: Attacking DeFi</a>
+    with <a href="https://scholar.google.com/citations?user=U5XZlvoAAAAJ">Lewis Gudgeon</a> and other collaborators was accepted at
+    <a href="https://www.cryptovalleyconference.com/">CVC 2020</a>
+
+- date: 2020/05/06
+  content: |
+    <a href="https://static.perez.sh/research/2020/fast-fourier-forecasting/fast-fourier-forecasting.pdf">Fast-Fourier-Forecasting Resource Utilisation in Distributed Systems</a>
+    with <a href="https://paulpritz.com/">Paul Pritz</a> and <a href="http://www.commsp.ee.ic.ac.uk/~kkleung/">Kin K. Leung</a> was accepted at
+    <a href="http://www.icccn.org/icccn20/program/technical-program/index.html">ICCCN 2020</a>
+
+- date: 2020/03/10
+  content: |
+    <a href="https://static.perez.sh/research/2020/step-on-gas/step-on-gas.pdf">Step on the Gas? A Better Approach for Recommending the Ethereum Gas Price</a>
+    with <a href="https://www.smwrnr.com/">Sam Werner</a> and <a href="https://paulpritz.com/">Paul Pritz</a> was accepted at
+    <a href="https://www.marble-conference.org/marble2020-programme">MARBLE 2020</a>
+
 - date: 2020/02/02
   content: |
-    My paper <a href="https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf">Broken Metre: Attacking Resource Metering in EVM</a>
+    <a href="https://static.perez.sh/research/2019/evm-metering/evm-metering.pdf">Broken Metre: Attacking Resource Metering in EVM</a>
     with <a href="https://www.doc.ic.ac.uk/~livshits/">Ben Livshits</a> was accepted at
     <a href="https://www.ndss-symposium.org/ndss2020/accepted-papers/">NDSS'20</a>
 
@@ -27,6 +51,6 @@
 
 - date: 2019/03/02
   content: |
-    My paper <a href="https://static.perez.sh/research/2019/cross-language-clone-detection/clone-detection-msr19.pdf">Cross-language clone detection by learning over abstract syntax trees</a>
+    <a href="https://static.perez.sh/research/2019/cross-language-clone-detection/clone-detection-msr19.pdf">Cross-language clone detection by learning over abstract syntax trees</a>
     with <a href="https://chibash.github.io/">Shigeru Chiba</a> was accepted at
     <a href="https://2019.msrconf.org/details/msr-2019-papers/29/Cross-language-clone-detection-by-learning-over-abstract-syntax-trees">MSR'19</a>

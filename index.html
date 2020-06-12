@@ -35,7 +35,7 @@ layout: default
 
   <h2>News</h2>
   <dl class="inline news">
-    {% for news in site.data.news %}
+    {% for news in site.data.news limit:6 %}
     <dt>{{ news.date }}</dt>
     <dd>{{ news.content }}</dd>
     {% endfor %}
