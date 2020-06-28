@@ -81,8 +81,8 @@
   papers:
     - title: "DeFi Protocols for Loanable Funds: Interest Rates, Liquidity and Market Efficiency"
       links:
-        # - href: https://arxiv.org/abs/2006.XXXXX
-        #   text: arXiv
+        - href: https://arxiv.org/abs/2006.13922
+          text: arXiv
         - href: https://static.perez.sh/research/2020/defi-interests/defi-interests.pdf
           text: paper
       authors:
