@@ -1,5 +1,19 @@
 - title: Conferences
   papers:
+    - title: "DeFi Protocols for Loanable Funds: Interest Rates, Liquidity and Market Efficiency"
+      links:
+        - href: https://arxiv.org/abs/2006.13922
+          text: arXiv
+        - href: https://static.perez.sh/research/2020/defi-interests/defi-interests.pdf
+          text: paper
+      authors:
+        - Lewis Gudgeon
+        - Sam M. Werner
+        - Daniel Perez
+        - William J. Knottenbelt
+      note: >
+        to appear at the 2nd ACM Conference on Advances in Financial Technologies (<a href="https://aft.acm.org/">AFT 2020</a>)
+
     - title: "The Decentralized Financial Crisis: Attacking DeFi"
       links:
         - href: https://arxiv.org/abs/2002.08099
@@ -79,18 +93,6 @@
 
 - title: Drafts
   papers:
-    - title: "DeFi Protocols for Loanable Funds: Interest Rates, Liquidity and Market Efficiency"
-      links:
-        - href: https://arxiv.org/abs/2006.13922
-          text: arXiv
-        - href: https://static.perez.sh/research/2020/defi-interests/defi-interests.pdf
-          text: paper
-      authors:
-        - Lewis Gudgeon
-        - Sam M. Werner
-        - Daniel Perez
-        - William J. Knottenbelt
-
     - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
       links:
         - href: https://eprint.iacr.org/2020/580
