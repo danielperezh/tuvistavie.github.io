@@ -1,5 +1,30 @@
 - title: Conferences
   papers:
+    - title: "Smart Contract Vulnerabilities: Vulnerable Does Not Imply Exploited"
+      links:
+        - href: https://arxiv.org/abs/1902.06710
+          text: arXiv
+        - href: https://static.perez.sh/research/2019/smart-contract-vulnerabilities/smart-contracts-vulnerabilities.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Benjamin Livshits
+      note: >
+        to appera at the 30th USENIX Security Symposium (<a href="https://www.usenix.org/conference/usenixsecurity21">USENIX Security 21</a>)
+
+    - title: "Revisiting Transactional Statistics of High-scalability Blockchain"
+      links:
+        - href: https://arxiv.org/abs/2003.02693
+          text: arXiv
+        - href: https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Jiahua Xu
+        - Benjamin Livshits
+      note: >
+        to appear at the Internet Measurement Conference 2020 (<a href="https://conferences.sigcomm.org/imc/2020/">IMC 2020</a>)
+
     - title: "DeFi Protocols for Loanable Funds: Interest Rates, Liquidity and Market Efficiency"
       links:
         - href: https://arxiv.org/abs/2006.13922
@@ -104,29 +129,6 @@
         - Zeta Avarikioti
         - Daniel Perez
         - William J. Knottenbelt
-
-    - title: "Revisiting Transactional Statistics of High-scalability Blockchain"
-      links:
-        - href: https://arxiv.org/abs/2003.02693
-          text: arXiv
-        - href: https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf
-          text: paper
-      authors:
-        - Daniel Perez
-        - Jiahua Xu
-        - Benjamin Livshits
-
-    - title: "Smart Contract Vulnerabilities: Does Anyone Care?"
-      links:
-        - href: https://arxiv.org/abs/1902.06710
-          text: arXiv
-        - href: https://static.perez.sh/research/2019/smart-contract-vulnerabilities/smart-contracts-vulnerabilities.pdf
-          text: paper
-      authors:
-        - Daniel Perez
-        - Benjamin Livshits
-      note: >
-        Technical Report arXiv:1902.06710, February 2019.
 
 - title: Workshops
   papers:
