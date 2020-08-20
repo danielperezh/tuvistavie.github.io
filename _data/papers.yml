@@ -1,5 +1,19 @@
-- title: Conferences
+- title: Publications
   papers:
+    - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
+      links:
+        - href: https://eprint.iacr.org/2020/580
+          text: pre-print
+        - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
+          text: paper
+      authors:
+        - Alexei Zamyatin
+        - Zeta Avarikioti
+        - Daniel Perez
+        - William J. Knottenbelt
+      note: >
+        to appear at the 4th International Workshop on Cryptocurrencies and Blockchain Technology (<a href="https://deic-web.uab.cat/cbt/cbt2020/">CBT 2020</a>)
+
     - title: "Smart Contract Vulnerabilities: Vulnerable Does Not Imply Exploited"
       links:
         - href: https://arxiv.org/abs/1902.06710
@@ -23,7 +37,7 @@
         - Jiahua Xu
         - Benjamin Livshits
       note: >
-        to appear at the Internet Measurement Conference 2020 (<a href="https://conferences.sigcomm.org/imc/2020/">IMC 2020</a>)
+        to appear at the ACM Internet Measurement Conference 2020 (<a href="https://conferences.sigcomm.org/imc/2020/">IMC 2020</a>)
 
     - title: "DeFi Protocols for Loanable Funds: Interest Rates, Liquidity and Market Efficiency"
       links:
@@ -116,22 +130,6 @@
       note: >
         in proceedings of the 2019 IEEE/ACM 16th International Conference on Mining Software Repositories (<a href="https://2019.msrconf.org/track/msr-2019-papers#event-overview">MSR 2019</a>)
 
-- title: Drafts
-  papers:
-    - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
-      links:
-        - href: https://eprint.iacr.org/2020/580
-          text: pre-print
-        - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
-          text: paper
-      authors:
-        - Alexei Zamyatin
-        - Zeta Avarikioti
-        - Daniel Perez
-        - William J. Knottenbelt
-
-- title: Workshops
-  papers:
     - title: Grammar Induction for Programming Languages using Skip-Gram model
       links:
         - href: https://static.csg.ci.i.u-tokyo.ac.jp/papers/18/matsunaga-jssst2018.pdf
@@ -143,13 +141,3 @@
         - Shigeru Chiba
       note: >
         <strong>Best student paper award</strong> at <a href="https://jssst2018.wordpress.com/">JSSST 2018</a>, Tokyo, Japan
-
-    - title: Using competitive programming data to detect code clones
-      links:
-        - href: https://static.perez.sh/research/2019/cross-language-clone-detection/poster-ppl.pdf
-          text: poster
-      authors:
-        - Daniel Perez
-        - Shigeru Chiba
-      note: >
-        poster presented at <a href="https://jssst-ppl.org/workshop/2018/">JSSST SIG-PPL 2018</a>, Tottori, Japan
