@@ -1,19 +1,5 @@
 - title: Publications
   papers:
-    - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
-      links:
-        - href: https://eprint.iacr.org/2020/580
-          text: pre-print
-        - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
-          text: paper
-      authors:
-        - Alexei Zamyatin
-        - Zeta Avarikioti
-        - Daniel Perez
-        - William J. Knottenbelt
-      note: >
-        to appear at the 4th International Workshop on Cryptocurrencies and Blockchain Technology (<a href="https://deic-web.uab.cat/cbt/cbt2020/">CBT 2020</a>)
-
     - title: "Smart Contract Vulnerabilities: Vulnerable Does Not Imply Exploited"
       links:
         - href: https://arxiv.org/abs/1902.06710
@@ -53,20 +39,19 @@
       note: >
         to appear at the 2nd ACM Conference on Advances in Financial Technologies (<a href="https://aft.acm.org/">AFT 2020</a>)
 
-    - title: "The Decentralized Financial Crisis: Attacking DeFi"
+    - title: "TxChain: Efficient Cryptocurrency Light Clients via Contingent Transaction Aggregation"
       links:
-        - href: https://arxiv.org/abs/2002.08099
-          text: arXiv
-        - href: https://static.perez.sh/research/2020/defi-crisis/defi-crisis.pdf
+        - href: https://eprint.iacr.org/2020/580
+          text: pre-print
+        - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
           text: paper
       authors:
-        - Lewis Gudgeon
+        - Alexei Zamyatin
+        - Zeta Avarikioti
         - Daniel Perez
-        - Dominik Harz
-        - Arthur Gervais
-        - Benjamin Livshits
+        - William J. Knottenbelt
       note: >
-        in proceedings of the 2020 Crypto Valley Conference on Blockchain Technology (<a href="https://www.cryptovalleyconference.com/technology-call-for-papers">CVCBT 2020</a>)
+        to appear at the 4th International Workshop on Cryptocurrencies and Blockchain Technology (<a href="https://deic-web.uab.cat/cbt/cbt2020/">CBT 2020</a>)
 
     - title: "Step on the Gas? A Better Approach for Recommending the Ethereum Gas Price"
       links:
@@ -93,6 +78,21 @@
         - Kin K. Leung
       note: >
         in proceedings of the 29th International Conference on Computer Communications and Networks (<a href="http://www.icccn.org/icccn20/">ICCCN 2020</a>)
+
+    - title: "The Decentralized Financial Crisis: Attacking DeFi"
+      links:
+        - href: https://arxiv.org/abs/2002.08099
+          text: arXiv
+        - href: https://static.perez.sh/research/2020/defi-crisis/defi-crisis.pdf
+          text: paper
+      authors:
+        - Lewis Gudgeon
+        - Daniel Perez
+        - Dominik Harz
+        - Arthur Gervais
+        - Benjamin Livshits
+      note: >
+        in proceedings of the 2020 Crypto Valley Conference on Blockchain Technology (<a href="https://www.cryptovalleyconference.com/technology-call-for-papers">CVCBT 2020</a>)
 
     - title: "Broken Metre: Attacking Resource Metering in EVM"
       links:
