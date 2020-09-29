@@ -141,3 +141,17 @@
         - Shigeru Chiba
       note: >
         <strong>Best student paper award</strong> at <a href="https://jssst2018.wordpress.com/">JSSST 2018</a>, Tokyo, Japan
+
+- title: Drafts
+  papers:
+    - title: "Liquidations: DeFi on a Knife-edge"
+      links:
+        - href: https://arxiv.org/abs/2009.13235
+          text: arXiv
+        - href: https://static.perez.sh/research/2020/defi-liquidations/defi-liquidations.pdf
+          text: paper
+      authors:
+        - Daniel Perez
+        - Sam M. Werner
+        - Jiahua Xu
+        - Benjamin Livshits
