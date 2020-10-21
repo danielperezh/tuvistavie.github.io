@@ -8,7 +8,7 @@ include_mathjax: true
 
 class: title-slide
 
-# Revisiting Transactional Statistics of High-scalability Blockchains
+# Revisiting Transactional Statistics of <br>High-scalability Blockchains
 
 <h2 class="sm-top-margin">
   Daniel Perez <span class="very minor">Imperial College London</span><br>
@@ -22,25 +22,37 @@ class: title-slide
 
 ---
 
+# Overview
+
+1. Background
+2. Data overview
+3. Main results
+  1. EOS
+  2. Tezos
+  3. XRP
+4. Takeaways
+---
+
 class: middle, title-slide
 
 # Background
-## A word about blockchain
 
 ---
 
 # Blockchain overview
 
 .pull-left-40[
+* Append-only data structures
 * Unit-of-work is a block
 * Each block has many transactions
 * Each transaction can contain several actions
-* Block producers (miners) need to reach consensus on blocks
+* Block producers (miners) need to reach consensus
 ]
 
 .pull-right-60[
 <img src="./blockchain-overview.png">
 ]
+
 
 ---
 
@@ -49,7 +61,7 @@ class: full-table
 # Blockchain scalability
 
 * Scalability often discussed in terms of transactions per second
-* Transactions per second can be computed by <br>blocks/second x transactions/block
+* Average transactions per second can be computed by <br>blocks/second x transactions/block
 
 
 Platform   |  Block time     | Transactions/block | Transaction/second
@@ -136,12 +148,12 @@ class: full-table
 <tbody>
 <tr>
 <td>Peer-to-peer transactions</td>
-<td><strong>Transfer</strong></td>
-<td><strong>96.2</strong></td>
+<td><em>Transfer</em></td>
+<td><em>96.2</em></td>
 <td>Transaction</td>
 <td>21.4</td>
-<td><strong>Payment</strong></td>
-<td><strong>36.9</strong></td>
+<td><em>Payment</em></td>
+<td><em>36.9</em></td>
 </tr>
 <tr>
 <td></td>
@@ -177,10 +189,10 @@ class: full-table
 <td>Other actions</td>
 <td>delegatebw</td>
 <td>0.0</td>
-<td><strong>Endorsement</strong></td>
-<td><strong>76.6</strong></td>
-<td><strong>OfferCreate</strong></td>
-<td style="text-align: right;"><strong>59.1</strong></td>
+<td><em>Endorsement</em></td>
+<td><em>76.6</em></td>
+<td><em>OfferCreate</em></td>
+<td><em>59.1</em></td>
 </tr>
 <tr>
 <td></td>
