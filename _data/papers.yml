@@ -16,6 +16,8 @@
       links:
         - href: https://arxiv.org/abs/2003.02693
           text: arXiv
+        - href: https://github.com/danhper/blockchain-analyzer
+          text: project
         - href: https://static.perez.sh/research/2020/transactional-throughput/transactional-throughput.pdf
           text: paper
       authors:
@@ -43,6 +45,8 @@
       links:
         - href: https://eprint.iacr.org/2020/580
           text: pre-print
+        - href: https://github.com/interlay/compressed-inclusion-proofs
+          text: project
         - href: https://static.perez.sh/research/2020/txchain/txchain.pdf
           text: paper
       authors:
