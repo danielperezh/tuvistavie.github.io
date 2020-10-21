@@ -1,0 +1,11 @@
+{
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": false,
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false
+  }
+}
