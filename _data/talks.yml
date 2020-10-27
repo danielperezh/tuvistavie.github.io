@@ -1,3 +1,9 @@
+- title: "Revisiting Transactional Statistics of High-scalability Blockchains"
+  date: 2020/10/29
+  location: ACM Internet Measurement Conference 2020
+  location_url: https://conferences.sigcomm.org/imc/2020/
+  path: 2020/transactional-throughput/
+
 - title: "Broken Metre: Attacking Resource Metering in EVM"
   date: 2020/02/19
   location: The Stanford Blockchain Conference 2020
