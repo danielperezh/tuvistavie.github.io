@@ -1,0 +1,166 @@
+---
+layout: presentation
+title: Revisiting Transactional Statistics of High-scalability Blockchains
+description: IMC'20 presentation for the paper "Revisiting Transactional Statistics of High-scalability Blockchains"
+image: talks/2020/transactional-throughput/xrp-sankey.png
+include_mathjax: true
+---
+
+class: title-slide
+
+# Revisiting Transactional Statistics of <br>High-scalability Blockchains
+
+<h2 class="sm-top-margin">
+  Daniel Perez <span class="very minor">Imperial College London</span><br>
+  Jiahua Xu <span class="very minor">University College London</span><br>
+  Benjamin Livshits <span class="very minor">Imperial College London</span><br>
+</h2>
+
+<h3 class="sm-top-margin">October 29th, ACM Internet Measurement Conference 2020</h3>
+<br>
+<h4>Slides available at: http://bit.ly/transactional-throughput</h4>
+
+---
+
+# Blockchain overview
+
+.pull-left-40[
+* Append-only data structures
+* Unit-of-work is a block
+* Each block has many transactions
+* Each transaction can contain several actions
+* Block producers (miners) need to reach consensus
+]
+
+.pull-right-60[
+<img src="./blockchain-overview.png">
+]
+
+
+---
+
+class: full-table
+
+# Blockchain scalability
+
+* Scalability often discussed in terms of transactions per second
+* Average transactions per second can be computed by <br>blocks/second x transactions/block
+
+
+Platform   |  Block time     | Transactions/block | Transaction/second
+:---------:|----------------:|-------------------:|------------------:
+Visa       |               - |                  - |             65,000
+Bitcoin    |      10 minutes |              3,500 |                  6
+--
+
+Tezos      |        1 minute |              2,400 |                 40
+EOS      |      0.5 second |              2,000 |              4,000
+XRP       |               ? |                  ? |             65,000
+
+.caption[
+Advertised limits of different platforms
+]
+
+
+---
+
+class: full-table
+
+# Data collected
+
+.pull-left-40[
+* Data from October 1, 2019 to April 30, 2020
+* Grouped in 6-hour interval for TPS computation
+]
+
+.pull-right-60[
+Platform   |  Number of blocks  | Number of transactions | Average TPS  | Max TPS
+:---------:|-------------------:|-----------------------:|-------------:|--------:
+EOS        |         36,133,709 |            631,445,236 |           34 | *136*
+Tezos      |            301,822 |              7,890,133 |         0.43 | *0.57*
+XRP        |          4,753,965 |            271,546,797 |           15 | *56*
+]
+
+--
+
+<br>
+Data and measurement framework open-sourced:
+
+https://github.com/danhper/blockchain-analyzer
+
+---
+
+# EOS Throughput over time
+
+.pull-left-40[
+* Change of trend in November 2019
+* Due to airdrop of EIDOS token
+* Caused EOS to enter congestion mode
+]
+
+.pull-right-60[
+  ![EOS throughput over time](./eos-chart-area.png)
+]
+
+---
+
+# EIDOS token aidrop
+
+.pull-left-50[
+* Very simple airdrop
+  1. Send EOS to a contract
+  2. Contract sends back the EOS and some amount of its token
+* Originator of the airdrop is anonymous but tone is aggressive
+  * Likely a voluntary spam attack
+* Caused many developers to quit EOS
+]
+
+.pull-right-50[
+  ![EIDOS tweet](./eidos-tweet.png)
+]
+
+???
+
+According to recent report, developers working on platform fell by 85%
+https://decrypt.co/32217/billion-dollar-blockchain-eos-in-trouble-research
+
+---
+
+# XRP Throughput over time
+
+.pull-left-40[
+* Dominated by `OfferCreate`
+* Spike around November and December due to spam attack
+* Stable throughput from January and on
+]
+
+.pull-right-60[
+  ![XRP throughput over time](./xrp-chart-area.png)
+]
+
+---
+
+# Value in XRP transactions
+
+.pull-left-50[
+* Less than *6%* of the transactions had an economic value
+* Only 0.2% of the transactions were successful trades
+* Only 3.3% of the transactions were payments with an economic value
+]
+
+.pull-right-50[
+![XRP transactions value](./xrp-sankey.png)
+]
+
+---
+
+# Takeaways
+
+* All three blockchains are still very far from their potential
+  * Current TPS very far away from claimed maximum
+  * Most transactions are have no economic value
+      * *96%* of EOS transactions from valueless airdrop token
+      * *76%* of Tezos transactions to maintain consensus
+      * *94%* of XRP transactions have no economic value
+* Low or absent fees tend to attract a lot of spam
+  * XRP has dealt with spam attacks much better than EOS, likely because of the difference in fee model
