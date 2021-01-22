@@ -138,6 +138,8 @@
   papers:
     - title: "SoK: Decentralized Finance (DeFi)"
       links:
+        - href: https://arxiv.org/abs/2101.08778
+          text: arXiv
         - href: https://static.perez.sh/research/2021/defi-sok/defi-sok.pdf
           text: paper
       authors:
