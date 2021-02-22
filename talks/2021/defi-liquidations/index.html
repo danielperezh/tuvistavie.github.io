@@ -1,0 +1,292 @@
+---
+layout: presentation
+title: "Liquidations: DeFi on a Knife-edge"
+description: "FC'21 presentation for the paper \"Liquidations: DeFi on a Knife-edge\""
+image: talks/2021/defi-liquidations/leveraging.png
+include_mathjax: true
+---
+
+class: title-slide
+
+# Liquidations: DeFi on a Knife-edge
+
+<h2 class="sm-top-margin">
+  Daniel Perez <span class="very minor">Imperial College London</span><br>
+  Sam M. Werner <span class="very minor">Imperial College London</span><br>
+  Jiahua Xu <span class="very minor">University College London</span><br>
+  Benjamin Livshits <span class="very minor">Imperial College London</span><br>
+</h2>
+
+<h3 class="sm-top-margin">March 4th, Financial Cryptography and Data Security 2021</h3>
+<br>
+<h4>Slides available at: http://bit.ly/defi-liquidations</h4>
+
+---
+
+# Overview
+
+1. Background
+2. Model and methodology
+3. Analysis and results
+4. Takeaways
+
+---
+
+class: middle, title-slide
+
+# Background
+
+---
+
+# Smart contracts
+
+.pull-left-50[
+* Programs deployed on a blockchain
+* Usually written in a high-level language and compiled into bytecode
+* Interacted with using transactions
+* Uses some metering mechanism
+]
+
+.pull-right-50[
+  ![Smart Contracts](./smart-contracts.png)
+  .caption[
+  Ethereum Smart Contracts overview]
+]
+
+---
+
+# On-chain building blocks
+
+.pull-left-50[
+  ## Oracles
+
+  * Facilitate on-chain access to external information
+  * Implemented as smart contracts being regularly updated
+  * Often require some level of trust
+]
+
+.pull-right-50[
+  ## Stablecoins
+
+  * Assets of which the price is pegged to a currency (e.g. USD)
+  * Can be implemented in very different ways (e.g. custodial vs non-custodial)
+  * Movements above/below target are not uncommon
+]
+
+---
+
+# Protocols for Loanable Funds (PLF)
+
+* Protocol that intermediates funds between users
+* Unlike peer-to-peer lending, funds are pooled
+* Requires users to deposit collateral
+
+.text-center[
+![Protocols for Lonable Funds overview](./plf.png)
+.caption[Protocols for Lonable Funds overview]
+]
+
+---
+
+# PLF building blocks
+
+* Interest rate models: some function(s) taking liquidity as an argument and returning an interest rate
+* Collaterization: deposit that can be sold off to recover the debt of an defaulted position
+* Liquidations: the process of selling a borrower’s collateral to recover the debt value upon default
+* Governance Mechanism: decentralized governance typically achieved through a ERC-20 governance token, where token holders' votes are in proportion to their stake
+
+---
+
+# PLF use cases
+
+* Earning interest: Liquidity providers of funds are incentivized by accrued interest
+* Leveraged short position: Borrowing funds of an asset expected to depreciate in value
+* Leveraged long position: Increasing exposure to an asset expected to appreciate in value
+* Liquidity mining: PLFs may distribute governance tokens to their users to incentivize liquidity providers and/or borrowers
+
+---
+
+class: middle, title-slide
+
+# Model and methodology
+
+---
+
+# PLF definitions
+
+* *Market* A smart contract acting as the intermediary of loanable funds for a particular cryptoasset, where users supply and borrow funds.
+* *Supply* Funds deposited to a market that can be loaned out to other users and used as collateral against depositors’ own borrow positions.
+* *Borrow* Funds loaned out to users of a market.
+* *Collateral* Funds available to back a user’s aggregate borrow positions.
+* *Locked funds* Funds remaining in the PLF smart contracts, equal to the difference between supplied and borrowed funds.
+
+---
+
+# Agents in the system
+
+* *Supplier* A user who deposits funds to a market.
+* *Borrower* A user who borrows funds from a market. Since a borrow position must be collateralized by deposited funds, a borrower must also be a supplier.
+* *Liquidator* A user who purchases a borrower’s supply in a market when the borrower’s collateral to borrow ratio falls below some threshold.
+
+---
+
+# Conditions for liquidation
+
+* All markets have a *collateral factor*, the ratio between supply and collateral funds
+* When computing collateral and borrowed funds across markets, amounts are converted to a common currency, e.g. USD or ETH
+* A user is liquidable if the *sum of his borrows exceeds the sum of his collateral* across all markets
+
+
+---
+
+# Leveraging on PLFs
+
+.pull-left-50[
+## Example steps for leveraging
+
+1. Supply ETH on a PLF.
+2. Leverage the deposited ETH to borrow DAI.
+3. Sell the purchased DAI for ETH.
+4. Repeat steps 1 to 3 as desired.
+]
+
+.pull-right-50[
+  ![PLF leveraging](./leveraging.png)
+  .caption[Steps of leveraging using a PLF]
+]
+
+---
+
+# Analyzing Compound
+
+We analyze the different events emitted by Compound smart contracts
+
+.center-block.max-content[
+Event     | Description           | State change
+----------|-----------------------|-------------
+Borrow    | New borrow is created | Borrow
+Mint      | cTokens minted for deposit | Supply
+RepayBorrow | Borrow is partially/fully repaid | Borrow
+LiquidateBorrow | Borrow is liquidated | Supply & Borrow
+Redeem | cTokens are used to redeem deposit of asset | Supply
+
+.caption[Main events on Compound]
+]
+
+
+---
+
+class: middle, title-slide
+
+# Analysis
+
+---
+
+# Borrowers and suppliers
+
+Sharp increase when `COMP` rewards started to be distributed
+
+.pull-left-50[
+  ![Suppliers and borrowers](./suppliers-borrowers-over-time.png)
+  .caption[Number of suppliers and borrowers]
+]
+
+.pull-right-50[
+  ![Amount of funds supplied, borrowed and locked](./borrow-supply-over-time.png)
+  .caption[Amount of funds supplied, borrowed and locked]
+]
+
+---
+
+# Distribution of funds
+
+.pull-left-50[
+ Top user accounts for 27.4%; top 10 users account for 49%
+  ![Distribution of supply](./suppliers-distribution.png)
+  .caption[Distribution of supplied funds]
+]
+
+.pull-right-50[
+ Top user accounts for 37.1%; top 10 users account for 59.9%
+  ![Distribution of borrows](./borrowers-distribution.png)
+  .caption[Distribution of borrowed funds]
+]
+
+---
+
+# Leveraging spirals
+
+* Leveraging spirals is an important reason for concentration in top borrowers/suppliers
+* Analysis of the top account
+  * Provided in total 55M USD to the protocol
+  * Used spirals to supply 342M USD and borrowed 247M
+* Analysis of all accounts
+  * Over 2,100 accounts (40% of total number borrowers) use leveraging spirals
+  * Over 600M USD (~50% of the total supply) is supplied using spirals
+
+---
+
+# Liquidation risk
+
+.pull-left-50[
+* `COMP` launch has changed users behavior
+* Before launch, almost all users were at least 25% over their minimum collateral threshold
+* After launch, more than 40% of the users were within 5%
+]
+
+.pull-right-50[
+  ![Collateral locked over time](./supply-borrow-over-time.png)
+  .caption[Collateral locked over time, showing how close the amounts are from being liquidated]
+]
+
+---
+
+# Price fluctuation and liquidation risk
+
+.pull-left-50[
+* Users rely on DAI being stable
+* Small variations in DAI price can create large liquidations:
+  3% price change would have made more than 10M USD liquidable
+* This happened last November: over 88M USD liquidated
+]
+
+.pull-right-50[
+  ![DAI sensitivity](./dai-sensitivity.png)
+  .caption[Sensitivity analysis of the liquidable collateral amount given DAI price movement]
+]
+
+---
+
+# Liquidations and liquidators
+
+Both liquidated amount and liquidation efficiency has increased with time
+
+.pull-left-50[
+  ![Liquidations over time](./liquidation-over-time.png)
+  .caption[Liquidations over time]
+]
+
+.pull-right-50[
+  ![Time to liquidation](./time-to-liquidation.png)
+  .caption[Number of blocks elapsed from the time a position can be liquidated to
+  actual liquidation]
+]
+
+
+---
+
+class: middle, title-slide
+
+# Takeaways
+
+---
+
+# Takeaways
+
+* Governance token has changed PLF users' behavior significantly
+  * A lot of liquidity was attracted but users are taking more and more risks
+* Users tend to underestimate the volatility of stable coins
+  * Small price deviations can lead to large liquidations
+  * Large amounts were liquidated last November
+* Liquidators are becoming more efficient
+  * More than 70% of the liquidations happen in the block where positions became liquidable

@@ -18,9 +18,17 @@ h1, h2, h3 {
 .remark-slide-content {
   font-size: 30px;
 
+  .max-content {
+    width: max-content;
+  }
+
   .center-block {
     margin: auto;
     display: block;
+  }
+
+  .text-center {
+    text-align: center;
   }
 
   .middle-block {
