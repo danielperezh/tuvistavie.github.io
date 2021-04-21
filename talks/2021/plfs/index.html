@@ -1,0 +1,486 @@
+---
+layout: presentation
+title: "The ins and outs of Protocols for Loanable Funds"
+description: "Introduction to Protocols Loanable Funds for Berkeley's for Decentralized Finance Spring 2021"
+image: talks/2021/defi-liquidations/leveraging.png
+include_mathjax: true
+---
+
+class: title-slide
+
+# The ins and outs of Protocols for Loanable Funds
+
+<h2 class="sm-top-margin">
+  Daniel Perez <span class="very minor">Imperial College London</span><br>
+</h2>
+
+<h3 class="sm-top-margin">April 22th, Decentralized Finance Spring 2021</h3>
+
+---
+
+# Overview
+
+1. Background
+2. PLFs overview
+3. PLFs interest rates
+4. Collateralization and liquidations
+5. Flash loans
+6. Summary and open challenges
+
+---
+
+class: middle, title-slide
+
+# Background
+
+---
+
+# Smart contracts
+
+.pull-left-50[
+* Programs deployed on a blockchain
+* Usually written in a high-level language and compiled into bytecode
+* Interacted with using transactions
+* Uses some metering mechanism
+]
+
+.pull-right-50[
+  ![Smart Contracts](./smart-contracts.png)
+  .caption[
+  Ethereum Smart Contracts overview]
+]
+
+---
+
+# On-chain building blocks
+
+.pull-left-50[
+  ## Oracles
+
+  * Facilitate on-chain access to external information
+  * Implemented as smart contracts being regularly updated
+  * Often require some level of trust
+]
+
+.pull-right-50[
+  ## Stablecoins
+
+  * Assets of which the price is pegged to a currency (e.g. USD)
+  * Can be implemented in very different ways (e.g. custodial vs non-custodial)
+  * Movements above/below target are not uncommon
+]
+
+---
+
+class: middle, title-slide
+
+# PLFs overview
+
+---
+
+class: middle
+
+<blockquote>
+<i>
+The reality of how money is created today differs from the description found in some economics textbooks.
+Rather than banks receiving deposits when households save and then lending them out, bank lending creates deposits.
+</i>
+<br style="margin-bottom: 1em">  
+<cite>
+Bank of England: <a href="https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2014/money-creation-in-the-modern-economy.pdf">https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2014/money-creation-in-the-modern-economy.pdf</a></cite>
+</blockquote>
+
+---
+
+# Protocols for Loanable Funds (PLF)
+
+* Protocol that intermediates funds between users
+* Unlike peer-to-peer lending, funds are pooled
+* Requires users to deposit collateral
+
+.text-center[
+![Protocols for Loanable Funds overview](./plf.png)
+.caption[Protocols for Loanable Funds overview]
+]
+
+---
+
+# PLF definitions
+
+* *Market* A smart contract acting as the intermediary of loanable funds for a particular crypto-asset, where users supply and borrow funds.
+* *Supply* Funds deposited to a market that can be loaned out to other users and used as collateral against depositors’ own borrow positions.
+* *Borrow* Funds loaned out to users of a market.
+* *Collateral* Funds available to back a user’s aggregate borrow positions.
+* *Locked funds* Funds remaining in the PLF smart contracts, equal to the difference between supplied and borrowed funds.
+
+---
+
+# Agents in the system
+
+* *Supplier* A user who deposits funds to a market.
+* *Borrower* A user who borrows funds from a market. Since a borrow position must be collateralized by deposited funds, a borrower must also be a supplier.
+* *Liquidator* A user who purchases a borrower’s supply in a market when the borrower’s collateral to borrow ratio falls below some threshold.
+
+---
+
+# PLF building blocks
+
+* *Interest rate models* Some function(s) taking liquidity as an argument and returning an interest rate
+* *Interest disbursement mechanism* Interest typically accrued per second and paid out per block. Often an interest bearing derivative token used.
+* *Collateral* Deposit that can be sold off to recover the debt of a defaulted position
+* *Liquidations* The process of selling a borrower’s collateral to recover the debt value upon default
+* *Governance mechanism* Decentralized governance typically achieved through an ERC-20 governance token, where token holders' votes are in proportion to their stake
+
+---
+
+# PLF use cases
+
+* *Earning interest* Liquidity providers of funds are incentivized by accrued interest
+* *Leveraged short position* Borrowing funds of an asset expected to depreciate in value
+* *Leveraged long position* Increasing exposure to an asset expected to appreciate in value
+* *Liquidity mining* PLFs may distribute governance tokens to their users to incentivize liquidity providers and/or borrowers
+
+---
+
+class: middle, title-slide
+
+# Interest Rate Models
+
+---
+
+# Interest Rates Overview
+
+\\(U\_M\\) utilization of deposited funds for market \\(m\\), with total loans \\(L\\) and gross deposits \\(A\\):
+
+<small style="margin: -0.8em 0; display: block;">$$U\_m = \frac{L}{A}$$</small>
+
+The Interest Rate Index \\(I\\) and Debt \\(D\\) for block \\(k\\) are calculated each time an interest rate changes, i.e. as users mint, redeem, borrow, repay or liquidate assets (\\(r\\) - per block interest rate, \\(t\\) - difference in block height):
+<small>
+\begin{align}
+& \text{Non-compounded} & & \text{Compounded}\\\\
+I\_{k,m} &= I\_{k-1,m} (1+rt) & I\_{k,m} &= I\_{k-1,m}(1 + r)^t\\\\
+D\_{k,m} &= D\_{k-1,m} (1+rt) & D\_{k,m} &= D\_{k-1,m}(1 + r)^t\\\\
+\end{align}
+</small>
+
+with a portion of the interest is kept as a reserve (\\(\Pi\\)), set by reserve factor \\(\lambda\\).
+
+---
+
+# Linear rates
+
+For loanable funds market \\(m\\), borrowing interest rates \\(i\_b\\) are given by:
+
+$$
+i_{b,m} = \alpha + \beta U_m
+$$
+where \\(\alpha\\) is some constant and \\(\beta\\) a slope coefficient on the responsiveness of the borrowing interest rate to the utilization rate.
+
+---
+
+# Non-linear rates
+
+For a loanable funds market \\(m\\), the borrowing interest rates \\(i\_b\\) follow a non-linear model and are computed as:
+
+$$
+    i\_{b,m} = (\alpha \cdot U\_m) + (\beta \cdot U\_m^{32}) + (\gamma \cdot U\_m^{64}).
+$$
+
+
+---
+
+# Kinked rates
+
+Kinked rates can be characterized as:
+
+$$
+i_b =
+    \begin{cases}
+      \alpha + \beta U & \text{if}~U \leq U^{\*}\\\\
+      \alpha + \beta U^{\*} + \gamma (U-U^{\*}) & \text{if}~U > U^{\*}
+    \end{cases}
+$$
+  
+where \\(\alpha\\) denotes a per-block base rate, \\(\beta\\) denotes a per-block multiplier, \\(U\\) denotes the utilization ratio (with \\(U^{\*}\\) denoting the optimal utilization ratio) and \\(\gamma\\) denotes a "jump" multiplier.
+
+---
+
+# Borrowing rates for DAI on Compound - Ia
+
+.center-block.max-content[
+.caption[21 February - 13 March 2020]
+![Borrowing rates on Compound](./compound-observed-borrow.png)
+]
+
+---
+
+# Borrowing rates for DAI on Compound - Ib
+
+.center-block.max-content[
+.caption[21 February - 13 March 2020]
+![Borrowing rates vs kink on Compound](./compound-rate-vs-kink.png)
+]
+
+---
+
+# DAI Markets
+
+.pull-left-50[
+## DAI borrowed and supplied
+  ![Total DAI borrowed and supplied](./dai-plf-liquidity.png)
+]
+
+.pull-right-50[
+  ## Utilization and borrow rates
+  ![Utilization and borrow rates](./dai-plfs-illiquidity.png)
+]
+
+
+---
+
+class: middle, title-slide
+
+# Market risks and liquidations
+
+---
+
+# Security Parameters
+
+PLFs have several security parameters, that typically per-market
+
+* *Loan-to-value ratio (LTV)* The ratio of asset that can be borrowed for a given amount of collateral
+* *Liquidation threshold* The ratio of asset that can remain borrowed before becoming liquidable
+* *Discount factor* The discount at which a liquidator can buy the collateral by repaying the debt of the defaulted position
+* *Liquidation ratio* The ratio of the position that can be liquidated at once
+
+---
+
+# Conditions for liquidation
+
+* When computing collateral and borrowed funds across markets, amounts are converted to a common currency, e.g. USD or ETH
+* A user is liquidable if the *sum of his borrows exceeds the sum of his discounted collateral* across all markets
+
+## Example
+
+Given an ETH market with LTV ratio of 0.5 and liquidation threshold of 0.6
+
+.tight-list[
+1. Alice supplies 1 ETH when 1 ETH = 2000 USD
+2. Alice borrows 1000 DAI (1 DAI = 1 USD)
+3. Price of ETH falls to 1500 USD: Alice is now liquidable
+]
+
+---
+
+# Leveraging on PLFs
+
+.pull-left-50[
+## Example steps for leveraging
+
+1. Supply ETH on a PLF.
+2. Leverage the deposited ETH to borrow DAI.
+3. Sell the purchased DAI for ETH.
+4. Repeat steps 1 to 3 as desired.
+]
+
+.pull-right-50[
+  ![PLF leveraging](./leveraging.png)
+  .caption[Steps of leveraging using a PLF]
+]
+
+---
+
+# Analyzing Compound
+
+We analyze the different events emitted by Compound smart contracts
+
+.center-block.max-content[
+Event     | Description           | State change
+----------|-----------------------|-------------
+Borrow    | New borrow is created | Borrow
+Mint      | cTokens minted for deposit | Supply
+RepayBorrow | Borrow is partially/fully repaid | Borrow
+LiquidateBorrow | Borrow is liquidated | Supply & Borrow
+Redeem | cTokens are used to redeem deposit of asset | Supply
+
+.caption[Main events on Compound]
+]
+
+
+---
+
+# Borrowers and suppliers
+
+Sharp increase when `COMP` rewards started to be distributed
+
+.pull-left-50[
+  ![Suppliers and borrowers](./suppliers-borrowers-over-time.png)
+  .caption[Number of suppliers and borrowers]
+]
+
+.pull-right-50[
+  ![Amount of funds supplied, borrowed and locked](./borrow-supply-over-time.png)
+  .caption[Amount of funds supplied, borrowed and locked]
+]
+
+---
+
+# Distribution of funds
+
+.pull-left-50[
+ Top user accounts for 27.4%; top 10 users account for 49%
+  ![Distribution of supply](./suppliers-distribution.png)
+  .caption[Distribution of supplied funds]
+]
+
+.pull-right-50[
+ Top user accounts for 37.1%; top 10 users account for 59.9%
+  ![Distribution of borrows](./borrowers-distribution.png)
+  .caption[Distribution of borrowed funds]
+]
+
+---
+
+# Leveraging spirals
+
+* Leveraging spirals is an important reason for concentration in top borrowers/suppliers
+* Analysis of the top account
+  * Provided in total 55M USD to the protocol
+  * Used spirals to supply 342M USD and borrowed 247M
+* Analysis of all accounts
+  * Over 2,100 accounts (40% of total number borrowers) use leveraging spirals
+  * Over 600M USD (~50% of the total supply) is supplied using spirals
+
+---
+
+# Liquidation risk
+
+.pull-left-50[
+* `COMP` launch has changed users' behavior
+* Before launch, almost all users were at least 25% over their minimum collateral threshold
+* After launch, more than 40% of the users were within 5%
+]
+
+.pull-right-50[
+  ![Collateral locked over time](./supply-borrow-over-time.png)
+  .caption[Collateral locked over time, showing how close the amounts are from being liquidated]
+]
+
+---
+
+# Price fluctuation and liquidation risk
+
+.pull-left-50[
+* Users rely on DAI being stable
+* Small variations in DAI price can create large liquidations:
+  3% price change would have made more than 10M USD liquidable
+* This happened last November: over 88M USD liquidated
+]
+
+.pull-right-50[
+  ![DAI sensitivity](./dai-sensitivity.png)
+  .caption[Sensitivity analysis of the liquidable collateral amount given DAI price movement]
+]
+
+---
+
+# Liquidations and liquidators
+
+Both liquidated amount and liquidation efficiency has increased with time
+
+.pull-left-50[
+  ![Liquidations over time](./liquidation-over-time.png)
+  .caption[Liquidations over time]
+]
+
+.pull-right-50[
+  ![Time to liquidation](./time-to-liquidation.png)
+  .caption[Number of blocks elapsed from the time a position can be liquidated to
+  actual liquidation]
+]
+
+---
+
+# Main observations about liquidations
+
+* Governance token has changed PLF users' behavior significantly
+  * A lot of liquidity was attracted but users are taking more and more risks
+* Users tend to underestimate the volatility of stable coins
+  * Small price deviations can lead to large liquidations
+  * Large amounts were liquidated last November
+* Liquidators are becoming more efficient
+  * More than 70% of the liquidations happen in the block where positions became liquidable
+
+---
+
+class: middle, title-slide
+
+# Flash Loans
+
+---
+
+# Flash Loans
+
+Flash loans are loans that must be reimbursed within the same transaction.
+
+1. Borrow funds from a PLF
+2. Execute arbitrary action with the funds
+3. Repay the loan and the fees associated
+
+--
+
+## Note on Atomicity
+
+* Flash loans require transactions to be atomic: either the transaction fully fails or fully succeed, no partial state update.
+
+* Flash loan providers can check funds are returned using pre/post conditions
+
+---
+
+# Flash Loans use-cases
+
+* *Arbitrage* Perform arbitrage using on-chain exchanges and repay the loan and fees using profits from arbitrage
+
+* *Liquidation* Repay debt of a liquidable position, buying collateral at a discount, swap the collateral and repay
+
+* *Collateral swap* Provide flash loan assets as collateral, withdraw collateral in another asset, swap the asset and repay
+
+* *Price oracle manipulation* Use flash loan to artificially change oracle price (e.g. provide a lot of a single asset in a Uniswap pool), perform an action dependent on the price oracle (e.g. deposit price-inflated asset) and use profits to repay
+
+
+---
+
+class: middle, title-slide
+
+# Open Challenges and Summary
+
+---
+
+# Open Challenges
+
+* *Under-collateralized loans*
+  * Current loans require over-collateralization
+  * Flash loans allow to borrow without collateral but only for a transaction
+  * Under-collateralized loans could allow for other use-cases but are not doable with the current security model
+  * Some attempts of under-collateralized loans to white listed smart contracts but support is very limited
+* *Composability risks* Flash crash in a stable coin price could lead to huge amount of liquidation
+* *Privacy* As implemented, most PLFs are fully transparent, which may or not be desirable
+
+---
+
+# Summary
+
+* PLFs allow users to supply and borrow funds
+* Borrows must be over-collateralized
+* Interest rates incentivize users to keep the utilization ratio close to some desired value
+* Liquidations are frequent and most often due to price fluctuations
+* Flash loans allow to take non-collateralized loans for a single transaction
+
+---
+
+# Relevant literature
+
+* DeFi protocols for loanable funds: Interest rates, liquidity and market efficiency. <small>Lewis Gudgeon, Sam Werner, Daniel Perez, and William J. Knottenbelt. ACM Conference on Advances in Financial Technologies 2020 (AFT'20)</small>
+* Liquidations: DeFi on a Knife-edge. <small>Daniel Perez, Sam M. Werner, Jiahua Xu, and Benjamin Livshits. International Conference on Financial Cryptography and Data Security 2021 (FC'21)</small>
+* Attacking the DeFi ecosystem with flash loans for fun and profit. <small>Kaihua Qin, Liyi Zhou, Benjamin Livshits, and Arthur Gervais. International Conference on Financial Cryptography and Data Security 2021 (FC'21)</small>
+* SoK: Decentralized Finance (DeFi). <small>Sam M. Werner, Daniel Perez, Lewis Gudgeon, Ariah Klages-Mundt, Dominik Harz, and William J. Knottenbelt. arXiv preprint arXiv:2101.08778 (2021)</small>
