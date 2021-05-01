@@ -8,34 +8,9 @@ class: middle, title-slide
 
 # Smart Contract Vulnerabilities:<br> Vulnerable Does Not Imply Exploited
 
-## Daniel Perez and Benjamin Livshits
+## Daniel Perez and Benjamin Livshits, Imperial College London
 
 ### USENIX Security'21, August 2021
-
-
----
-
-class: larger-fonts
-
-# Overview
-
-.spaced-list[
-1. Background
-  * Smart contracts basics
-  * Common vulnerabilities
-2. Overview of the research
-  * Data used
-  * Finding exploits in the wild
-3. Takeaways and discussion
-]
-
----
-
-class: middle, title-slide
-
-# Background
-## A word about smart contracts and potential vulnerabilities
-
 
 ---
 
@@ -51,86 +26,6 @@ class: middle, title-slide
 ]
 
 .pull-right-50[![Smart Contracts](./smart-contracts.png)]
-
----
-
-# Solidity
-
-.pull-left-40[
-* High-level language targeting the EVM
-
-* Looks vaguely like JavaScript
-
-* Strongly typed, with a fairly simple type-system
-
-* Contains smart contract related primitives
-]
-
-.pull-right-60[
-```solidity
-contract Coin {
-  address public minter;
-  mapping (address => uint) public balances;
-
-  constructor() public { minter = msg.sender; }
-
-  function mint(address receiver, uint amount) public {
-    require(msg.sender == minter);
-    require(amount < 1e60);
-    balances[receiver] += amount;
-  }
-
-  function send(address receiver, uint amount) public {
-    require(amount <= balances[msg.sender]);
-    balances[msg.sender] -= amount;
-    balances[receiver] += amount;
-  }
-}
-```
-.caption[
-Contract implementing a simple coin
-]
-]
-
----
-
-# Ethereum Virtual Machine
-
-.pull-left-70[
-* Stack-based virtual machine
-* Very low-level
-  * No functions/block, only jumps
-  * No types
-* Has regular VM instructions
-  * `ADD`, `SUB`, `PUSH`, `POP`
-* Has instructions to interact with environment
-  * `SENDER`, `CALL`, `BALANCE`
-* Has both ephemeral and permanent storage
-* Uses 256-bits words
-]
-
-.pull-right-30[
-```
-PUSH1 0x00
-PUSH1 0x00
-MSTORE
-JUMPDEST
-PUSH1 0x0a
-PUSH1 0x00
-MLOAD
-PUSH1 0x01
-ADD
-DUP1
-PUSH1 0x00
-MSTORE
-LT
-PUSH1 0x05
-JUMPI
-```
-.caption[
-Simple loop from 0 to 10 using EVM instructions
-]
-]
 
 ---
 
@@ -213,14 +108,6 @@ https://securify.chainsecurity.com
 <br>
 
 ⇒ We analyze the Ethereum blockchain to look for *actual exploitation*
-
-
----
-
-class: middle, title-slide
-
-# Overview of this research
-## https://arxiv.org/abs/1902.06710
 
 ---
 
@@ -406,12 +293,6 @@ Contract vulnerable to integer overflow
 ]
 
 In total, *at most 0.27%* of the 3M Ether at stake has been *exploited*
-
----
-
-class: middle, title-slide
-
-# Takeaways and conclusions
 
 ---
 
