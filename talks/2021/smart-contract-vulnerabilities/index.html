@@ -1,0 +1,500 @@
+---
+layout: presentation
+title: Smart Contract Vulnerabilities
+highlight_language: solidity
+---
+
+class: middle, title-slide
+
+# Smart Contract Vulnerabilities:<br> Vulnerable Does Not Imply Exploited
+
+## Daniel Perez and Benjamin Livshits
+
+### USENIX Security'21, August 2021
+
+
+---
+
+class: larger-fonts
+
+# Overview
+
+.spaced-list[
+1. Background
+  * Smart contracts basics
+  * Common vulnerabilities
+2. Overview of the research
+  * Data used
+  * Finding exploits in the wild
+3. Takeaways and discussion
+]
+
+---
+
+class: middle, title-slide
+
+# Background
+## A word about smart contracts and potential vulnerabilities
+
+
+---
+
+# Ethereum Smart Contracts
+
+.pull-left-50[
+.spaced-list[
+* Programs deployed on the Ethereum blockchain
+* Usually written in Solidity, compiled into EVM bytecode
+* Can transfer money to other addresses (including contracts)
+* Each instruction execution consumes gas
+]
+]
+
+.pull-right-50[![Smart Contracts](./smart-contracts.png)]
+
+---
+
+# Solidity
+
+.pull-left-40[
+* High-level language targeting the EVM
+
+* Looks vaguely like JavaScript
+
+* Strongly typed, with a fairly simple type-system
+
+* Contains smart contract related primitives
+]
+
+.pull-right-60[
+```solidity
+contract Coin {
+  address public minter;
+  mapping (address => uint) public balances;
+
+  constructor() public { minter = msg.sender; }
+
+  function mint(address receiver, uint amount) public {
+    require(msg.sender == minter);
+    require(amount < 1e60);
+    balances[receiver] += amount;
+  }
+
+  function send(address receiver, uint amount) public {
+    require(amount <= balances[msg.sender]);
+    balances[msg.sender] -= amount;
+    balances[receiver] += amount;
+  }
+}
+```
+.caption[
+Contract implementing a simple coin
+]
+]
+
+---
+
+# Ethereum Virtual Machine
+
+.pull-left-70[
+* Stack-based virtual machine
+* Very low-level
+  * No functions/block, only jumps
+  * No types
+* Has regular VM instructions
+  * `ADD`, `SUB`, `PUSH`, `POP`
+* Has instructions to interact with environment
+  * `SENDER`, `CALL`, `BALANCE`
+* Has both ephemeral and permanent storage
+* Uses 256-bits words
+]
+
+.pull-right-30[
+```
+PUSH1 0x00
+PUSH1 0x00
+MSTORE
+JUMPDEST
+PUSH1 0x0a
+PUSH1 0x00
+MLOAD
+PUSH1 0x01
+ADD
+DUP1
+PUSH1 0x00
+MSTORE
+LT
+PUSH1 0x05
+JUMPI
+```
+.caption[
+Simple loop from 0 to 10 using EVM instructions
+]
+]
+
+---
+
+# Smart Contracts: What could go wrong?
+
+.pull-left-50[
+## TheDAO hack (2016)
+
+.spaced-list[
+* TheDAO raised *~$150M in ICO*
+* Soon after, it got hacked *~$50M*
+* Price of Ether halved
+* Ethereum community decided to hard-fork
+* Attacker used a *re-entrancy* vulnerability
+]
+]
+
+.pull-left-50[
+## Parity Wallet bug (2017)
+
+.spaced-list[
+* Parity wallet library was used to manage multisig wallet contracts
+* Parity *wallet* has been *removed* due to a "bug"
+* *Dependent contracts* became unable to send funds
+* Around *$280M frozen*
+]
+]
+
+---
+
+# Common vulnerabilities / bugs
+
+* *Reentrancy* can allow an attacker to drain funds
+* *Unhandled exceptions*: can result in lost funds
+* *Dependency on destructed contract*: can result in locked funds
+* *Transaction order dependency*: can allow an attacker to manipulate prices
+* *Integer overflow* can result in locked fund
+* *Unrestricted action* can result in an attacker stealing or locking funds
+
+---
+
+# Smart Contract analysis tools
+
+.pull-left-40[
+* Usually static analysis and/or symbolic execution
+
+* Work either on Solidity or on the EVM bytecode
+
+* Check for known vulnerabilities/patterns
+]
+
+.pull-right-60[
+![Securify](./securify.png)
+.caption[
+Securify web interface<br>
+https://securify.chainsecurity.com
+]
+]
+
+---
+
+# Smart Contract exploitation
+
+.pull-left-50[
+## According to analysis tools
+
+* Thousands of vulnerable contracts
+
+* Hundreds of millions USD at risk
+]
+
+.pull-right-50[
+## In the real-world
+
+* TheDAO and Parity wallet bug were impressive
+
+* Otherwise, a few attacks here and there
+]
+
+<br>
+
+⇒ We analyze the Ethereum blockchain to look for *actual exploitation*
+
+
+---
+
+class: middle, title-slide
+
+# Overview of this research
+## https://arxiv.org/abs/1902.06710
+
+---
+
+# Dataset
+
+.pull-left-40[
+* Data received from the paper authors
+
+* Received replies from 5 out of 8 of the authors we contacted
+
+* Ether at stake computed at time of the report
+
+* Total of around *3M ETH at stake*
+]
+
+.pull-right-60[
+.right[
+.left[Name]          | Contracts analyzed | Vulnerabilities found | Ether at stake
+---------------------|--------------------|-----------------------|---------------
+.left[Oyente]   | 19,366             | 7,527                 | 1,289,177
+.left[Zeus]     | 1,120              | 855                   | 729,376
+.left[Maian]    | NA                 | 2,691                 | 14.13
+.left[Securify] | 29,694             | 9,185                 | 719,567
+.left[MadMax]   | 91,800             | 6,039                 | 1,114,692
+
+.caption[
+  Dataset overview
+]
+]
+]
+
+---
+
+# Detection overview
+
+.pull-left-40[
+1. Retrieve all transactions
+
+2. Retrieve execution traces for all transactions
+
+3. Encode execution traces to Datalog
+
+4. Query Datalog for vulnerabilities
+]
+
+.pull-right-60[![Smart Contracts](./system-overview.png)]
+
+---
+
+# Checking for re-entrancy
+
+.pull-left-50[
+1. Record all calls
+
+2. Check for mutually recursive calls between contracts
+
+<br>
+```prolog
+call_flow(A, B) :- call(A, B).
+call_flow(A, B) :- call(A, C), call_flow(C, B).
+reentrant_call(A, B) :- call_flow(A, B),
+                        call_flow(B, A),
+                        A != B.
+```
+.caption[
+Datalog rules
+]
+]
+
+
+.pull-right-50[
+```solidity
+function payMe(address account) public {
+  uint amount = getAmount(account);
+  // XXX: vulnerable
+  if (!account.send(amount))
+    throw;
+  balance[account] -= amount;
+}
+```
+.caption[
+  Vulnerable contract
+]
+
+```solidity
+function () {
+  victim.payMe(owner);
+}
+```
+.caption[
+  Attacker contract
+]
+
+]
+
+---
+
+# Checking for unhandled exceptions
+
+.pull-left-50[
+1. Record all call results
+  * Top value on the stack after a call
+
+2. Check if the return value is used in a condition (`JUMPI`)
+
+```prolog
+influences_condition(A) :- used_in_condition(A).
+influences_condition(A) :-
+  depends(B, A), used_in_condition(B).
+
+unhandled_exception(A) :-
+  failed_call(A), ~influences_condition(A).
+```
+.caption[
+Datalog rules
+]
+]
+
+.pull-right-50[
+.middle-block[
+```solidity
+// allows user to withdraw funds
+function withdraw(address account) public {
+  uint amount = getAmount(account);
+  balance[account] -= amount;
+  account.send(amount); // could silently fail
+}
+```
+.caption[
+  Problematic contract
+]
+]
+]
+
+---
+
+# Checking for integer overflow
+
+.pull-left-50[
+1. Infer variable types from bytecode
+   * `SIGNEXTEND` means the variable is signed
+   * `AND n 0xff` means it is a `uint8`
+2. Compare typed and untyped results
+
+.italic[The approach can lead to some false-positives]
+]
+
+.pull-right-50[
+.middle-block[
+```solidity
+function overflow(uint fee) {
+  uint amount = 100;
+  amount -= fee;
+  msg.sender.send(amount);
+}
+```
+.caption[
+Contract vulnerable to integer overflow
+]
+]
+]
+
+---
+
+# Detection results
+
+<style>
+  .results-table th, .results-table td {
+    font-size: 20px;
+  }
+</style>
+
+.right.results-table[
+.left[Vulnerability] | Vulnerable contracts | Total Ether at Stake | Contracts exploited  | Exploited Ether | % of Exploited Ether
+--------------|-----------------------------|----------------------|----------------------|-----------------|---------------------
+.left[Re-entrancy]   | 4,337                | 1,518,067            | 116                  | 6,076           | **0.40%**
+.left[Unhandled Exception]  | 11,427        | 419,418              | 264                  | 271.9           | **0.07%**
+.left[Destructed contract] | 7,285     | 1,416,086            | 0                    | 0               | **0.00%**
+.left[Transaction order] | 1,881 | 302,679              | 54                   | 297.2           | **0.01%**
+.left[Integer overflow] | 2,492             | 602,980              | 62                   | 1,842           | **0.31%**
+.left[Unrestricted action] | 5,163          | 580,927              | 42                   | 0               | **0.00%**
+.left[Total]           | 23,327             | 3,124,433            | 463                  | 8,487           | **0.27%**
+]
+
+In total, *at most 0.27%* of the 3M Ether at stake has been *exploited*
+
+---
+
+class: middle, title-slide
+
+# Takeaways and conclusions
+
+---
+
+# Takeaways
+
+* **Re-entrancy** seems to be the *most dangerous* issue. Good target for static analysis. Better prevention at the EVM level could be helpful.
+
+* **Unhandled exceptions** are *handled well enough* by current tooling.
+
+* **Dependency on destructed contract** is mostly a *non-issue*.
+
+* **Transactions order dependency** does *not* seem to be *used to steal ETH* directly.
+
+* **Integer overflow** is hard to prevent and consequences *hard to predict*. Also good target for static analysis.
+
+---
+
+# Contracts wealth distribution
+
+.pull-left-50[
+* Combined value: *~2 million ETH*
+
+* Only *~2,000* out of 23,327 contracts *held Ether*
+
+* Less than 100 contracts had more than 10 Ether
+
+* The *top 6 contracts held 83%* of the total Ether
+]
+
+.pull-right-50[
+![Cumulative distribution of Ether](./cumulative-ether.png)
+.caption[
+Cumulative Ether held in contracts holding more than 10 ETH
+]
+]
+
+---
+
+# Vulnerable but not exploitable
+
+.pull-left-50[
+* Many cases where "vulnerable" contracts are not exploitable
+
+* High-value contracts flagged vulnerable are typically not exploitable
+
+* Usually limitation due to the nature of static analysis
+]
+
+.pull-right-50[
+```solidity
+function removeOwner(address owner) onlyWallet {
+  isOwner[owner] = false;
+  // Could in Theory run out of gas
+  for (uint i=0; i<owners.length - 1; i++) {
+    if (owners[i] == owner) {
+      owners[i] = owners[owners.length - 1];
+      break;
+    }
+  }
+  // a bit more logic
+}
+```
+.caption[
+  Multisig wallet with >350K ETH at address .small[`0x7da82C7AB4771ff031b66538D2fB9b0B047f6CF9`]
+]
+]
+
+---
+
+class: middle
+
+# Summary
+
+* Analyzed 23k contracts with *3M Ether at risk*
+
+* *At most 0.27%* of this Ether, less than 10k ETH, was *exploited*
+
+* Overall, *high-value contracts* seem to be *secure*
+
+---
+
+class: middle
+
+# Thank you
+
+For questions, please find my contact info at https://daniel.perez.sh
